@@ -6,7 +6,7 @@ A free and pythonic weather API wrapper made in python.
 # import the module
 import python_weather
 
-# declare the client. format defaults to metric (celcius, km/h, etc.), input "F" to use the imperial system.
+# declare the client. format defaults to metric system (celcius, km/h, etc.)
 client = python_weather.Client(format=python_weather.IMPERIAL)
 
 # fetch a weather forecast from a city
