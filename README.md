@@ -1,5 +1,5 @@
 # python-weather
-A free and pythonic weather API wrapper made in python.
+A free and asynchronous weather API wrapper made in python.
 
 ## Simple Usage
 ```py
