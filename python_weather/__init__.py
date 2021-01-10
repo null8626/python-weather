@@ -30,4 +30,4 @@ from .client import Client
 METRIC = "C"
 IMPERIAL = "F"
 __version__ = "0.1"
-__all__ = ("Client", "METRIC", "IMPERIAL")
+__all__ = ("Client", "METRIC", "IMPERIAL", "__version__")
