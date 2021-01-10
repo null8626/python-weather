@@ -1,4 +1,4 @@
-from .xmltodict import parse as _xmltodict
+from xmltodict import parse as _xmltodict
 from .forecast import Forecast
 
 from urllib.parse import quote_plus as _encode_uri
