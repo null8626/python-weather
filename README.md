@@ -17,7 +17,7 @@ print(weather.current.temperature)
 
 # get the weather forecast for a few days
 for forecast in weather.forecast:
-	print(str(forecast.date), forecast.sky_text, forecast.temperature)
+    print(str(forecast.date), forecast.sky_text, forecast.temperature)
 
 # close the wrapper once done
 await client.close()
