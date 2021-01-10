@@ -1,0 +1,12 @@
+include python_weather
+include LICENSE
+include README.md
+include requirements.txt
+include setup.cfg
+include setup.py
+include MANIFEST.in
+
+exclude .github
+exclude example.py
+recursive-exclude __pycache__
+recursive-exclude .gitignore
