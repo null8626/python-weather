@@ -19,7 +19,6 @@ class Client:
         max_cache_size: int = 20,
         store_cache: bool = True,
         format: str = "C",
-        include_current_forecast: bool = True,
         **kwargs
     ) -> None:
         """ Main Client Object of python-weather. """
@@ -28,7 +27,6 @@ class Client:
         self._session_settings = kwargs.pop("session_settings", {})
         self._baseURL = "https://weather.service.msn.com/find.aspx"
         self._format = format
-        self._include_current_forecast = include_current_forecast
         self._max_cache_size = max_cache_size if store_cache else None
         assert ((not self._format) or self._format.lower() in ("c", "f")), "Invalid temperature format."
         
@@ -62,12 +60,12 @@ class Client:
     def _encode_uri(self, parameters: dict) -> str:
         return ("?" + "&".join([f"{i}={_url(parameters[i])}" for i in parameters.keys() if parameters[i]]) if parameters else "")
     
-    async def find(self, location: str, format=None, include_current_forecast: bool = None, **kwargs):
+    async def find(self, location: str, format=None, **kwargs):
         """ Fetches weather from a location. """
         if hasattr(self, "_cache"):
             cache = self._get_cache(location)
             if cache:
-                return cache
+                return Weather(cache)
         
         if not self.session:
             self.session = ClientSession(**self._session_settings)
@@ -81,7 +79,7 @@ class Client:
         response.close()
         
         self._store_cache(location, content)
-        return Weather(content, (include_current_forecast or self._include_current_forecast))
+        return Weather(content)
     
     async def close(self) -> None:
         """ Closes the client and clears the cache. """
@@ -92,7 +90,7 @@ class Client:
             pass
         
         await self.session.close()
-        del self._max_cache_size, self.session, self._baseURL, self._session_settings, self._format, self._include_current_forecast
+        del self._max_cache_size, self.session, self._baseURL, self._session_settings, self._format
         
         if hasattr(self, "_cache"):
             del self._cache

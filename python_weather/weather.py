@@ -26,7 +26,7 @@ class Weather:
     def __repr__(self) -> str:
         return f"<Weather {' '.join([f'{i}={getattr(self, i)}' for i in Weather.REPR_ATTRS])}>"
 
-    def __init__(self, response: str, _include_current: bool):
+    def __init__(self, response: str):
         self._raw = response
         self._parsed = _xmltodict(self._raw)
         self.dict = self._parse(self._parsed)
@@ -51,7 +51,7 @@ class Weather:
         self.entity_id             = int(data.get("@entityid", 0))
         self.encoded_location_name = data.get("@encodedlocationname", (_encode_uri(self.weather_location_name or "")))
         self.current               = Forecast._current(data["current"])
-        self.forecast              = [self.current] if _include_current else []
+        self.forecast              = []
         
         for forecast in data["forecast"]:
             self.forecast.append(Forecast(forecast))
