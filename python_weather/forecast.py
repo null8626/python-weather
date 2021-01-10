@@ -1,6 +1,21 @@
 from datetime import datetime
 
 class Forecast:
+    
+    def __repr__(self) -> str:
+        if self.current:
+            return f"<Forecast current=True temperature={self.temperature} sky_text='{self.sky_text}' date={repr(self.date)}>"
+        return f"<Forecast current=False low={self.low} high={self.high} sky_text='{self.sky_text}' date={repr(self.date)} precip={self.precip}>"
+    
+    def __str__(self) -> str:
+        return self.sky_text
+    
+    def __dict__(self) -> dict:
+        return self._dict
+    
+    def __getitem__(self, key: str):
+        if not key.startswith("@"): key = "@" + key
+        return self._dict[key]
 
     def __init__(self, data: dict, _current: bool = False):
         """ Gets the forecast. """
@@ -22,21 +37,6 @@ class Forecast:
         self._date               = data["@date"]
         self.precipitation       = int(data["@precip"]) if data.get("@precip") else 0
         self.precip              = self.precipitation # this is an alias
-    
-    def __repr__(self):
-        if self.current:
-            return f"<Forecast current=True temperature={self.temperature} sky_text='{self.sky_text}' date={repr(self.date)}>"
-        return f"<Forecast current=False low={self.low} high={self.high} sky_text='{self.sky_text}' date={repr(self.date)} precip={self.precip}>"
-    
-    def __str__(self) -> str:
-        return self.sky_text
-    
-    def __dict__(self) -> dict:
-        return self._dict
-    
-    def __getitem__(self, key: str):
-        if not key.startswith("@"): key = "@" + key
-        return self._dict[key]
     
     @staticmethod
     def _current(data: dict):

@@ -57,7 +57,8 @@ class Client:
         _filtered = key.lower().replace(",", "").replace(" ", "")
         self._cache[_filtered] = data
     
-    def _encode_uri(self, parameters: dict) -> str:
+    def _encode_parameters(self, parameters: dict, location: str) -> str:
+        parameters["weasearchstr"] = location
         return ("?" + "&".join([f"{i}={_url(parameters[i])}" for i in parameters.keys() if parameters[i]]) if parameters else "")
     
     async def find(self, location: str, format=None, **kwargs):
@@ -72,7 +73,7 @@ class Client:
         
         assert (location and isinstance(location, str)), "Please add a location."
         format = format or self._format
-        parameters = self._encode_uri(kwargs if kwargs else Client.DEFAULT_OPTIONS)
+        parameters = self._encode_parameters(kwargs if kwargs else Client.DEFAULT_OPTIONS, location)
         
         response = await self.session.get(self._baseURL + parameters)
         content = await response.text()

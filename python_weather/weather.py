@@ -11,7 +11,7 @@ class WeatherException(Exception):
         self.raw_response = response
         super().__init__(message)
 
-class Weather:
+class Weather(object):
     REPR_ATTRS = ("weather_location_name", "degree_type", "lat", "long")
 
     def __dict__(self) -> dict:
@@ -25,6 +25,12 @@ class Weather:
 
     def __repr__(self) -> str:
         return f"<Weather {' '.join([f'{i}={getattr(self, i)}' for i in Weather.REPR_ATTRS])}>"
+
+    def __getattribute__(self, value: str):
+        result = object.__getattribute__(self, value) or object.__getattribute__(self.current, value)
+        if result is None:
+            raise AttributeError(f"Weather and/or Forecast object has no attribute '{value}'")
+        return result
 
     def __init__(self, response: str):
         self._raw = response
@@ -44,9 +50,9 @@ class Weather:
         self.degree_type           = data.get("@degreetype", "C")
         self.provider              = data.get("@provider")
         self.attribution           = (data.get("@attribution"), data.get("@attribution2")) if data.get("@attribution2") else data.get("@attribution")
-        self.lat                   = data.get("@lat", "0")
-        self.long                  = data.get("@long", "0")
-        self.timezone              = data.get("@timezone", "0")
+        self.lat                   = float(data.get("@lat", 0))
+        self.long                  = float(data.get("@long", 0))
+        self.timezone              = int(data.get("@timezone", 0))
         self.alert                 = data.get("@alert")
         self.entity_id             = int(data.get("@entityid", 0))
         self.encoded_location_name = data.get("@encodedlocationname", (_encode_uri(self.weather_location_name or "")))
