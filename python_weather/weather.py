@@ -42,7 +42,7 @@ class Weather(object):
         
         del self._parsed
         
-        data = self.dict["weatherdata"]["weather"]
+        data = self.dict["weatherdata"]["weather"][0]
         self.weather_location_code = data.get("@weatherlocationcode")
         self.weather_location_name = data.get("@weatherlocationname")
         self.url                   = data.get("@url")
