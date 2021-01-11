@@ -26,12 +26,6 @@ class Weather(object):
     def __repr__(self) -> str:
         return f"<Weather {' '.join([f'{i}={getattr(self, i)}' for i in Weather.REPR_ATTRS])}>"
 
-    def __getattribute__(self, value: str):
-        result = object.__getattribute__(self, value) or object.__getattribute__(self.current, value)
-        if result is None:
-            raise AttributeError(f"Weather and/or Forecast object has no attribute '{value}'")
-        return result
-
     def __init__(self, response: str):
         self._raw = response
         self._parsed = _xmltodict(self._raw)
