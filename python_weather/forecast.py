@@ -44,7 +44,7 @@ class Forecast:
         _class.temperature       = int(data.get("@temperature", 0))
         _class.sky_code          = int(data.get("@skycode", 0))
         _class.sky_text          = data.get("@skytext", "")
-        _class.date              = datetime.strptime(f'{data["@date"]} {data["@observationtime"]}', "%Y-%d-%m %H:%M:%S")
+        _class.date              = datetime.strptime(f'{data["@date"]} {data["@observationtime"]}', "%Y-%m-%d %H:%M:%S")
         _class.time              = _class.date # this is an alias
         _class._date             = data["@date"]
         _class._observation_time = data["@observationtime"]
