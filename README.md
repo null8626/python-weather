@@ -23,4 +23,4 @@ for forecast in weather.forecast:
 await client.close()
 ```
 
-Note:  Use example.py for quick run :simle:.
+Note:  Use example.py for quick run :)
