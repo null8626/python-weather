@@ -22,3 +22,5 @@ for forecast in weather.forecast:
 # close the wrapper once done
 await client.close()
 ```
+
+Note:  Use example.py for quick run :simle:.
