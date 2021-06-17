@@ -13,7 +13,7 @@ setup(
   download_url = 'https://github.com/vierofernando/python-weather/archive/0.3.1.tar.gz',
   keywords = ['Weather', 'API', 'Weather API', 'API Wrapper'],
   install_requires=[
-    'aiohttp',
+    'aiohttp>=3.7.4',
     'xmltodict'
   ],
   classifiers=[
