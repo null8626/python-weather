@@ -1,7 +1,7 @@
 default_client_options = {
     "src": "outlook",
-    "culture": "en-US",
-    "weadegreetype": "C"
+    "weadegreetype": "C",
+    "culture": "en-US"
 }
 
 base_url = "https://weather.service.msn.com/find.aspx"
