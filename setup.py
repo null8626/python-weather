@@ -11,7 +11,7 @@ setup(
   author_email='vierofernando9@gmail.com',
   url='https://github.com/vierofernando/python-weather',
   download_url='https://github.com/vierofernando/python-weather/archive/0.3.2.tar.gz',
-  keywords=['Weather', 'API', 'Weather API', 'API Wrapper'],
+  keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
   install_requires=[
     'aiohttp>=3.7.4',
     'xmltodict',
