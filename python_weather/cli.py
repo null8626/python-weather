@@ -43,7 +43,7 @@ class CLI(Client):
 
     async def throw_err(self, message: str) -> None:
         self.halo.stop()
-        print(f"\033[0;0H\033[91merror: {message}\033[0m")
+        print(f"\033[91merror: {message}\033[0m")
         if self.client:
             await self.client.close()
         exit(1)
@@ -178,5 +178,9 @@ class CLI(Client):
         print(string[:-1])
         await self.client.close()
 
-cli = CLI()
-get_event_loop().run_until_complete(cli.run())
+def main():
+    cli = CLI()
+    get_event_loop().run_until_complete(cli.run())
+
+if __name__ == "__main__":
+    main()
