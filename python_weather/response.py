@@ -1,5 +1,5 @@
-from .constants import empty_func
 from datetime import datetime
+from typing import List
 from re import match
 
 class BaseResponse:
@@ -35,7 +35,7 @@ class WeatherForecast(BaseResponse):
     @property
     def temperature(self) -> int:
         """ Returns the mean of the lowest and highest prediction. """
-        return sum((self.low or 0, self.high or 0)) // 2
+        return ((self.low or 0) + (self.high or 0)) // 2
 
     @property
     def sky_code_day(self) -> int:
@@ -159,7 +159,7 @@ class Weather(BaseResponse):
             return CurrentForecast(current)
 
     @property
-    def forecasts(self) -> "WeatherForecast[]":
+    def forecasts(self) -> List[WeatherForecast]:
         """ Returns a list of forecasts for the weather object. """
         res = []
         for forecast in self._get('forecast', []):

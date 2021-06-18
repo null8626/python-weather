@@ -3,11 +3,11 @@ import python_weather
 import asyncio
 
 async def getweather():
-    # declare the client. format defaults to metric system (celcius, km/h, etc.)
+    # declare the client. format defaults to the metric system (celcius, km/h, etc.)
     client = python_weather.Client(format=python_weather.IMPERIAL)
 
     # fetch a weather forecast from a city
-    weather = await client.find("Jakarta")
+    weather = await client.find("Washington DC")
 
     # returns the current day's forecast temperature (int)
     print(weather.current.temperature)

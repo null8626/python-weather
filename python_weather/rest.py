@@ -2,21 +2,20 @@ from asyncio import sleep
 from xmltodict import parse
 from aiohttp import ClientSession
 from urllib.parse import quote
-from .constants import default_client_options, base_url
 from .cache import Cache
 from .response import Weather
 from .exceptions import HTTPException
 
 class HTTPClient:
-    __slots__ = ('_session', '_format_query_string', 'cache')
+    __slots__ = ('_session', '_query_params', 'cache')
 
-    def __init__(self, session: "ClientSession" = None, max_cache_size: int = 15, options: dict = default_client_options):
+    def __init__(self, max_cache_size: int, format: str, locale: str, session: "ClientSession" = None):
         self._session = session if isinstance(session, ClientSession) and (not session.closed) else ClientSession()
-        self._format_query_string = lambda location: ('?' + '&'.join(f'{k}={quote(v)}' for k, v in options.items())) + f"weasearchstr={quote(location)}"
+        self._query_params = f"?src=outlook&culture={quote(locale)}&weadegreetype={format}&weasearchstr=" + "{}"
         self.cache = Cache(max_cache_size)
 
     async def request(self, location: str) -> dict:
-        url = base_url + self._format_query_string(location.lower())
+        url = "https://weather.service.msn.com/find.aspx" + self._query_params.format(quote(location))
 
         if url not in self.cache:
             resp = await self._session.get(url)

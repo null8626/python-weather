@@ -1,7 +1,7 @@
 # python-weather
 A free and asynchronous weather API wrapper made in python.
 
-## Simple Usage
+## Library Example
 ```py
 # import the module
 import python_weather
@@ -30,3 +30,16 @@ if __name__ == "__main__":
 ```
 
 Use [example.py](https://github.com/vierofernando/python-weather/blob/master/example.py?raw=1) for a quick run ;\)
+
+## Weather CLI
+This package also contains a simple weather CLI for it.
+To get all usage and supported flags, run:
+```bash
+$ weather -h
+```
+
+Examples:
+```bash
+$ weather washington dc -u f -c
+$ weather washington dc -o file.json
+```

@@ -1,21 +1,27 @@
 from setuptools import setup
 setup(
-  name = 'python-weather',
-  packages = ['python_weather'],
-  version = '0.3.1',
+  name='python-weather',
+  packages=['python_weather'],
+  version='0.3.2',
   license='MIT',
-  description = 'A free and asynchronous Weather API Wrapper.',
-  long_description = open('README.md', 'r', encoding='utf-8').read(),
+  description='A free and asynchronous Weather API Wrapper.',
+  long_description=open('README.md', 'r', encoding='utf-8').read(),
   long_description_content_type='text/markdown',
-  author = 'vierofernando',
-  author_email = 'vierofernando9@gmail.com',
-  url = 'https://github.com/vierofernando/python-weather',
-  download_url = 'https://github.com/vierofernando/python-weather/archive/0.3.1.tar.gz',
-  keywords = ['Weather', 'API', 'Weather API', 'API Wrapper'],
+  author='vierofernando',
+  author_email='vierofernando9@gmail.com',
+  url='https://github.com/vierofernando/python-weather',
+  download_url='https://github.com/vierofernando/python-weather/archive/0.3.2.tar.gz',
+  keywords=['Weather', 'API', 'Weather API', 'API Wrapper'],
   install_requires=[
     'aiohttp>=3.7.4',
-    'xmltodict'
+    'xmltodict',
+    'halo'
   ],
+  entry_points={
+    'console_scripts': [
+      'weather = python_weather.cli'
+    ]
+  },
   classifiers=[
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
