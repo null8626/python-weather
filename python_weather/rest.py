@@ -22,7 +22,8 @@ class HTTPClient:
             self.cache[url] = await resp.text()
         
         parsed = parse(self.cache[url])
-        if (error_message := parsed.get('string')):
+        error_message = parsed.get('string')
+        if error_message:
             raise HTTPException(response, error_message['#text'])
         elif resp.status >= 400:
             raise HTTPException(response)

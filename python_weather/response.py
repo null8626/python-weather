@@ -9,7 +9,8 @@ class BaseResponse:
         self._get = response.get
     
     def __getitem__(self, key: str):
-        if (res := self._get(key)):
+        res = self._get(key)
+        if res:
             return res
         raise KeyError(key)
 
@@ -23,14 +24,14 @@ class WeatherForecast(BaseResponse):
     @property
     def low(self) -> int:
         """ Returns the lowest predicted temperature for the forecast. """
-        if (temp := self._get('@low')):
-            return int(temp)
+        temp = self._get('@low')
+        return int(temp) if temp else None
 
     @property
     def high(self) -> int:
         """ Returns the highest predicted temperature for the forecast. """
-        if (temp := self._get('@high')):
-            return int(temp)
+        temp = self._get('@high')
+        return int(temp) if temp else None
 
     @property
     def temperature(self) -> int:
@@ -40,8 +41,8 @@ class WeatherForecast(BaseResponse):
     @property
     def sky_code_day(self) -> int:
         """ Returns the sky code day for the weather forecast. """
-        if (code := self._get('@skycodeday')):
-            return int(code)
+        code = self._get('@skycodeday')
+        return int(code) if code else None
 
     @property
     def sky_text(self) -> str:
@@ -69,8 +70,8 @@ class WeatherForecast(BaseResponse):
     @property
     def precip(self) -> int:
         """ Returns the precipitation value. """
-        if (val := self._get('@precip')):
-            return int(val)
+        val = self._get('@precip')
+        return int(val) if val else None
 
 class CurrentForecast(BaseResponse):
     def __init__(self, forecast_obj: dict):
@@ -82,14 +83,14 @@ class CurrentForecast(BaseResponse):
     @property
     def temperature(self) -> int:
         """ Returns the current weather temperature. """
-        if (temp := self._get('@temperature')):
-            return int(temp)
+        temp = self._get('@temperature')
+        return int(temp) if temp else None
 
     @property
     def sky_code(self) -> int:
         """ Returns the sky code for the current weather. """
-        if (code := self._get('@skycode')):
-            return int(code)
+        code = self._get('@skycode')
+        return int(code) if code else None
 
     @property
     def sky_text(self) -> str:
@@ -113,14 +114,14 @@ class CurrentForecast(BaseResponse):
     @property
     def feels_like(self) -> int:
         """ Returns the temperature of what it feels like. """
-        if (temp := self._get('@feelslike')):
-            return int(temp)
+        temp = self._get('@feelslike')
+        return int(temp) if temp else None
     
     @property
     def humidity(self) -> int:
         """ Returns the humidity level. """
-        if (temp := self._get('@humidity')):
-            return int(temp)
+        temp = self._get('@humidity')
+        return int(temp) if temp else None
     
     @property
     def wind_display(self) -> str:
@@ -155,8 +156,8 @@ class Weather(BaseResponse):
     @property
     def current(self) -> "CurrentForecast":
         """ Returns the CurrentForecast object for the weather object. """
-        if (current := self._get('current')):
-            return CurrentForecast(current)
+        current = self._get('current')
+        return CurrentForecast(current) if currrent else None
 
     @property
     def forecasts(self) -> List[WeatherForecast]:
@@ -194,20 +195,20 @@ class Weather(BaseResponse):
     @property
     def latitude(self) -> float:
         """ Returns the latitude of the weather's location. """
-        if (lat := self._get('@lat')):
-            return float(lat)
+        lat = self._get('@lat')
+        return float(lat) if lat else None
     
     @property
     def longitude(self) -> float:
         """ Returns the longitude of the weather's location. """
-        if (long := self._get('@long')):
-            return float(long)
+        long = self._get('@long')
+        return float(long) if long else None
     
     @property
     def timezone_offset(self) -> int:
         """ Returns the timezone offset. """
-        if (offset := self._get('@timezone')):
-            return int(offset)
+        offset = self._get('@timezone')
+        return int(offset) if offset else None
     
     @property
     def alert_message(self) -> str:
@@ -217,8 +218,8 @@ class Weather(BaseResponse):
     @property
     def entity_id(self) -> int:
         """ Returns the entity ID for the weather forecast. """
-        if (id := self._get('@entityid')):
-            return int(id)
+        id = self._get('@entityid')
+        return int(id) if id else None
     
     @property
     def provider_attribution(self) -> str:
