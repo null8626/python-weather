@@ -157,7 +157,7 @@ class Weather(BaseResponse):
     def current(self) -> "CurrentForecast":
         """ Returns the CurrentForecast object for the weather object. """
         current = self._get('current')
-        return CurrentForecast(current) if currrent else None
+        return CurrentForecast(current) if current else None
 
     @property
     def forecasts(self) -> List[WeatherForecast]:
