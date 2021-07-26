@@ -2,7 +2,7 @@ from setuptools import setup
 setup(
   name='python-weather',
   packages=['python_weather'],
-  version='0.3.5',
+  version='0.3.6',
   license='MIT',
   description='A free and asynchronous Weather API Wrapper.',
   long_description=open('README.md', 'r', encoding='utf-8').read(),
@@ -10,7 +10,7 @@ setup(
   author='vierofernando',
   author_email='vierofernando9@gmail.com',
   url='https://github.com/vierofernando/python-weather',
-  download_url='https://github.com/vierofernando/python-weather/archive/0.3.5.tar.gz',
+  download_url='https://github.com/vierofernando/python-weather/archive/0.3.6.tar.gz',
   keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
   install_requires=[
     'aiohttp>=3.7.4',
