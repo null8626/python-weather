@@ -10,7 +10,7 @@ class Client:
         if format.upper() not in ('C', 'F'):
             raise TypeError('Invalid format.')
         
-        self.http = HTTPClient(session, max_cache_size, format, locale)
+        self.http = HTTPClient(max_cache_size, format, locale, session)
 
     @property
     def format(self) -> str:
