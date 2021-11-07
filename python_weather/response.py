@@ -3,18 +3,15 @@ from typing import List
 from re import match
 
 class BaseResponse:
-    __slots__ = ('_get',)
+    __slots__ = ('_get', '__getitem__')
 
     def __init__(self, response: dict):
         self._get = response.get
-    
-    def __getitem__(self, key: str):
-        res = self._get(key)
-        if res:
-            return res
-        raise KeyError(key)
+        self.__getitem__ = lambda k: response[k]
 
 class WeatherForecast(BaseResponse):
+    __slots__ = tuple()
+    
     def __init__(self, forecast_obj: dict):
         super().__init__(forecast_obj)
 
@@ -74,6 +71,8 @@ class WeatherForecast(BaseResponse):
         return int(val) if val else None
 
 class CurrentForecast(BaseResponse):
+    __slots__ = tuple()
+    
     def __init__(self, forecast_obj: dict):
         super().__init__(forecast_obj)
     
