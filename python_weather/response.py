@@ -161,10 +161,7 @@ class Weather(BaseResponse):
     @property
     def forecasts(self) -> List[WeatherForecast]:
         """ Returns a list of forecasts for the weather object. """
-        res = []
-        for forecast in self._get('forecast', []):
-            res.append(WeatherForecast(forecast))
-        return res
+        return list(map(WeatherForecast, self._get('forecast', [])))
 
     @property
     def location_code(self) -> str:
