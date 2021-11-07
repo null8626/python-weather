@@ -7,7 +7,7 @@ class BaseResponse:
 
     def __init__(self, response: dict):
         self._get = response.get
-        self.__getitem__ = lambda k: response[k]
+        self.__getitem__ = response.__getitem__
 
 class WeatherForecast(BaseResponse):
     __slots__ = tuple()
