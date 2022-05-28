@@ -29,7 +29,7 @@ if __name__ == "__main__":
     loop.run_until_complete(getweather())
 ```
 
-Use [example.py](https://github.com/vierofernando/python-weather/blob/master/example.py?raw=1) for a quick run ;\)
+Use [example.py](https://github.com/null8626/python-weather/blob/master/example.py?raw=1) for a quick run ;\)
 
 ## Weather CLI
 This package also contains a simple weather CLI for it.
