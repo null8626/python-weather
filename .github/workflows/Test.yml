@@ -8,6 +8,7 @@ name: Run example
     paths-ignore:
       - '**/*.md'
       - LICENSE
+      - MANIFEST.in
       - '**/*.gitignore'
   pull_request: null
 jobs:
