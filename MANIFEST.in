@@ -4,6 +4,7 @@ include README.md
 include requirements.txt
 include setup.cfg
 include setup.py
+include MANIFEST.in
 
 exclude .github
 exclude example.py
