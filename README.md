@@ -41,4 +41,10 @@ If you're running debian, make sure to install `aiohttp` first:
 sudo apt install python3-aiohttp
 ```
 
+Otherwise install the ones in `requirements.txt`:
+
+```console
+python -m pip install -r requirements.txt
+```
+
 Use [example.py](https://github.com/null8626/python-weather/blob/master/example.py) for a quick run ;\)
