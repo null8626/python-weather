@@ -26,9 +26,8 @@ SOFTWARE.
 """
 
 from .client import Client
-from .exceptions import HTTPException
+from .errors import Error, InvalidArg
+from .constants import METRIC, IMPERIAL
 
-METRIC = "C"
-IMPERIAL = "F"
-__version__ = "0.3.8"
-__all__ = ("Client", "METRIC", "IMPERIAL", "HTTPException", "__version__")
+__version__ = "0.4.0"
+__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'InvalidArg')

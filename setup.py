@@ -1,21 +1,24 @@
 from setuptools import setup
+
+readme = None
+
+with open('README.md', 'r', encoding='utf-8') as f:
+  readme = f.read()
+
 setup(
   name='python-weather',
   packages=['python_weather'],
-  version='0.3.8',
+  version='0.4.0',
   license='MIT',
   description='A free and asynchronous Weather API Wrapper.',
-  long_description=open('README.md', 'r', encoding='utf-8').read(),
+  long_description=readme,
   long_description_content_type='text/markdown',
   author='null8626',
   author_email='vierofernando9@gmail.com',
   url='https://github.com/null8626/python-weather',
-  download_url='https://github.com/null8626/python-weather/archive/0.3.8.tar.gz',
+  download_url='https://github.com/null8626/python-weather/archive/0.4.0.tar.gz',
   keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
-  install_requires=[
-    'aiohttp',
-    'xmltodict'
-  ],
+  install_requires=['aiohttp'],
   classifiers=[
     'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',

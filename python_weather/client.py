@@ -1,49 +1,90 @@
-from .rest import HTTPClient
-from urllib.parse import unquote, quote
-from re import search
+from aiohttp import ClientSession, ClientTimeout
+from urllib.parse import quote_plus
+
+from .constants import is_invalid_format, VALID_FORMATS
+from .forecast import Weather
+from .errors import Error, InvalidArg
 
 class Client:
-  __slots__ = ('http',)
+  __slots__ = ('__session', '__default_format')
 
-  def __init__(self, session=None, format: str = 'C', locale: str = 'en-US'):
-    if format.upper() not in ('C', 'F'):
-      raise TypeError('Invalid format.')
+  def __init__(self, format: str = None, session: ClientSession = None):
+    """
+    Creates the client instance.
+
+    Args:
+        format (str, optional): The default format to be used. Defaults to None.
+        session (ClientSession, optional): An existing `ClientSession` instance to be used. Defaults to None.
+    """
+
+    self.__session = session or ClientSession(timeout=ClientTimeout(total=2000.0))
+    self.__default_format = 'C' if is_invalid_format(format) else format
+  
+  def __repr__(self) -> str:
+    """
+    Returns:
+        str: The string representation of said object.
+    """
+
+    return f'<Client {self.__session!r}>'
+
+  async def get(self, location: str, format: str = None) -> Weather:
+    """
+    Fetches the weather for a specific location.
+
+    Args:
+        location (str): The location string.
+        format (str, optional): The format - this will override the default if provided. Defaults to None.
+
+    Raises:
+        InvalidArg: Invalid `location` argument
+        Error: Client is already closed
     
-    self.http = HTTPClient(format, locale, session)
+    Returns:
+        Weather: The weather forecast for the given location.
+    """
+
+    if (not isinstance(location, str)) or (not location):
+      raise InvalidArg('proper location str', location)
+    elif self.__session.closed:
+      raise Error('Client is already closed')
+
+    if is_invalid_format(format):
+      format = self.__default_format
+
+    async with self.__session.get(f'https://wttr.in/{quote_plus(location)}?format=j1') as resp:
+      return Weather(await resp.json(), format)
 
   @property
-  def format(self) -> str:
-    return search('&weadegreetype=([^&]+)', self.http._query_params)[0][15:]
+  def default_format(self) -> str:
+    """
+    Returns:
+        str: The default format used.
+    """
 
-  @format.setter
-  def format(self, value: str) -> None:
-    if value.upper() not in ('C', 'F'):
-      raise TypeError('Invalid format.')
-    self.http._query_params = self.http._query_params.replace(f'&weadegreetype={self.format}', f'&weadegreetype={value}')
+    return self.__default_format
+  
+  @default_format.setter
+  def default_format(self, to: str):
+    """
+    Sets the default format used.
 
-  @property
-  def locale(self) -> str:
-    return unquote(search('&culture=([^&]+)', self.http._query_params))[0][9:]
+    Args:
+        to (str): The new default format to be used. Must be `C` or `F`.
 
-  @locale.setter
-  def locale(self, value: str) -> None:
-    self.http._query_params = self.http._query_params.replace(f'&culture={self.locale}', f'&culture={quote(value)}')
+    Raises:
+        InvalidArg: Invalid format.
+    """
 
-  async def find(self, location: str) -> "Weather":
-    """ Finds a weather forecast from a location. """
-    if (not location) or (not isinstance(location, str)):
-      raise TypeError('location must be a string.')
-    return await self.http.request(location)
-
-  @property
-  def closed(self) -> bool:
-    """ Returns if the client is closed or not. """
-    return self.http.closed
+    if is_invalid_format(to):
+      raise InvalidArg(VALID_FORMATS, to)
+    
+    self.__default_format = to
 
   async def close(self) -> None:
-    """ Closes the wrapper. """
-    if not self.closed:
-      await self.http.close()
+    """
+    Closes the client instance. Nothing will happen if it's already closed.
+    """
 
-  def __repr__(self) -> str:
-    return f"<WeatherClient closed={self.closed}>"
+    if not self.__session.closed:
+      await self.__session.close()

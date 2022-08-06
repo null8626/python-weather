@@ -8,14 +8,18 @@ async def getweather():
   client = python_weather.Client(format=python_weather.IMPERIAL)
 
   # fetch a weather forecast from a city
-  weather = await client.find("Calgery Alberta")
+  weather = await client.get("New York")
 
   # returns the current day's forecast temperature (int)
   print(weather.current.temperature)
 
   # get the weather forecast for a few days
   for forecast in weather.forecasts:
-    print(str(forecast.date), forecast.sky_text, forecast.temperature)
+    print(forecast.date, forecast.astronomy)
+
+    # hourly forecasts
+    for hourly in forecast.hourly:
+      print(f' --> {hourly!r}')
 
   # close the wrapper once done
   await client.close()

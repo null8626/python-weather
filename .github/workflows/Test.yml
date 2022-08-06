@@ -5,11 +5,8 @@ name: Run example
       - main
     tags-ignore:
       - '**'
-    paths-ignore:
-      - '**/*.md'
-      - LICENSE
-      - MANIFEST.in
-      - '**/*.gitignore'
+    paths:
+      - 'python_weather/**/*.py'
   pull_request: null
 jobs:
   example:

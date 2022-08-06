@@ -1,3 +1,1 @@
-aiohttp==3.7.4.post0
-xmltodict==0.12.0
-halo==0.0.31
+aiohttp==3.8.1
