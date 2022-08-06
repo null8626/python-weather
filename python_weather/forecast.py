@@ -376,7 +376,7 @@ class HourlyForecast(BaseForecast):
         str: The string representation of said object.
     """
 
-    return f'<HourlyForecast time={self.time!r} temperature={self.temperature!r} description={self.description!r} type={self.type!r}>'
+    return f'<HourlyForecast time={self.time!r} temperature={self.temperature!r} description={self.description!r} type=\'{self.type!r}\'>'
 
   @property
   def dew_point(self) -> int:
