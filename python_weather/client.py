@@ -56,7 +56,7 @@ class Client:
       return Weather(await resp.json(), format)
 
   @property
-  def default_format(self) -> str:
+  def format(self) -> str:
     """
     Returns:
         str: The default format used.
@@ -64,8 +64,8 @@ class Client:
 
     return self.__default_format
   
-  @default_format.setter
-  def default_format(self, to: str):
+  @format.setter
+  def format(self, to: str):
     """
     Sets the default format used.
 
@@ -88,3 +88,17 @@ class Client:
 
     if not self.__session.closed:
       await self.__session.close()
+
+  async def __aenter__(self):
+    """
+    `async with` handler. Does nothing. Returns `self`
+    """
+    
+    return self
+
+  async def __aexit__(self, *_, **__):
+    """
+    Closes the client instance. Nothing will happen if it's already closed.
+    """
+
+    await self.close()
