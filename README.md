@@ -35,4 +35,10 @@ if __name__ == "__main__":
   asyncio.run(getweather())
 ```
 
+If you're running debian, make sure to install `aiohttp` first:
+
+```console
+sudo apt install python3-aiohttp
+```
+
 Use [example.py](https://github.com/null8626/python-weather/blob/master/example.py) for a quick run ;\)
