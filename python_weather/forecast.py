@@ -351,7 +351,7 @@ class CurrentForecast(BaseForecast):
         datetime: The local time.
     """    
 
-    return datetime(self._BaseForecast__['localObsDateTime'], '%Y-%m-%d %I:%M %p').astimezone(self.local_timezone)
+    return datetime(self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p').astimezone(self.local_timezone)
 
   @property
   def utc_time(self) -> datetime:
