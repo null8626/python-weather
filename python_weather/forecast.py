@@ -342,7 +342,7 @@ class CurrentForecast(BaseForecast):
     h_local_24h = _convert_to_24h(h_local, ampm_local)
     h_utc_24h = _convert_to_24h(h_utc, ampm_utc)
 
-    return timezone(timedelta(hours=h_local_24h - h_utc_24h, minutes=m_local - m_utc))
+    return timezone(timedelta(hours=h_local_24h - h_utc_24h, minutes=int(m_local) - int(m_utc)))
 
   @property
   def local_time(self) -> datetime:
@@ -351,7 +351,7 @@ class CurrentForecast(BaseForecast):
         datetime: The local time.
     """    
 
-    return datetime(self._BaseForecast__['localObsDateTime'], '%Y-%m-%d %I:%M %p').astimezone(self.local_timezone)
+    return datetime(self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p').astimezone(self.local_timezone)
 
   @property
   def utc_time(self) -> datetime:
