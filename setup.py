@@ -8,7 +8,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 setup(
   name='python-weather',
   packages=['python_weather'],
-  version='0.4.0',
+  version='0.4.1',
   license='MIT',
   description='A free and asynchronous Weather API Wrapper.',
   long_description=readme,
