@@ -16,7 +16,7 @@ setup(
   author='null8626',
   author_email='vierofernando9@gmail.com',
   url='https://github.com/null8626/python-weather',
-  download_url='https://github.com/null8626/python-weather/archive/0.4.0.tar.gz',
+  download_url='https://github.com/null8626/python-weather/archive/0.4.1.tar.gz',
   keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
   install_requires=['aiohttp'],
   classifiers=[
