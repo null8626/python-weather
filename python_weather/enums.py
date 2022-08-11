@@ -7,6 +7,7 @@ class WeatherType(Enum):
   VeryCloudy = 122
   Fog = 143
   LightShowers = 176
+  Mist = 260
   LightRain = 296
   LightSnow = 320
   HeavySnow = 338
