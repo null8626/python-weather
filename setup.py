@@ -14,7 +14,6 @@ setup(
   long_description=readme,
   long_description_content_type='text/markdown',
   author='null8626',
-  author_email='vierofernando9@gmail.com',
   url='https://github.com/null8626/python-weather',
   download_url='https://github.com/null8626/python-weather/archive/0.4.2.tar.gz',
   keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
