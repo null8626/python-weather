@@ -15,7 +15,7 @@ async def getweather():
   
     # get the weather forecast for a few days
     for forecast in weather.forecasts:
-      print(forecast.date, forecast.astronomy)
+      print(forecast)
   
       # hourly forecasts
       for hourly in forecast.hourly:
