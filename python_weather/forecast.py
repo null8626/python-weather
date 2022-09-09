@@ -674,9 +674,9 @@ class Weather(ModifiableFormat):
     """
 
     try:
-      for req in filter(lambda x: x['type'] != 'LatLon', self.__inner['request']):
+      for req in filter(lambda x: x['type'] == 'LatLon', self.__inner['request']):
         lat, lon = LATLON_REGEX.findall(req['query'])[0]
 
-        return int(lat), int(lon)
+        return float(lat), float(lon)
     except:
       pass
