@@ -205,7 +205,7 @@ class ModifiableFormat:
     self.__format = to
 
 class BaseForecast(ModifiableFormat):
-  __slots__ = ('__inner', '__format')
+  __slots__ = ('__inner',)
 
   def __init__(self, json: dict, format: str):
     self.__inner = json
@@ -376,7 +376,7 @@ class HourlyForecast(BaseForecast):
         str: The string representation of said object.
     """
 
-    return f'<HourlyForecast time={self.time!r} temperature={self.temperature!r} description={self.description!r} type=\'{self.type!r}\'>'
+    return f'<HourlyForecast time={self.time!r} temperature={self.temperature!r} description={self.description!r} type={self.type!r}>'
 
   @property
   def dew_point(self) -> int:
@@ -537,7 +537,7 @@ class DailyForecast(ModifiableFormat):
         str: The string representation of said object.
     """
 
-    return f'<DailyForecast date={self.date!r} astronomy={self.astronomy!r} temperature={self.temperature!r} description={self.description!r} type={self.type!r}>'
+    return f'<DailyForecast date={self.date!r} astronomy={self.astronomy!r} temperature={self.temperature!r}>'
 
   @property
   def astronomy(self) -> Astronomy:
@@ -577,7 +577,7 @@ class DailyForecast(ModifiableFormat):
     return int(self.__inner[f'maxtemp{self._ModifiableFormat__format}'])
   
   @property
-  def average_temperature(self) -> int:
+  def temperature(self) -> int:
     """
     Returns:
         int: The average temperature. In Celcius or Fahrenheit.

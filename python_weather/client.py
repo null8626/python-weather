@@ -1,4 +1,4 @@
-from aiohttp import ClientSession, ClientTimeout
+from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
 
 from .constants import is_invalid_format, VALID_FORMATS
@@ -17,7 +17,7 @@ class Client:
         session (ClientSession, optional): An existing `ClientSession` instance to be used. Defaults to None.
     """
 
-    self.__session = session or ClientSession(timeout=ClientTimeout(total=2000.0))
+    self.__session = session or ClientSession(timeout=ClientTimeout(total=5000.0), connector=TCPConnector(verify_ssl=False))
     self.__default_format = 'C' if is_invalid_format(format) else format
   
   def __repr__(self) -> str:
