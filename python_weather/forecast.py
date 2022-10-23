@@ -515,13 +515,18 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner['cloudcover'])
 
   @property
-  def time(self) -> int:
+  def time(self) -> time:
     """
     Returns:
-        int: The minutes offset.
+        time: The time in hours and minutes.
     """
 
-    return int(self._BaseForecast__inner['time'])
+    try:
+      t = self._BaseForecast__inner['time']
+      
+      return time(int(t[:-2]), int(t[2:]))
+    except ValueError:
+      return time()
 
 class DailyForecast(ModifiableFormat):
   __slots__ = ('__inner',)
