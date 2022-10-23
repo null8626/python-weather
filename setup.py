@@ -8,14 +8,14 @@ with open('README.md', 'r', encoding='utf-8') as f:
 setup(
   name='python-weather',
   packages=['python_weather'],
-  version='0.4.2',
+  version='0.4.3',
   license='MIT',
   description='A free and asynchronous Weather API Wrapper.',
   long_description=readme,
   long_description_content_type='text/markdown',
   author='null8626',
   url='https://github.com/null8626/python-weather',
-  download_url='https://github.com/null8626/python-weather/archive/0.4.2.tar.gz',
+  download_url='https://github.com/null8626/python-weather/archive/0.4.3.tar.gz',
   keywords=['Weather', 'API', 'Weather API', 'API Wrapper', 'Weather CLI', 'CLI'],
   install_requires=['aiohttp'],
   classifiers=[
