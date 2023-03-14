@@ -5,100 +5,106 @@ from .constants import is_invalid_format, VALID_FORMATS
 from .forecast import Weather
 from .errors import Error, InvalidArg
 
+
 class Client:
-  __slots__ = ('__session', '__default_format')
+    __slots__ = ("__session", "__default_format")
 
-  def __init__(self, format: str = None, session: ClientSession = None):
-    """
-    Creates the client instance.
+    def __init__(self, format: str = None, session: ClientSession = None):
+        """
+        Creates the client instance.
 
-    Args:
-        format (str, optional): The default format to be used. Defaults to None.
-        session (ClientSession, optional): An existing `ClientSession` instance to be used. Defaults to None.
-    """
+        Args:
+            format (str, optional): The default format to be used. Defaults to None.
+            session (ClientSession, optional): An existing `ClientSession` instance to be used. Defaults to None.
+        """
 
-    self.__session = session or ClientSession(timeout=ClientTimeout(total=5000.0), connector=TCPConnector(verify_ssl=False))
-    self.__default_format = 'C' if is_invalid_format(format) else format
-  
-  def __repr__(self) -> str:
-    """
-    Returns:
-        str: The string representation of said object.
-    """
+        self.__session = session or ClientSession(
+            timeout=ClientTimeout(total=5000.0),
+            connector=TCPConnector(verify_ssl=False),
+        )
+        self.__default_format = "C" if is_invalid_format(format) else format
 
-    return f'<Client {self.__session!r}>'
+    def __repr__(self) -> str:
+        """
+        Returns:
+            str: The string representation of said object.
+        """
 
-  async def get(self, location: str, format: str = None) -> Weather:
-    """
-    Fetches the weather for a specific location.
+        return f"<Client {self.__session!r}>"
 
-    Args:
-        location (str): The location string.
-        format (str, optional): The format - this will override the default if provided. Defaults to None.
+    async def get(self, location: str, format: str = None) -> Weather:
+        """
+        Fetches the weather for a specific location.
 
-    Raises:
-        InvalidArg: Invalid `location` argument
-        Error: Client is already closed
-    
-    Returns:
-        Weather: The weather forecast for the given location.
-    """
+        Args:
+            location (str): The location string.
+            format (str, optional): The format - this will override the default if provided. Defaults to None.
 
-    if (not isinstance(location, str)) or (not location):
-      raise InvalidArg('proper location str', location)
-    elif self.__session.closed:
-      raise Error('Client is already closed')
+        Raises:
+            InvalidArg: Invalid `location` argument
+            Error: Client is already closed
 
-    if is_invalid_format(format):
-      format = self.__default_format
+        Returns:
+            Weather: The weather forecast for the given location.
+        """
 
-    async with self.__session.get(f'https://wttr.in/{quote_plus(location)}?format=j1') as resp:
-      return Weather(await resp.json(), format)
+        if (not isinstance(location, str)) or (not location):
+            raise InvalidArg("proper location str", location)
+        elif self.__session.closed:
+            raise Error("Client is already closed")
 
-  @property
-  def format(self) -> str:
-    """
-    Returns:
-        str: The default format used.
-    """
+        if is_invalid_format(format):
+            format = self.__default_format
 
-    return self.__default_format
-  
-  @format.setter
-  def format(self, to: str):
-    """
-    Sets the default format used.
+        async with self.__session.get(
+            f"https://wttr.in/{quote_plus(location)}?format=j1"
+        ) as resp:
+            return Weather(await resp.json(), format)
 
-    Args:
-        to (str): The new default format to be used. Must be `C` or `F`.
+    @property
+    def format(self) -> str:
+        """
+        Returns:
+            str: The default format used.
+        """
 
-    Raises:
-        InvalidArg: Invalid format.
-    """
+        return self.__default_format
 
-    if is_invalid_format(to):
-      raise InvalidArg(VALID_FORMATS, to)
-    
-    self.__default_format = to
+    @format.setter
+    def format(self, to: str):
+        """
+        Sets the default format used.
 
-  async def close(self) -> None:
-    """
-    Closes the client instance. Nothing will happen if it's already closed.
-    """
+        Args:
+            to (str): The new default format to be used. Must be `C` or `F`.
 
-    if not self.__session.closed:
-      await self.__session.close()
+        Raises:
+            InvalidArg: Invalid format.
+        """
 
-  async def __aenter__(self):
-    """
-    `async with` handler. Does nothing. Returns `self`
-    """
-    
-    return self
+        if is_invalid_format(to):
+            raise InvalidArg(VALID_FORMATS, to)
 
-  async def __aexit__(self, *_, **__):
-    """
-    Closes the client instance. Nothing will happen if it's already closed.
-    """
+        self.__default_format = to
 
-    await self.close()
+    async def close(self) -> None:
+        """
+        Closes the client instance. Nothing will happen if it's already closed.
+        """
+
+        if not self.__session.closed:
+            await self.__session.close()
+
+    async def __aenter__(self):
+        """
+        `async with` handler. Does nothing. Returns `self`
+        """
+
+        return self
+
+    async def __aexit__(self, *_, **__):
+        """
+        Closes the client instance. Nothing will happen if it's already closed.
+        """
+
+        await self.close()
