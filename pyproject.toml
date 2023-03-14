@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "python-weather"
+version = "0.4.3"
+description = "A free and asynchronous weather API wrapper."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "null8626" }]
+keywords = ["weather", "api", "wrapper", "cli"]
+dependencies = ["aiohttp==3.8.4"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Build Tools",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11"
+]
+requires-python = ">=3.7"
+
+[project.urls]
+repository = "https://github.com/null8626/python-weather"
+download_url = "https://github.com/null8626/python-weather/archive/0.4.3.tar.gz"
