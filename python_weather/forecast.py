@@ -8,7 +8,8 @@ from .constants import (
   LOCAL_DATETIME_REGEX,
   UTC_DATETIME_REGEX,
   DATE_REGEX,
-  LATLON_REGEX
+  LATLON_REGEX,
+  METRIC
 )
 
 from .errors import Error
@@ -259,7 +260,7 @@ class BaseForecast(ModifiableFormat):
       float: The precipitation value in either Millimeters or Inches.
     """
 
-    key = f'precip{'MM' if self._ModifiableFormat__format == 'C' else 'Inches'}'
+    key = f'precip{"MM" if self._ModifiableFormat__format == METRIC else "Inches"}'
     return float(self.__inner[key])
 
   @property
@@ -269,7 +270,7 @@ class BaseForecast(ModifiableFormat):
       float: The pressure value in either Pascal or Inches.
     """
 
-    key = f'pressure{'' if self._ModifiableFormat__format == 'C' else 'Inches'}'
+    key = f'pressure{"" if self._ModifiableFormat__format == METRIC else "Inches"}'
     return float(self.__inner[key])
 
   @property
@@ -279,7 +280,7 @@ class BaseForecast(ModifiableFormat):
       int: The visibility distance in either Kilometers or Miles.
     """
 
-    key = f'visibility{'' if self._ModifiableFormat__format == 'C' else 'Miles'}'
+    key = f'visibility{"" if self._ModifiableFormat__format == METRIC else "Miles"}'
     return int(self.__inner[key])
 
   @property
@@ -289,7 +290,7 @@ class BaseForecast(ModifiableFormat):
       int: The wind speeds value in kmh or mph.
     """
 
-    key = f'windspeed{'Kmph' if self._ModifiableFormat__format == 'C' else 'Miles'}'
+    key = f'windspeed{"Kmph" if self._ModifiableFormat__format == METRIC else "Miles"}'
     return int(self.__inner[key])
 
   @property
@@ -434,7 +435,7 @@ class HourlyForecast(BaseForecast):
       int: The wind gust value in kmh or mph.
     """
 
-    key = f'WindGust{'Kmph' if self._ModifiableFormat__format == 'C' else 'Miles'}'
+    key = f'WindGust{"Kmph" if self._ModifiableFormat__format == METRIC else "Miles"}'
     return int(self._BaseForecast__inner[key])
 
   @property
