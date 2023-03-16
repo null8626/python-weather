@@ -1,6 +1,7 @@
-from aiohttp import ClientSession, ClientTimeout, TCPConnector, sleep
+from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
 from typing import Optional
+from asyncio import sleep
 
 from .constants import is_invalid_format, METRIC, VALID_FORMATS
 from .forecast import Weather
