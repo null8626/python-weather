@@ -95,7 +95,7 @@ class Astronomy:
       str: The string representation of said object.
     """
 
-    return f'<Astronomy moon_phase='{self.moon_phase!r}' sun_rise={self.sun_rise!r} sun_set={self.sun_set!r}>'
+    return f'<Astronomy moon_phase="{self.moon_phase!r}" sun_rise={self.sun_rise!r} sun_set={self.sun_set!r}>'
 
   @property
   def moon_illumination(self) -> int:
@@ -335,7 +335,7 @@ class CurrentForecast(BaseForecast):
       str: The string representation of said object.
     """
 
-    return f'<CurrentForecast temperature={self.temperature!r} description={self.description!r} type='{self.type!r}'>'
+    return f'<CurrentForecast temperature={self.temperature!r} description={self.description!r} type="{self.type!r}">'
 
   @property
   def local_timezone(self) -> timezone:
