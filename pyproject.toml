@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 
 [project]
 name = "python-weather"
@@ -8,7 +8,7 @@ description = "A free and asynchronous weather API wrapper."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "null8626" }]
-keywords = ["weather", "api", "wrapper", "cli"]
+keywords = ["weather", "api", "wrapper"]
 dependencies = ["aiohttp==3.8.4"]
 classifiers = [
   "Development Status :: 4 - Beta",

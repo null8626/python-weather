@@ -3,3 +3,4 @@ exclude .gitattributes
 exclude .editorconfig
 exclude .gitignore
 exclude example.py
+exclude LICENSE
