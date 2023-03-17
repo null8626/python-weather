@@ -1,3 +1,5 @@
 prune .github
+exclude .gitattributes
 exclude .editorconfig
+exclude .gitignore
 exclude example.py
