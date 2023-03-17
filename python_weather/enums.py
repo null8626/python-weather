@@ -32,6 +32,14 @@ class WindDirection(Enum):
     else:
       return self.name.title()
 
+  def __repr__(self) -> str:
+    """
+    Returns:
+      str: The stylized name.
+    """
+    
+    return self.__str__()
+
 class Locale(Enum):
   AFRIKAANS = 'af'
   AMHARIC = 'am'
