@@ -17,14 +17,13 @@
 
 A free and asynchronous weather API wrapper made in Python, for Python.
 
-## Library Example
+## Example
 
 ```py
 # Import the module
 import python_weather
 import asyncio
 import os
-
 
 async def getweather():
   # Declare the client. Format defaults to the metric system (celcius, km/h, etc.)
