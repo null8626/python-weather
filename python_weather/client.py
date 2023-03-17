@@ -69,7 +69,7 @@ class Client:
     if is_invalid_format(format):
       format = self.__default_format
 
-    subdomain = self.__locale if isinstance(locale, Locale) else (f'{locale.value}.' if locale != Locale.ENGLISH else '')
+    subdomain = self.__locale if isinstance(locale, Locale) else (f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
     delay = 0
     
     while True:
