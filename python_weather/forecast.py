@@ -187,7 +187,7 @@ class ModifiableFormat:
   def format(self) -> str:
     """
     Returns:
-      str: The format used here. This can be `C` or `F`.
+      str: The format used here. This can be METRIC or IMPERIAL.
     """
 
     return self.__format
@@ -195,10 +195,10 @@ class ModifiableFormat:
   @format.setter
   def format(self, to: str):
     """
-    Sets the format. This must be either `C` or `F`.
+    Sets the format. This must be either METRIC or IMPERIAL.
 
     Args:
-      to (str): The new format to be used. This must be either `C` or `F`.
+      to (str): The new format to be used. This must be either METRIC or IMPERIAL.
 
     Raises:
       Error: Invalid format type.
@@ -625,13 +625,12 @@ class DailyForecast(ModifiableFormat):
   @property
   def snow_width(self) -> float:
     """
-    WARNING: This will ALWAYS be in centimeters, regardless if the format is `F`.
-
     Returns:
-      float: Total snow width in centimeters.
+      float: Total snow width in either centimeters or inches.
     """
 
-    return float(self.__inner['totalSnow_cm'])
+    width = float(self.__inner['totalSnow_cm'])
+    return width if self._ModifiableFormat__format == METRIC else width / 2.54
 
   @property
   def uv_index(self) -> int:

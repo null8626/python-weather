@@ -103,7 +103,7 @@ class Client:
     Sets the default format used.
 
     Args:
-      to (str): The new default format to be used. Must be `C` or `F`.
+      to (str): The new default format to be used. Must be METRIC or IMPERIAL.
 
     Raises:
       Error: Invalid format.
