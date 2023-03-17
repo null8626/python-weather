@@ -1,3 +1,5 @@
+from .error import Error
+from typing import Union
 from enum import Enum
 from re import sub
 
@@ -39,6 +41,55 @@ class WindDirection(Enum):
     """
     
     return self.__str__()
+
+  def __contains__(self, degrees: int) -> bool:
+    """
+    Checks if the degrees value is a part of this wind direction.
+    
+    Args:
+      degrees (int): An valid degrees int or float.
+    
+    Raises:
+      Error: Invalid degrees value.
+    
+    Returns:
+      bool
+    """
+
+    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and 0 <= degrees <= 360):
+      raise Error('Invalid degrees value.')
+    elif self is self.NORTH:
+      return degrees > 348.75 or degrees <= 11.25
+    elif self is self.NORTH_NORTH_EAST:
+      return degrees > 11.25 and degrees <= 33.75
+    elif self is self.NORTH_EAST:
+      return degrees > 33.75 and degrees <= 56.25
+    elif self is self.EAST_NORTH_EAST:
+      return degrees > 56.25 and degrees <= 78.75
+    elif self is self.EAST:
+      return degrees > 78.75 and degrees <= 101.25
+    elif self is self.EAST_SOUTH_EAST:
+      return degrees > 101.25 and degrees <= 123.75
+    elif self is self.SOUTH_EAST:
+      return degrees > 123.75 and degrees <= 146.25
+    elif self is self.SOUTH_SOUTH_EAST:
+      return degrees > 146.25 and degrees <= 168.75
+    elif self is self.SOUTH:
+      return degrees > 168.75 and degrees <= 191.25
+    elif self is self.SOUTH_SOUTH_WEST:
+      return degrees > 191.25 and degrees <= 213.75
+    elif self is self.SOUTH_WEST:
+      return degrees > 213.75 and degrees <= 236.25
+    elif self is self.WEST_SOUTH_WEST:
+      return degrees > 236.25 and degrees <= 258.75
+    elif self is self.WEST:
+      return degrees > 258.75 and degrees <= 281.25
+    elif self is self.WEST_NORTH_WEST:
+      return degrees > 281.25 and degrees <= 303.75
+    elif self is self.NORTH_WEST:
+      return degrees > 303.75 and degrees <= 326.25
+    else:
+      return degrees > 326.25 and degrees <= 348.75
 
 class Locale(Enum):
   AFRIKAANS = 'af'
