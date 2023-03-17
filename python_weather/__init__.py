@@ -4,7 +4,7 @@ a free and asynchronous python API Wrapper of the Weather API.
 
 The MIT License (MIT)
 
-Copyright (c) 2021-2022 null (http://github.com/null8626/python-weather)
+Copyright (c) 2021-2023 null (http://github.com/null8626/python-weather)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
@@ -28,7 +28,7 @@ SOFTWARE.
 from .client import Client
 from .errors import Error
 from .constants import METRIC, IMPERIAL
-from .enums import Translation
+from .enums import Locale
 
 __version__ = '0.5.0'
-__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'Translation')
+__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'Locale')
