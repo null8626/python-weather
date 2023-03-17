@@ -1,10 +1,10 @@
 """
 python-weather
-a free and asynchronous python API Wrapper of the Weather API.
+A free and asynchronous weather API wrapper made in Python, for Python.
 
 The MIT License (MIT)
 
-Copyright (c) 2021-2023 null (http://github.com/null8626/python-weather)
+Copyright (c) 2021-2023 null (https://github.com/null8626/python-weather)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
