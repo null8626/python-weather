@@ -1,13 +1,13 @@
-import re
+from re import compile
 
 METRIC = 'C'
 IMPERIAL = 'F'
 
-LOCAL_DATETIME_REGEX = re.compile(r'^\d{4}\-\d{2}\-\d{2} (\d{2})\:(\d{2}) (A|P)M$')
-UTC_DATETIME_REGEX = re.compile(r'(\d{2})\:(\d{2}) (A|P)M$')
-DATE_REGEX = re.compile(r'^(\d{4})\-(\d{2})\-(\d{2})$')
-TIME_REGEX = re.compile(r'^(\d{2})\:(\d{2}) (A|P)M$')
-LATLON_REGEX = re.compile(r'^Lat ([\d\-\.]+) and Lon ([\d\-\.]+)$')
+LOCAL_DATETIME_REGEX = compile(r'^\d{4}\-\d{2}\-\d{2} (\d{2})\:(\d{2}) (A|P)M$')
+UTC_DATETIME_REGEX = compile(r'(\d{2})\:(\d{2}) (A|P)M$')
+DATE_REGEX = compile(r'^(\d{4})\-(\d{2})\-(\d{2})$')
+TIME_REGEX = compile(r'^(\d{2})\:(\d{2}) (A|P)M$')
+LATLON_REGEX = compile(r'^Lat ([\d\-\.]+) and Lon ([\d\-\.]+)$')
 VALID_FORMATS = (METRIC, IMPERIAL)
 
 is_invalid_format = (
