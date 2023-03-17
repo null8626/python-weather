@@ -310,7 +310,7 @@ class BaseForecast(ModifiableFormat):
     """
 
     for k in self.__inner.keys():
-      if k.starts_with('lang_'):
+      if k.startswith('lang_'):
         return self.__inner[k][0][value]
 
     return self.__inner['weatherDesc'][0]['value']
