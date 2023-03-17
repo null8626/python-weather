@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    commit-message:
+      prefix: "deps: "
+    schedule:
+      day: "saturday"
+      interval: "weekly"
+      time: "06:00"
