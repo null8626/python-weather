@@ -5,21 +5,21 @@ from re import sub
 
 class WindDirection(Enum):
   NORTH = "N"
-  NORTH_NORTH_EAST = "NNE"
-  NORTH_EAST = "NE"
-  EAST_NORTH_EAST = "ENE"
+  NORTH_NORTHEAST = "NNE"
+  NORTHEAST = "NE"
+  EAST_NORTHEAST = "ENE"
   EAST = "E"
-  EAST_SOUTH_EAST = "ESE"
-  SOUTH_EAST = "SE"
-  SOUTH_SOUTH_EAST = "SSE"
+  EAST_SOUTHEAST = "ESE"
+  SOUTHEAST = "SE"
+  SOUTH_SOUTHEAST = "SSE"
   SOUTH = "S"
-  SOUTH_SOUTH_WEST = "SSW"
-  SOUTH_WEST = "SW"
-  WEST_SOUTH_WEST = "WSW"
+  SOUTH_SOUTHWEST = "SSW"
+  SOUTHWEST = "SW"
+  WEST_SOUTHWEST = "WSW"
   WEST = "W"
-  WEST_NORTH_WEST = "WNW"
-  NORTH_WEST = "NW"
-  NORTH_NORTH_WEST = "NNW"
+  WEST_NORTHWEST = "WNW"
+  NORTHWEST = "NW"
+  NORTH_NORTHWEST = "NNW"
   
   def __str__(self) -> str:
     """
@@ -27,12 +27,7 @@ class WindDirection(Enum):
       str: The stylized name.
     """
     
-    if len(self.value) == 3:
-      return sub(r'^(\w+_\w+)_', r'\1', self.name).replace('_', ' ').title()
-    elif len(self.value) == 2:
-      return self.name.replace('_', '').title()
-    else:
-      return self.name.title()
+    return self.name.replace('_', ' ').title()
 
   def __repr__(self) -> str:
     """
@@ -60,33 +55,33 @@ class WindDirection(Enum):
       raise Error('Invalid degrees value.')
     elif self is self.NORTH:
       return degrees > 348.75 or degrees <= 11.25
-    elif self is self.NORTH_NORTH_EAST:
+    elif self is self.NORTH_NORTHEAST:
       return 11.25 < degrees <= 33.75
-    elif self is self.NORTH_EAST:
+    elif self is self.NORTHEAST:
       return 33.75 < degrees <= 56.25
-    elif self is self.EAST_NORTH_EAST:
+    elif self is self.EAST_NORTHEAST:
       return 56.25 < degrees <= 78.75
     elif self is self.EAST:
       return 78.75 < degrees <= 101.25
-    elif self is self.EAST_SOUTH_EAST:
+    elif self is self.EAST_SOUTHEAST:
       return 101.25 < degrees <= 123.75
-    elif self is self.SOUTH_EAST:
+    elif self is self.SOUTHEAST:
       return 123.75 < degrees <= 146.25
-    elif self is self.SOUTH_SOUTH_EAST:
+    elif self is self.SOUTH_SOUTHEAST:
       return 146.25 < degrees <= 168.75
     elif self is self.SOUTH:
       return 168.75 < degrees <= 191.25
-    elif self is self.SOUTH_SOUTH_WEST:
+    elif self is self.SOUTH_SOUTHWEST:
       return 191.25 < degrees <= 213.75
-    elif self is self.SOUTH_WEST:
+    elif self is self.SOUTHWEST:
       return 213.75 < degrees <= 236.25
-    elif self is self.WEST_SOUTH_WEST:
+    elif self is self.WEST_SOUTHWEST:
       return 236.25 < degrees <= 258.75
     elif self is self.WEST:
       return 258.75 < degrees <= 281.25
-    elif self is self.WEST_NORTH_WEST:
+    elif self is self.WEST_NORTHWEST:
       return 281.25 < degrees <= 303.75
-    elif self is self.NORTH_WEST:
+    elif self is self.NORTHWEST:
       return 303.75 < degrees <= 326.25
     else:
       return 326.25 < degrees <= 348.75
