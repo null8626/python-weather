@@ -1,7 +1,6 @@
 from .errors import Error
 from typing import Union
 from enum import Enum
-from re import sub
 
 class WindDirection(Enum):
   NORTH = "N"
