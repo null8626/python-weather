@@ -2,4 +2,5 @@
 
 based_on_style = google
 blank_lines_around_top_level_definition = 1
+indent_black_lines = True
 indent_width = 2

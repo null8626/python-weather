@@ -250,7 +250,7 @@ class BaseForecast(ModifiableFormat):
       int: What it felt like, in Celcius or Fahrenheit.
     """
 
-    return int(self.__inner[f'FeelsLike{self._ModifiableFormat__format}'])
+    return int(self.__inner[f'FeelsLike{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def humidity(self) -> int:
@@ -268,7 +268,7 @@ class BaseForecast(ModifiableFormat):
       int: The weather temperature in either Celcius or Fahrenheit
     """
 
-    return int(self.__inner[f'temp_{self._ModifiableFormat__format}'])
+    return int(self.__inner[f'temp_{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def precipitation(self) -> float:
@@ -420,7 +420,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-        self._BaseForecast__inner[f'DewPoint{self._ModifiableFormat__format}'])
+        self._BaseForecast__inner[f'DewPoint{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def heat_index(self) -> int:
@@ -430,7 +430,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-        self._BaseForecast__inner[f'HeatIndex{self._ModifiableFormat__format}'])
+        self._BaseForecast__inner[f'HeatIndex{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def wind_chill(self) -> int:
@@ -440,7 +440,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-        self._BaseForecast__inner[f'WindChill{self._ModifiableFormat__format}'])
+        self._BaseForecast__inner[f'WindChill{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def wind_gust(self) -> int:
@@ -607,7 +607,7 @@ class DailyForecast(ModifiableFormat):
       int: The lowest temperature. In Celcius or Fahrenheit.
     """
 
-    return int(self.__inner[f'mintemp{self._ModifiableFormat__format}'])
+    return int(self.__inner[f'mintemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def highest_temperature(self) -> int:
@@ -616,7 +616,7 @@ class DailyForecast(ModifiableFormat):
       int: The highest temperature. In Celcius or Fahrenheit.
     """
 
-    return int(self.__inner[f'maxtemp{self._ModifiableFormat__format}'])
+    return int(self.__inner[f'maxtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def temperature(self) -> int:
@@ -625,7 +625,7 @@ class DailyForecast(ModifiableFormat):
       int: The average temperature. In Celcius or Fahrenheit.
     """
 
-    return int(self.__inner[f'avgtemp{self._ModifiableFormat__format}'])
+    return int(self.__inner[f'avgtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
 
   @property
   def sun_shines(self) -> float:
