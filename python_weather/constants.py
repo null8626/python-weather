@@ -23,9 +23,10 @@ SOFTWARE.
 """
 
 from re import compile
+from enum import auto
 
-METRIC = 'C'
-IMPERIAL = 'F'
+METRIC = auto()
+IMPERIAL = auto()
 
 LOCAL_DATETIME_REGEX = compile(r'^\d{4}\-\d{2}\-\d{2} (\d{2})\:(\d{2}) (A|P)M$')
 UTC_DATETIME_REGEX = compile(r'(\d{2})\:(\d{2}) (A|P)M$')
