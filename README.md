@@ -1,4 +1,4 @@
-# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [Build Status][ci-image]][ci-url] [![languages][languages-image]][github-url] [![libraries.io dependents][libraries-io-dependents-image]][libraries-io-url] [![libraries.io score][libraries-io-score-image]][libraries-io-url] [![github code size][github-code-size-image]][github-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
+# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![languages][languages-image]][github-url] [![libraries.io dependents][libraries-io-dependents-image]][libraries-io-url] [![libraries.io score][libraries-io-score-image]][libraries-io-url] [![github code size][github-code-size-image]][github-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
@@ -21,34 +21,34 @@ A free and asynchronous weather API wrapper made in Python, for Python.
 ## Example
 
 ```py
-# Import the module
+# import the module
 import python_weather
 import asyncio
 import os
 
 async def getweather():
-  # Declare the client. Format defaults to the metric system (celcius, km/h, etc.)
+  # declare the client. format defaults to the metric system (celcius, km/h, etc.)
   async with python_weather.Client(format=python_weather.IMPERIAL) as client:
-    # Fetch a weather forecast from a city
-    weather = await client.get("New York")
-
-    # Returns the current day's forecast temperature (int)
+    # fetch a weather forecast from a city
+    weather = await client.get('New York')
+    
+    # returns the current day's forecast temperature (int)
     print(weather.current.temperature)
-
-    # Get the weather forecast for a few days
+    
+    # get the weather forecast for a few days
     for forecast in weather.forecasts:
-      print(forecast.date, forecast.astronomy)
-
-      # Hourly forecasts
+      print(forecast)
+      
+      # hourly forecasts
       for hourly in forecast.hourly:
-        print(f" --> {hourly!r}")
+        print(f' --> {hourly!r}')
 
-if __name__ == "__main__":
-  # See https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
+if __name__ == '__main__':
+  # see https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
   # for more details
-  if os.name == "nt":
+  if os.name == 'nt':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
+  
   asyncio.run(getweather())
 ```
 
