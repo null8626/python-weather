@@ -251,7 +251,7 @@ class BaseForecast(ModifiableFormat):
     """
     
     return int(self.__inner[
-        f'FeelsLike{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'FeelsLike{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def humidity(self) -> int:
@@ -270,7 +270,7 @@ class BaseForecast(ModifiableFormat):
     """
     
     return int(self.__inner[
-        f'temp_{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'temp_{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def precipitation(self) -> float:
@@ -342,7 +342,7 @@ class BaseForecast(ModifiableFormat):
     """
     
     return WeatherType._new(int(
-        self.__inner['weatherCode']))  # inspired by Rust <3
+      self.__inner['weatherCode']))  # inspired by Rust <3
 
 class CurrentForecast(BaseForecast):
   __slots__ = ()
@@ -366,16 +366,16 @@ class CurrentForecast(BaseForecast):
     """
     
     h_local, m_local, ampm_local = LOCAL_DATETIME_REGEX.findall(
-        self._BaseForecast__inner['localObsDateTime'])[0]
+      self._BaseForecast__inner['localObsDateTime'])[0]
     h_utc, m_utc, ampm_utc = UTC_DATETIME_REGEX.findall(
-        self._BaseForecast__inner['observation_time'])[0]
+      self._BaseForecast__inner['observation_time'])[0]
     
     h_local_24h = _convert_to_24h(h_local, ampm_local)
     h_utc_24h = _convert_to_24h(h_utc, ampm_utc)
     
     return timezone(
-        timedelta(hours=h_local_24h - h_utc_24h,
-                  minutes=int(m_local) - int(m_utc)))
+      timedelta(hours=h_local_24h - h_utc_24h,
+                minutes=int(m_local) - int(m_utc)))
   
   @property
   def local_time(self) -> datetime:
@@ -386,7 +386,7 @@ class CurrentForecast(BaseForecast):
     
     return datetime.strptime(self._BaseForecast__inner['localObsDateTime'],
                              '%Y-%m-%d %I:%M %p').astimezone(
-                                 self.local_timezone)
+                               self.local_timezone)
   
   @property
   def utc_time(self) -> datetime:
@@ -422,7 +422,7 @@ class HourlyForecast(BaseForecast):
     """
     
     return int(self._BaseForecast__inner[
-        f'DewPoint{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'DewPoint{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def heat_index(self) -> int:
@@ -432,7 +432,7 @@ class HourlyForecast(BaseForecast):
     """
     
     return int(self._BaseForecast__inner[
-        f'HeatIndex{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'HeatIndex{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def wind_chill(self) -> int:
@@ -442,7 +442,7 @@ class HourlyForecast(BaseForecast):
     """
     
     return int(self._BaseForecast__inner[
-        f'WindChill{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'WindChill{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def wind_gust(self) -> int:
@@ -610,7 +610,7 @@ class DailyForecast(ModifiableFormat):
     """
     
     return int(self.__inner[
-        f'mintemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'mintemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def highest_temperature(self) -> int:
@@ -620,7 +620,7 @@ class DailyForecast(ModifiableFormat):
     """
     
     return int(self.__inner[
-        f'maxtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'maxtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def temperature(self) -> int:
@@ -630,7 +630,7 @@ class DailyForecast(ModifiableFormat):
     """
     
     return int(self.__inner[
-        f'avgtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
+      f'avgtemp{"C" if self._ModifiableFormat__format == METRIC else "F"}'])
   
   @property
   def sun_shines(self) -> float:

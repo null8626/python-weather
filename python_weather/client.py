@@ -53,8 +53,8 @@ class Client:
     """
     
     self.__session = session or ClientSession(
-        timeout=ClientTimeout(total=5000.0),
-        connector=TCPConnector(verify_ssl=False))
+      timeout=ClientTimeout(total=5000.0),
+      connector=TCPConnector(verify_ssl=False))
     
     self.format = format or METRIC
     self.locale = locale or Locale.ENGLISH
@@ -95,14 +95,14 @@ class Client:
       format = self.__default_format
     
     subdomain = self.__locale if isinstance(locale, Locale) else (
-        f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
+      f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
     delay = 0
-
+    
     while True:
       if delay != 0:
         await sleep(delay)
         delay *= 2
-
+      
       async with self.__session.get(
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
