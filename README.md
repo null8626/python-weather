@@ -28,7 +28,7 @@ import os
 
 async def getweather():
   # declare the client. format defaults to the metric system (celcius, km/h, etc.)
-  async with python_weather.Client(format=python_weather.IMPERIAL) as client:
+  async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
     # fetch a weather forecast from a city
     weather = await client.get('New York')
     

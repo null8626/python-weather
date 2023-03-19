@@ -24,9 +24,37 @@ SOFTWARE.
 
 from .errors import Error
 from typing import Union
-from enum import Enum
+from enum import Enum, auto
 
-class WindDirection(Enum):
+class UltraViolet(Enum):
+  """Represents a :term:`UV index`."""
+  
+  LOW = auto()
+  MODERATE = auto()
+  HIGH = auto()
+  VERY_HIGH = auto()
+  EXTREME = auto()
+  
+  def _missing_(self, index: int):
+    if index <= 2:
+      return self.LOW
+    elif index <= 5:
+      return self.MODERATE
+    elif index <= 7:
+      return self.HIGH
+    elif index <= 10:
+      return self.VERY_HIGH
+    else:
+      return self.EXTREME
+  
+  def __str__(self) -> str:
+    """:class:`str`: The stylized name for this :class:`Enum`."""
+    
+    return self.name.replace('_', ' ').title()
+
+class Direction(Enum):
+  """Represents a wind direction."""
+  
   NORTH = "N"
   NORTH_NORTHEAST = "NNE"
   NORTHEAST = "NE"
@@ -45,33 +73,28 @@ class WindDirection(Enum):
   NORTH_NORTHWEST = "NNW"
   
   def __str__(self) -> str:
-    """
-    Returns:
-      str: The stylized name.
-    """
+    """:class:`str`: The stylized name for this :class:`Enum`."""
     
     return self.name.replace('_', ' ').title()
   
-  def __repr__(self) -> str:
-    """
-    Returns:
-      str: The stylized name.
-    """
-    
-    return self.__str__()
-  
-  def __contains__(self, degrees: int) -> bool:
+  def __contains__(self, degrees: Union[float, int]) -> bool:
     """
     Checks if the degrees value is a part of this wind direction.
     
-    Args:
-      degrees (int): An valid degrees int or float.
+    Parameters
+    ----------
+    degrees: Union[:class:`float`, :class:`int`]
+      The degrees value. Must be between 0 and 360.
     
-    Raises:
-      Error: Invalid degrees value.
+    Raises
+    ------
+    Error
+      Invalid ``degrees`` argument.
     
-    Returns:
-      bool
+    Returns
+    -------
+    :class:`bool`
+      The boolean.
     """
     
     if not ((isinstance(degrees, int) or isinstance(degrees, float)) and
@@ -111,6 +134,8 @@ class WindDirection(Enum):
       return 326.25 < degrees <= 348.75
 
 class Locale(Enum):
+  """Represents the list of supported :term:`locales`/languages by this library."""
+  
   AFRIKAANS = 'af'
   AMHARIC = 'am'
   ARABIC = 'ar'
@@ -183,8 +208,16 @@ class Locale(Enum):
   VIETNAMESE = 'vi'
   WELSH = 'cy'
   ZULU = 'zu'
+  
+  def __str__(self) -> str:
+    """:class:`str`: The stylized name for this :class:`Enum`."""
+    
+    arr = self.name.title().split('_')
+    return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
-class WeatherType(Enum):
+class Kind(Enum):
+  """Represents a weather kind."""
+  
   SUNNY = 113
   PARTLY_CLOUDY = 116
   CLOUDY = 119
@@ -205,52 +238,45 @@ class WeatherType(Enum):
   THUNDERY_SNOW_SHOWERS = 392
   HEAVY_SNOW_SHOWERS = 395
   
-  def _new(num: int):
+  def _missing_(self, num: int):
     # handle dups
     
-    if num == 182:
-      num = 185
-    elif num == 248 or num == 143:
-      num = 260
+    if num == 248 or num == 143:
+      return self.MIST
     elif num == 263 or num == 353:
-      num = 176
-    elif (num == 185 or num == 281 or num == 284 or num == 311 or num == 314 or
-          num == 317 or num == 350):
-      num = 377
+      return self.LIGHT_SHOWERS
+    elif (
+      num == 182 or num == 185 or num == 281 or num == 284 or num == 311 or
+      num == 314 or num == 317 or num == 350
+    ):
+      return self.LIGHT_SLEET
     elif num == 179 or num == 362 or num == 365:
-      num = 374
+      return self.LIGHT_SLEET_SHOWERS
     elif num == 266 or num == 293:
-      num = 296
+      return self.LIGHT_RAIN
     elif num == 302 or num == 358:
-      num = 359
+      return self.HEAVY_RAIN
     elif num == 299 or num == 305:
-      num = 356
+      return self.HEAVY_SHOWERS
     elif num == 323 or num == 326:
-      num = 368
+      return self.LIGHT_SNOW_SHOWERS
     elif num == 227:
-      num = 320
+      return self.LIGHT_SNOW
     elif num == 230 or num == 329 or num == 332:
-      num = 338
+      return self.HEAVY_SNOW
     elif num == 335 or num == 371:
-      num = 395
+      return self.HEAVY_SNOW_SHOWERS
     elif num == 200:
-      num = 386
-    
-    return WeatherType(num)
+      return self.THUNDERY_SHOWERS
   
   def __str__(self) -> str:
-    """
-    Returns:
-      str: The stylized name.
-    """
+    """:class:`str`: The stylized name for this :class:`Enum`."""
     
     return self.name.replace('_', ' ').title()
   
-  def __repr__(self) -> str:
-    """
-    Returns:
-      str: The emoji representing it.
-    """
+  @property
+  def emoji(self) -> str:
+    """:class:`str`: The emoji representing this :class:`Enum`."""
     
     if self is self.CLOUDY:
       return '☁️'
@@ -291,7 +317,7 @@ class WeatherType(Enum):
     else:
       return '✨'
 
-class MoonPhase(Enum):
+class Phase(Enum):
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
   FIRST_QUARTER = 'First Quarter'
@@ -302,18 +328,13 @@ class MoonPhase(Enum):
   WANING_CRESCENT = 'Waning Crescent'
   
   def __str__(self) -> str:
-    """
-    Returns:
-      str: The stylized name.
-    """
+    """:class:`str`: The stylized name for this :class:`Enum`."""
     
     return self.value
   
-  def __repr__(self) -> str:
-    """
-    Returns:
-      str: The emoji representation of the moon phase.
-    """
+  @property
+  def emoji(self) -> str:
+    """:class:`str`: The stylized name for this :class:`Enum`."""
     
     if self is self.NEW_MOON:
       return '🌑'
