@@ -41,6 +41,7 @@ class Client(CustomizableBase):
   
   def __init__(
     self,
+    *,
     unit: Optional[auto] = METRIC,
     locale: Optional[Locale] = Locale.ENGLISH,
     session: Optional[ClientSession] = None
