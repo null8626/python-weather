@@ -97,12 +97,12 @@ class Client:
     subdomain = self.__locale if isinstance(locale, Locale) else (
         f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
     delay = 0
-    
+
     while True:
       if delay != 0:
         await sleep(delay)
         delay *= 2
-      
+
       async with self.__session.get(
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
