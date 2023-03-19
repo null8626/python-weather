@@ -35,7 +35,7 @@ from .enums import Locale
 
 class Client:
   __slots__ = ('__session', '__default_format', '__locale')
-
+  
   def __init__(self,
                format: Optional[auto] = METRIC,
                locale: Optional[Locale] = Locale.ENGLISH,
@@ -51,22 +51,22 @@ class Client:
     Raises:
       Error: Client is already closed, invalid `location` argument, or invalid `locale` argument.
     """
-
+    
     self.__session = session or ClientSession(
         timeout=ClientTimeout(total=5000.0),
         connector=TCPConnector(verify_ssl=False))
-
+    
     self.format = format or METRIC
     self.locale = locale or Locale.ENGLISH
-
+  
   def __repr__(self) -> str:
     """
     Returns:
       str: The string representation of said object.
     """
-
+    
     return f'<Client {self.__session!r}>'
-
+  
   async def get(self,
                 location: str,
                 format: Optional[auto] = None,
@@ -85,24 +85,24 @@ class Client:
     Returns:
       Weather: The weather forecast for the given location.
     """
-
+    
     if (not isinstance(location, str)) or (not location):
       raise Error(f'Expected a proper location str, got {location!r}')
     elif self.__session.closed:
       raise Error('Client is already closed')
-
+    
     if format not in VALID_FORMATS:
       format = self.__default_format
-
+    
     subdomain = self.__locale if isinstance(locale, Locale) else (
         f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
     delay = 0
-
+    
     while True:
       if delay != 0:
         await sleep(delay)
         delay *= 2
-
+      
       async with self.__session.get(
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
@@ -113,16 +113,16 @@ class Client:
             raise e  # okay, that's too much requests - just raise the error
           elif delay == 0:
             delay = 0.5
-
+  
   @property
   def format(self) -> str:
     """
     Returns:
       str: The default format used.
     """
-
+    
     return self.__default_format
-
+  
   @format.setter
   def format(self, to: auto):
     """
@@ -134,21 +134,21 @@ class Client:
     Raises:
       Error: Invalid format.
     """
-
+    
     if to not in VALID_FORMATS:
       raise Error('Invalid format specified!')
-
+    
     self.__default_format = to
-
+  
   @property
   def locale(self) -> Locale:
     """
     Returns:
       Locale: The default locale used.
     """
-
+    
     return Locale(self.__locale[:-1] if self.__locale else 'en')
-
+  
   @locale.setter
   def locale(self, to: Locale):
     """
@@ -160,30 +160,30 @@ class Client:
     Raises:
       Error: Not a part of the Locale enum.
     """
-
+    
     if not isinstance(to, Locale):
       raise Error(f'Expected {to!r} to be a Locale enum')
-
+    
     self.__locale = f'{to.value}.' if to != Locale.ENGLISH else ''
-
+  
   async def close(self) -> None:
     """
     Closes the client instance. Nothing will happen if it's already closed.
     """
-
+    
     if not self.__session.closed:
       await self.__session.close()
-
+  
   async def __aenter__(self):
     """
     `async with` handler. Does nothing. Returns `self`
     """
-
+    
     return self
-
+  
   async def __aexit__(self, *_, **__):
     """
     Closes the client instance. Nothing will happen if it's already closed.
     """
-
+    
     await self.close()

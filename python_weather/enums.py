@@ -43,23 +43,23 @@ class WindDirection(Enum):
   WEST_NORTHWEST = "WNW"
   NORTHWEST = "NW"
   NORTH_NORTHWEST = "NNW"
-
+  
   def __str__(self) -> str:
     """
     Returns:
       str: The stylized name.
     """
-
+    
     return self.name.replace('_', ' ').title()
-
+  
   def __repr__(self) -> str:
     """
     Returns:
       str: The stylized name.
     """
-
+    
     return self.__str__()
-
+  
   def __contains__(self, degrees: int) -> bool:
     """
     Checks if the degrees value is a part of this wind direction.
@@ -73,7 +73,7 @@ class WindDirection(Enum):
     Returns:
       bool
     """
-
+    
     if not ((isinstance(degrees, int) or isinstance(degrees, float)) and
             0 <= degrees <= 360):
       raise Error('Invalid degrees value.')
@@ -204,10 +204,10 @@ class WeatherType(Enum):
   THUNDERY_HEAVY_RAIN = 389
   THUNDERY_SNOW_SHOWERS = 392
   HEAVY_SNOW_SHOWERS = 395
-
+  
   def _new(num: int):
     # handle dups
-
+    
     if num == 182:
       num = 185
     elif num == 248 or num == 143:
@@ -235,23 +235,23 @@ class WeatherType(Enum):
       num = 395
     elif num == 200:
       num = 386
-
+    
     return WeatherType(num)
-
+  
   def __str__(self) -> str:
     """
     Returns:
       str: The stylized name.
     """
-
+    
     return self.name.replace('_', ' ').title()
-
+  
   def __repr__(self) -> str:
     """
     Returns:
       str: The emoji representing it.
     """
-
+    
     if self is self.CLOUDY:
       return '☁️'
     elif self is self.FOG:
@@ -300,21 +300,21 @@ class MoonPhase(Enum):
   WANING_GIBBOUS = 'Waning Gibbous'
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
-
+  
   def __str__(self) -> str:
     """
     Returns:
       str: The stylized name.
     """
-
+    
     return self.value
-
+  
   def __repr__(self) -> str:
     """
     Returns:
       str: The emoji representation of the moon phase.
     """
-
+    
     if self is self.NEW_MOON:
       return '🌑'
     elif self is self.WAXING_CRESCENT:
