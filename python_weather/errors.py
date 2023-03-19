@@ -24,5 +24,5 @@ SOFTWARE.
 
 class Error(Exception):
   """Represents a ``python_weather`` :term:`Error` class. Extends python's :class:`Exception` class."""
-
+  
   ...

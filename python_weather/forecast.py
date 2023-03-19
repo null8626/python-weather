@@ -47,7 +47,7 @@ def _convert_to_24h(hour, ampm):
 
 class Area:
   """Represents the location of the weather forecast."""
-
+  
   __slots__ = ('__inner',)
   
   def __init__(self, json: dict):
@@ -90,7 +90,7 @@ class Area:
 
 class Astronomy:
   """Represents the astronomical information of said weather forecast."""
-
+  
   __slots__ = ('__inner',)
   
   def __init__(self, json: dict):
@@ -152,7 +152,7 @@ class Astronomy:
   @property
   def sun_set(self) -> Optional[time]:
     """Optional[:class:`time`]: The time when the sun sets. This can be ``None``."""
-
+    
     try:
       h12, m, ampm = TIME_REGEX.findall(self.__inner['sunset'])[0]
       h24 = _convert_to_24h(h12, ampm)
@@ -408,13 +408,14 @@ class DailyForecast(CustomizableBase):
     """Generator[:class:`HourlyForecast`, ``None``, ``None``]: The hourly forecasts for this day."""
     
     return (
-      HourlyForecast(elem, self._CustomizableBase__unit, self._CustomizableBase__locale)
-      for elem in self.__inner['hourly']
+      HourlyForecast(
+        elem, self._CustomizableBase__unit, self._CustomizableBase__locale
+      ) for elem in self.__inner['hourly']
     )
 
 class Weather(CustomizableBase):
   """Represents an entire weather forecast."""
-
+  
   __slots__ = ('__inner',)
   
   def __init__(self, json: dict, unit: auto, locale: Locale):
@@ -432,7 +433,8 @@ class Weather(CustomizableBase):
     """:class:`CurrentForecast`: The forecast for the current day."""
     
     return CurrentForecast(
-      self.__inner['current_condition'][0], self._CustomizableBase__unit, self._CustomizableBase__locale
+      self.__inner['current_condition'][0], self._CustomizableBase__unit,
+      self._CustomizableBase__locale
     )
   
   @property
@@ -446,8 +448,9 @@ class Weather(CustomizableBase):
     """Generator[:class:`DailyForecast`, ``None``, ``None``]: Daily forecasts for the current weather forecast."""
     
     return (
-      DailyForecast(elem, self._CustomizableBase__unit, self._CustomizableBase__locale)
-      for elem in self.__inner['weather']
+      DailyForecast(
+        elem, self._CustomizableBase__unit, self._CustomizableBase__locale
+      ) for elem in self.__inner['weather']
     )
   
   @property

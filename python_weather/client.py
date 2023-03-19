@@ -118,7 +118,7 @@ class Client(CustomizableBase):
     
     if not isinstance(locale, Locale):
       locale = self._CustomizableBase__locale
-
+    
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
     delay = 0
     

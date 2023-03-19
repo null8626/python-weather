@@ -28,7 +28,7 @@ from enum import Enum, auto
 
 class UltraViolet(Enum):
   """Represents a :term:`UV index`."""
-
+  
   LOW = auto()
   MODERATE = auto()
   HIGH = auto()
@@ -46,7 +46,7 @@ class UltraViolet(Enum):
       return self.VERY_HIGH
     else:
       return self.EXTREME
-
+  
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -97,10 +97,8 @@ class Direction(Enum):
       The boolean.
     """
     
-    if not (
-      (isinstance(degrees, int) or isinstance(degrees, float)) and
-      0 <= degrees <= 360
-    ):
+    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and
+            0 <= degrees <= 360):
       raise Error('Invalid degrees value.')
     elif self is self.NORTH:
       return degrees > 348.75 or degrees <= 11.25
@@ -242,14 +240,14 @@ class Kind(Enum):
   
   def _missing_(self, num: int):
     # handle dups
-  
+    
     if num == 248 or num == 143:
       return self.MIST
     elif num == 263 or num == 353:
       return self.LIGHT_SHOWERS
     elif (
-      num == 182 or num == 185 or num == 281 or num == 284 or num == 311 or num == 314 or
-      num == 317 or num == 350
+      num == 182 or num == 185 or num == 281 or num == 284 or num == 311 or
+      num == 314 or num == 317 or num == 350
     ):
       return self.LIGHT_SLEET
     elif num == 179 or num == 362 or num == 365:
