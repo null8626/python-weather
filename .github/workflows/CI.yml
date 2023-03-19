@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+    paths:
+      - 'python_weather/**/*.py'
+  pull_request: null
+jobs:
+  ci:
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    name: Run test.py and pretty files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - name: Install dependencies
+        run: python3 -m pip install .
+      - name: Run test
+        run: python3 test.py
+      - name: Install yapf
+        run: python3 -m pip install yapf
+      - name: Pretty files
+        run: python3 -m yapf -i -r python_weather
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'style: prettier'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

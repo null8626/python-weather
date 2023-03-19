@@ -26,8 +26,9 @@ from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
 from typing import Optional
 from asyncio import sleep
+from enum import auto
 
-from .constants import is_invalid_format, METRIC, VALID_FORMATS
+from .constants import METRIC, VALID_FORMATS
 from .forecast import Weather
 from .errors import Error
 from .enums import Locale
@@ -35,12 +36,10 @@ from .enums import Locale
 class Client:
   __slots__ = ('__session', '__default_format', '__locale')
 
-  def __init__(
-    self,
-    format: str = METRIC,
-    locale: Locale = Locale.ENGLISH,
-    session: Optional[ClientSession] = None
-  ):
+  def __init__(self,
+               format: str = METRIC,
+               locale: Locale = Locale.ENGLISH,
+               session: Optional[ClientSession] = None):
     """
     Creates the client instance.
 
@@ -54,9 +53,8 @@ class Client:
     """
 
     self.__session = session or ClientSession(
-      timeout=ClientTimeout(total=5000.0),
-      connector=TCPConnector(verify_ssl=False)
-    )
+        timeout=ClientTimeout(total=5000.0),
+        connector=TCPConnector(verify_ssl=False))
 
     self.format = format or METRIC
     self.locale = locale or Locale.ENGLISH
@@ -69,7 +67,10 @@ class Client:
 
     return f'<Client {self.__session!r}>'
 
-  async def get(self, location: str, format: Optional[str] = None, locale: Optional[Locale] = None) -> Weather:
+  async def get(self,
+                location: str,
+                format: Optional[str] = None,
+                locale: Optional[Locale] = None) -> Weather:
     """
     Fetches the weather for a specific location.
 
@@ -90,19 +91,20 @@ class Client:
     elif self.__session.closed:
       raise Error('Client is already closed')
 
-    if is_invalid_format(format):
+    if format not in VALID_FORMATS:
       format = self.__default_format
 
-    subdomain = self.__locale if isinstance(locale, Locale) else (f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
+    subdomain = self.__locale if isinstance(locale, Locale) else (
+        f'{locale.value}.' if locale and locale != Locale.ENGLISH else '')
     delay = 0
-    
+
     while True:
       if delay != 0:
         await sleep(delay)
         delay *= 2
-      
+
       async with self.__session.get(
-        f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
+          f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
         try:
           return Weather(await resp.json(), format)
@@ -122,19 +124,19 @@ class Client:
     return self.__default_format
 
   @format.setter
-  def format(self, to: str):
+  def format(self, to: auto):
     """
     Sets the default format used.
 
     Args:
-      to (str): The new default format to be used. Must be METRIC or IMPERIAL.
+      to (auto): The new default format to be used. Must be METRIC or IMPERIAL.
 
     Raises:
       Error: Invalid format.
     """
 
-    if is_invalid_format(to):
-      raise Error(f'Expected {to!r} to be in {VALID_FORMATS!r}')
+    if to not in VALID_FORMATS:
+      raise Error('Invalid format specified!')
 
     self.__default_format = to
 
@@ -158,7 +160,7 @@ class Client:
     Raises:
       Error: Not a part of the Locale enum.
     """
-  
+
     if not isinstance(to, Locale):
       raise Error(f'Expected {to!r} to be a Locale enum')
 
