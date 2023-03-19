@@ -37,14 +37,14 @@ class Client:
   __slots__ = ('__session', '__default_format', '__locale')
 
   def __init__(self,
-               format: str = METRIC,
-               locale: Locale = Locale.ENGLISH,
+               format: Optional[auto] = METRIC,
+               locale: Optional[Locale] = Locale.ENGLISH,
                session: Optional[ClientSession] = None):
     """
     Creates the client instance.
 
     Args:
-      format (str, optional): The default format to be used. Defaults to 'C' or METRIC.
+      format (auto, optional): The default format to be used. Defaults to 'C' or METRIC.
       locale (Locale, optional): The default locale to be used. Defaults to Locale.ENGLISH.
       session (ClientSession, optional): An existing `ClientSession` instance to be used. Defaults to None.
 
@@ -69,14 +69,14 @@ class Client:
 
   async def get(self,
                 location: str,
-                format: Optional[str] = None,
+                format: Optional[auto] = None,
                 locale: Optional[Locale] = None) -> Weather:
     """
     Fetches the weather for a specific location.
 
     Args:
       location (str): The location string.
-      format (str, optional): The format - this will override the default if provided. Defaults to None.
+      format (auto, optional): The format - this will override the default if provided. Defaults to None.
       locale (Locale, optional): The format - this will override the default if provided. Defaults to None.
 
     Raises:

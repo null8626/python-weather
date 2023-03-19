@@ -26,7 +26,7 @@ jobs:
       - name: Install yapf
         run: python3 -m pip install yapf
       - name: Pretty files
-        run: python3 -m yapf -i -r python_weather
+        run: python3 -m yapf -i --style .style.yapf -r python_weather
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
