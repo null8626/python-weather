@@ -1,8 +1,10 @@
-# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![languages][languages-image]][github-url] [![libraries.io dependents][libraries-io-dependents-image]][libraries-io-url] [![libraries.io score][libraries-io-score-image]][libraries-io-url] [![github code size][github-code-size-image]][github-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
+# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [Build Status][ci-image]][ci-url] [![languages][languages-image]][github-url] [![libraries.io dependents][libraries-io-dependents-image]][libraries-io-url] [![libraries.io score][libraries-io-score-image]][libraries-io-url] [![github code size][github-code-size-image]][github-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
 [downloads-image]: https://img.shields.io/pypi/dm/python-weather?style=flat-square
+[ci-image]: https://github.com/null8626/python-weather/workflows/CI/badge.svg
+[ci-url]: https://github.com/null8626/python-weather/actions
 [languages-image]: https://img.shields.io/github/languages/top/null8626/python-weather?style=flat-square
 [libraries-io-dependents-image]: https://img.shields.io/librariesio/dependents/pypi/python-weather?style=flat-square
 [libraries-io-score-image]: https://img.shields.io/librariesio/sourcerank/pypi/python-weather?style=flat-square

@@ -43,13 +43,13 @@ class WindDirection(Enum):
   WEST_NORTHWEST = "WNW"
   NORTHWEST = "NW"
   NORTH_NORTHWEST = "NNW"
-  
+
   def __str__(self) -> str:
     """
     Returns:
       str: The stylized name.
     """
-    
+
     return self.name.replace('_', ' ').title()
 
   def __repr__(self) -> str:
@@ -57,7 +57,7 @@ class WindDirection(Enum):
     Returns:
       str: The stylized name.
     """
-    
+
     return self.__str__()
 
   def __contains__(self, degrees: int) -> bool:
@@ -74,7 +74,8 @@ class WindDirection(Enum):
       bool
     """
 
-    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and 0 <= degrees <= 360):
+    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and
+            0 <= degrees <= 360):
       raise Error('Invalid degrees value.')
     elif self is self.NORTH:
       return degrees > 348.75 or degrees <= 11.25
@@ -213,15 +214,8 @@ class WeatherType(Enum):
       num = 260
     elif num == 263 or num == 353:
       num = 176
-    elif (
-      num == 185
-      or num == 281
-      or num == 284
-      or num == 311
-      or num == 314
-      or num == 317
-      or num == 350
-    ):
+    elif (num == 185 or num == 281 or num == 284 or num == 311 or num == 314 or
+          num == 317 or num == 350):
       num = 377
     elif num == 179 or num == 362 or num == 365:
       num = 374

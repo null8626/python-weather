@@ -24,17 +24,10 @@ SOFTWARE.
 
 from datetime import datetime, date, time, timedelta, timezone
 from typing import Generator, Optional, Tuple
+from enum import auto
 
-from .constants import (
-  VALID_FORMATS,
-  is_invalid_format,
-  TIME_REGEX,
-  LOCAL_DATETIME_REGEX,
-  UTC_DATETIME_REGEX,
-  DATE_REGEX,
-  LATLON_REGEX,
-  METRIC
-)
+from .constants import (VALID_FORMATS, TIME_REGEX, LOCAL_DATETIME_REGEX,
+                        UTC_DATETIME_REGEX, DATE_REGEX, LATLON_REGEX, METRIC)
 
 from .errors import Error
 from .enums import WeatherType, MoonPhase, WindDirection
@@ -217,7 +210,7 @@ class ModifiableFormat:
     return self.__format
 
   @format.setter
-  def format(self, to: str):
+  def format(self, to: auto):
     """
     Sets the format. This must be either METRIC or IMPERIAL.
 
@@ -228,8 +221,8 @@ class ModifiableFormat:
       Error: Invalid format type.
     """
 
-    if is_invalid_format(to):
-      raise Error(f'Expected {to!r} to be in {VALID_FORMATS!r}')
+    if to not in VALID_FORMATS:
+      raise Error('Invalid format specified!')
 
     self.__format = to
 
@@ -346,7 +339,8 @@ class BaseForecast(ModifiableFormat):
       WeatherType: The forecast type.
     """
 
-    return WeatherType._new(int(self.__inner['weatherCode']))  # inspired by Rust <3
+    return WeatherType._new(int(
+        self.__inner['weatherCode']))  # inspired by Rust <3
 
 class CurrentForecast(BaseForecast):
   __slots__ = ()
@@ -370,18 +364,16 @@ class CurrentForecast(BaseForecast):
     """
 
     h_local, m_local, ampm_local = LOCAL_DATETIME_REGEX.findall(
-      self._BaseForecast__inner['localObsDateTime']
-    )[0]
+        self._BaseForecast__inner['localObsDateTime'])[0]
     h_utc, m_utc, ampm_utc = UTC_DATETIME_REGEX.findall(
-      self._BaseForecast__inner['observation_time']
-    )[0]
+        self._BaseForecast__inner['observation_time'])[0]
 
     h_local_24h = _convert_to_24h(h_local, ampm_local)
     h_utc_24h = _convert_to_24h(h_utc, ampm_utc)
 
     return timezone(
-      timedelta(hours=h_local_24h - h_utc_24h, minutes=int(m_local) - int(m_utc))
-    )
+        timedelta(hours=h_local_24h - h_utc_24h,
+                  minutes=int(m_local) - int(m_utc)))
 
   @property
   def local_time(self) -> datetime:
@@ -390,9 +382,9 @@ class CurrentForecast(BaseForecast):
       datetime: The local time.
     """
 
-    return datetime.strptime(
-      self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
-    ).astimezone(self.local_timezone)
+    return datetime.strptime(self._BaseForecast__inner['localObsDateTime'],
+                             '%Y-%m-%d %I:%M %p').astimezone(
+                                 self.local_timezone)
 
   @property
   def utc_time(self) -> datetime:
@@ -404,6 +396,7 @@ class CurrentForecast(BaseForecast):
     return self.local_time.astimezone(timezone.utc)
 
 class HourlyForecast(BaseForecast):
+
   def __init__(self, json: dict, format: str):
     # for inheritance purposes
     json['temp_C'] = json.pop('tempC')
@@ -427,8 +420,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-      self._BaseForecast__inner[f'DewPoint{self._ModifiableFormat__format}']
-    )
+        self._BaseForecast__inner[f'DewPoint{self._ModifiableFormat__format}'])
 
   @property
   def heat_index(self) -> int:
@@ -438,8 +430,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-      self._BaseForecast__inner[f'HeatIndex{self._ModifiableFormat__format}']
-    )
+        self._BaseForecast__inner[f'HeatIndex{self._ModifiableFormat__format}'])
 
   @property
   def wind_chill(self) -> int:
@@ -449,8 +440,7 @@ class HourlyForecast(BaseForecast):
     """
 
     return int(
-      self._BaseForecast__inner[f'WindChill{self._ModifiableFormat__format}']
-    )
+        self._BaseForecast__inner[f'WindChill{self._ModifiableFormat__format}'])
 
   @property
   def wind_gust(self) -> int:
@@ -672,10 +662,8 @@ class DailyForecast(ModifiableFormat):
       Generator[HourlyForecast, None, None]: The hourly forecast for this day.
     """
 
-    return (
-      HourlyForecast(elem, self._ModifiableFormat__format)
-      for elem in self.__inner['hourly']
-    )
+    return (HourlyForecast(elem, self._ModifiableFormat__format)
+            for elem in self.__inner['hourly'])
 
 class Weather(ModifiableFormat):
   __slots__ = ('__inner',)
@@ -700,9 +688,8 @@ class Weather(ModifiableFormat):
       CurrentForecast: The forecast for the current day.
     """
 
-    return CurrentForecast(
-      self.__inner['current_condition'][0], self._ModifiableFormat__format
-    )
+    return CurrentForecast(self.__inner['current_condition'][0],
+                           self._ModifiableFormat__format)
 
   @property
   def nearest_area(self) -> NearestArea:
@@ -720,10 +707,8 @@ class Weather(ModifiableFormat):
       Generator[DailyForecast, None, None]: Daily forecasts.
     """
 
-    return (
-      DailyForecast(elem, self._ModifiableFormat__format)
-      for elem in self.__inner['weather']
-    )
+    return (DailyForecast(elem, self._ModifiableFormat__format)
+            for elem in self.__inner['weather'])
 
   @property
   def location(self) -> Optional[Tuple[float, float]]:
@@ -733,7 +718,8 @@ class Weather(ModifiableFormat):
     """
 
     try:
-      for req in filter(lambda x: x['type'] == 'LatLon', self.__inner['request']):
+      for req in filter(lambda x: x['type'] == 'LatLon',
+                        self.__inner['request']):
         lat, lon = LATLON_REGEX.findall(req['query'])[0]
 
         return float(lat), float(lon)
