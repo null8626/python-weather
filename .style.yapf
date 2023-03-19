@@ -3,6 +3,8 @@
 align_closing_bracket_with_visual_indent = True
 based_on_style = google
 blank_lines_around_top_level_definition = 1
+coalesce_brackets = True
 continuation_indent_width = 2
+dedent_closing_brackets = True
 indent_blank_lines = True
 indent_width = 2
