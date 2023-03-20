@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 from .errors import Error
-from typing import Union
+from typing import Union, Self
 from enum import Enum, auto
 
 class UltraViolet(Enum):
@@ -35,7 +35,7 @@ class UltraViolet(Enum):
   VERY_HIGH = auto()
   EXTREME = auto()
   
-  def _missing_(self, index: int):
+  def _missing_(self, index: int) -> Self:
     if index <= 2:
       return self.LOW
     elif index <= 5:
@@ -238,7 +238,7 @@ class Kind(Enum):
   THUNDERY_SNOW_SHOWERS = 392
   HEAVY_SNOW_SHOWERS = 395
   
-  def _missing_(self, num: int):
+  def _missing_(self, num: int) -> Self:
     # handle dups
     
     if num == 248 or num == 143:
