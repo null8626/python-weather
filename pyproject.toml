@@ -8,7 +8,7 @@ description = "A free and asynchronous weather API wrapper made in Python, for P
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "null8626" }]
-keywords = ["weather", "api", "wrapper"]
+keywords = ["weather", "wrapper"]
 dependencies = ["aiohttp==3.8.4"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
