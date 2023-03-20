@@ -139,7 +139,7 @@ class Client(CustomizableBase):
           elif delay == 0:
             delay = 0.5
   
-  async def close(self) -> None:
+  async def close(self):
     """|coro|
     Closes the :class:`Client` object. Nothing will happen if it's already closed.
     """
