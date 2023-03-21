@@ -35,6 +35,7 @@ class UltraViolet(Enum):
   VERY_HIGH = auto()
   EXTREME = auto()
   
+  @classmethod
   def _missing_(self, index: int) -> Self:
     if index <= 2:
       return self.LOW
@@ -47,6 +48,7 @@ class UltraViolet(Enum):
     else:
       return self.EXTREME
   
+  @classmethod
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -72,11 +74,13 @@ class Direction(Enum):
   NORTHWEST = "NW"
   NORTH_NORTHWEST = "NNW"
   
+  @classmethod
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
     return self.name.replace('_', ' ').title()
   
+  @classmethod
   def __contains__(self, degrees: Union[float, int]) -> bool:
     """
     Checks if the degrees value is a part of this wind direction.
@@ -209,6 +213,7 @@ class Locale(Enum):
   WELSH = 'cy'
   ZULU = 'zu'
   
+  @classmethod
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -238,6 +243,7 @@ class Kind(Enum):
   THUNDERY_SNOW_SHOWERS = 392
   HEAVY_SNOW_SHOWERS = 395
   
+  @classmethod
   def _missing_(self, num: int) -> Self:
     # handle dups
     
@@ -269,6 +275,7 @@ class Kind(Enum):
     elif num == 200:
       return self.THUNDERY_SHOWERS
   
+  @classmethod
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -327,6 +334,7 @@ class Phase(Enum):
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
   
+  @classmethod
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     

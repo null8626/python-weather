@@ -50,9 +50,11 @@ class Area:
   
   __slots__ = ('__inner',)
   
+  @classmethod
   def __init__(self, json: dict):
     self.__inner = json
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
@@ -93,9 +95,11 @@ class Astronomy:
   
   __slots__ = ('__inner',)
   
+  @classmethod
   def __init__(self, json: dict):
     self.__inner = json
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
@@ -166,6 +170,7 @@ class CurrentForecast(BaseForecast):
   
   __slots__ = ()
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of said object."""
     
@@ -208,6 +213,7 @@ class CurrentForecast(BaseForecast):
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast for a specific hour."""
   
+  @classmethod
   def __init__(self, json: dict, unit: auto, locale: Locale):
     # for inheritance purposes
     json['temp_C'] = json.pop('tempC')
@@ -215,6 +221,7 @@ class HourlyForecast(BaseForecast):
     
     super().__init__(json, unit, locale)
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
@@ -334,11 +341,13 @@ class HourlyForecast(BaseForecast):
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
   
+  @classmethod
   def __init__(self, json: dict, unit: auto, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
@@ -418,11 +427,13 @@ class Weather(CustomizableBase):
   
   __slots__ = ('__inner',)
   
+  @classmethod
   def __init__(self, json: dict, unit: auto, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
