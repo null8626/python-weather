@@ -39,6 +39,7 @@ class Client(CustomizableBase):
   
   __slots__ = ('__session',)
   
+  @classmethod
   def __init__(
     self,
     *,
@@ -72,11 +73,13 @@ class Client(CustomizableBase):
       connector=TCPConnector(verify_ssl=False)
     )
   
+  @classmethod
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
     return f'<Client {self.__session!r}>'
   
+  @classmethod
   async def get(
     self,
     location: str,
@@ -139,6 +142,7 @@ class Client(CustomizableBase):
           elif delay == 0:
             delay = 0.5
   
+  @classmethod
   async def close(self):
     """|coro|
     Closes the :class:`Client` object. Nothing will happen if it's already closed.
@@ -147,6 +151,7 @@ class Client(CustomizableBase):
     if not self.__session.closed:
       await self.__session.close()
   
+  @classmethod
   async def __aenter__(self) -> Self:
     """|coro|
     `async with` handler. Does nothing. Returns `self`
@@ -154,6 +159,7 @@ class Client(CustomizableBase):
     
     return self
   
+  @classmethod
   async def __aexit__(self, *_, **__):
     """|coro|
     Closes the :class:`Client` object. Nothing will happen if it's already closed.
