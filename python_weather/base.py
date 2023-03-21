@@ -30,7 +30,6 @@ from .constants import METRIC, VALID_FORMATS
 class CustomizableBase:
   __slots__ = ('__unit', '__locale')
   
-  @classmethod
   def __init__(self, unit: auto, locale: Locale):
     self.unit = unit
     self.locale = locale
@@ -92,7 +91,6 @@ class CustomizableBase:
 class BaseForecast(CustomizableBase):
   __slots__ = ('__inner',)
   
-  @classmethod
   def __init__(self, json: dict, unit: auto, locale: Locale):
     self.__inner = json
     
@@ -176,7 +174,10 @@ class BaseForecast(CustomizableBase):
   def description(self) -> str:
     """:class:`str`: The description regarding the forecast. This can be localized in different languages depending on the :term:`localization`/translation used."""
     
-    return self.__inner['weatherDesc'][0]['value'] if self._CustomizableBase__locale == Locale.ENGLISH else self.__inner[f'lang_{self._CustomizableBase__locale.value}'][0]['value']
+    return self.__inner['weatherDesc'][0][
+      'value'
+    ] if self._CustomizableBase__locale == Locale.ENGLISH else self.__inner[
+      f'lang_{self._CustomizableBase__locale.value}'][0]['value']
   
   @property
   def kind(self) -> Kind:
