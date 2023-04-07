@@ -217,7 +217,7 @@ class Locale(Enum):
     return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
 class Kind(Enum):
-  """Represents a weather kind."""
+  """Represents a weather forecast kind."""
   
   SUNNY = 113
   PARTLY_CLOUDY = 116
