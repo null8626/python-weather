@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 from datetime import datetime, date, time, timedelta, timezone
-from typing import Generator, Optional, Tuple
+from typing import Iterable, Optional, Tuple
 from enum import auto
 
 from .constants import (
@@ -404,8 +404,8 @@ class DailyForecast(CustomizableBase):
     return UltraViolet(int(self.__inner['uvIndex']))
   
   @property
-  def hourly(self) -> Generator[HourlyForecast, None, None]:
-    """Generator[:class:`HourlyForecast`, ``None``, ``None``]: The hourly forecasts for this day."""
+  def hourly(self) -> Iterable[HourlyForecast]:
+    """Iterable[:class:`HourlyForecast`]: The hourly forecasts for this day."""
     
     return (
       HourlyForecast(
@@ -444,8 +444,8 @@ class Weather(CustomizableBase):
     return Area(self.__inner['nearest_area'][0])
   
   @property
-  def forecasts(self) -> Generator[DailyForecast, None, None]:
-    """Generator[:class:`DailyForecast`, ``None``, ``None``]: Daily forecasts for the current weather forecast."""
+  def forecasts(self) -> Iterable[DailyForecast]:
+    """Iterable[:class:`DailyForecast`]: Daily forecasts for the current weather forecast."""
     
     return (
       DailyForecast(
