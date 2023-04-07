@@ -28,7 +28,9 @@ jobs:
           python3 -m pip install toml
           python3 -m pip install yapf
       - name: Pretty files
-        run: python3 -m yapf -i -r python_weather
+        run: |
+          python3 -m yapf -i -r python_weather
+          mv -f build/lib/python_weather/* python-weather/
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
