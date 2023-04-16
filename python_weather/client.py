@@ -75,7 +75,7 @@ class Client(CustomizableBase):
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<Client {self.__session!r}>'
+    return f'<{self.__class__.__name__} {self.__session!r}>'
   
   async def get(
     self,

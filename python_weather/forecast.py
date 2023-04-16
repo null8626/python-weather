@@ -56,7 +56,7 @@ class Area:
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<Area name={self.name!r} country={self.country!r} region={self.region!r}>'
+    return f'<{self.__class__.__name__} name={self.name!r} country={self.country!r} region={self.region!r}>'
   
   @property
   def latitude(self) -> float:
@@ -99,7 +99,7 @@ class Astronomy:
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<Astronomy moon_phase="{self.moon_phase!r}" sun_rise={self.sun_rise!r} sun_set={self.sun_set!r}>'
+    return f'<{self.__class__.__name__} moon_phase="{self.moon_phase!r}" sun_rise={self.sun_rise!r} sun_set={self.sun_set!r}>'
   
   @property
   def moon_illumination(self) -> int:
@@ -169,7 +169,7 @@ class CurrentForecast(BaseForecast):
   def __repr__(self) -> str:
     """:class:`str`: The string representation of said object."""
     
-    return f'<CurrentForecast temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
+    return f'<{self.__class__.__name__} temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
   
   @property
   def local_timezone(self) -> timezone:
@@ -218,7 +218,7 @@ class HourlyForecast(BaseForecast):
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<HourlyForecast time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
+    return f'<{self.__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
   
   @property
   def dew_point(self) -> int:
@@ -342,7 +342,7 @@ class DailyForecast(CustomizableBase):
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<DailyForecast date={self.date!r} astronomy={self.astronomy!r} temperature={self.temperature!r}>'
+    return f'<{self.__class__.__name__} date={self.date!r} astronomy={self.astronomy!r} temperature={self.temperature!r}>'
   
   @property
   def astronomy(self) -> Astronomy:
@@ -426,7 +426,7 @@ class Weather(CustomizableBase):
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
-    return f'<Weather current={self.current!r} location={self.location!r}>'
+    return f'<{self.__class__.__name__} current={self.current!r} location={self.location!r}>'
   
   @property
   def current(self) -> CurrentForecast:
