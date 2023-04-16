@@ -208,6 +208,8 @@ class CurrentForecast(BaseForecast):
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast for a specific hour."""
   
+  __slots__ = ()
+  
   def __init__(self, json: dict, unit: auto, locale: Locale):
     # for inheritance purposes
     json['temp_C'] = json.pop('tempC')
