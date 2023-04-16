@@ -29,6 +29,8 @@ from enum import Enum, auto
 class UltraViolet(Enum):
   """Represents a :term:`UV index`."""
   
+  __slots__ = ()
+  
   LOW = auto()
   MODERATE = auto()
   HIGH = auto()
@@ -55,6 +57,8 @@ class UltraViolet(Enum):
 
 class Direction(Enum):
   """Represents a wind direction."""
+  
+  __slots__ = ()
   
   NORTH = "N"
   NORTH_NORTHEAST = "NNE"
@@ -137,6 +141,8 @@ class Direction(Enum):
 class Locale(Enum):
   """Represents the list of supported :term:`locales`/languages by this library."""
   
+  __slots__ = ()
+  
   AFRIKAANS = 'af'
   AMHARIC = 'am'
   ARABIC = 'ar'
@@ -218,6 +224,8 @@ class Locale(Enum):
 
 class Kind(Enum):
   """Represents a weather forecast kind."""
+  
+  __slots__ = ()
   
   SUNNY = 113
   PARTLY_CLOUDY = 116
@@ -325,6 +333,10 @@ class Kind(Enum):
       return '✨'
 
 class Phase(Enum):
+  """Represents a moon phase."""
+
+  __slots__ = ()
+
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
   FIRST_QUARTER = 'First Quarter'
