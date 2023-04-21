@@ -22,7 +22,7 @@ def test_properties(obj, indent_level = 0, generator_name = None, index = 0):
           
           continue
         
-        stdout.write(" " * indent_level)
+        stdout.write(' ' * indent_level)
         
         if generator_name is not None:
           stdout.write(f'{generator_name}[{index}]: ')
