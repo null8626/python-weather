@@ -287,10 +287,10 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner['chanceofrain'])
   
   @property
-  def chance_of_rewdry(self) -> int:
-    """:class:`int`: Chances of a rew dry in percent."""
+  def chance_of_remdry(self) -> int:
+    """:class:`int`: Chances of a rem dry in percent."""
     
-    return int(self._BaseForecast__inner['chanceofrewdry'])
+    return int(self._BaseForecast__inner['chanceofremdry'])
   
   @property
   def chance_of_snow(self) -> int:

@@ -10,7 +10,7 @@
 [blazingly-fast-image]: https://img.shields.io/badge/speed-BLAZINGLY%20FAST!!!%20%F0%9F%94%A5%F0%9F%9A%80%F0%9F%92%AA%F0%9F%98%8E-brightgreen.svg?style=flat-square
 [blazingly-fast-url]: https://twitter.com/acdlite/status/974390255393505280
 
-A free and asynchronous weather API wrapper made in Python, for Python.
+A free and asynchronous weather Python API wrapper made in Python, for Python.
 
 ## Example
 
