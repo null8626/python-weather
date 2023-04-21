@@ -31,4 +31,4 @@ from .constants import METRIC, IMPERIAL
 from .enums import Locale
 
 __version__ = '0.5.0'
-__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'Locale')
+__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'Locale'  )
