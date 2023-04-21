@@ -278,7 +278,7 @@ class Kind(Enum):
       return self.HEAVY_SNOW_SHOWERS
     elif num == 200:
       return self.THUNDERY_SHOWERS
-
+  
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this object."""
     
@@ -334,9 +334,9 @@ class Kind(Enum):
 
 class Phase(Enum):
   """Represents a moon phase."""
-
+  
   __slots__ = ()
-
+  
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
   FIRST_QUARTER = 'First Quarter'
