@@ -5,48 +5,56 @@ import traceback
 import asyncio
 import os
 
-INDENTATION_LEVEL = 2
+INDENTATION = 2
 
-def test_properties(obj, indent_level = 0, generator_name = None, index = 0):
+def _test_properties(obj, indent_level=0):
+  exists = False
+  
   for name in dir(obj.__class__):
     attr = getattr(obj.__class__, name)
     
     if isinstance(attr, property) and attr.fget:
+      if not exists:
+        print()
+        exists = True
+      
+      stdout.write(f'{" " * indent_level}{obj.__class__.__name__}#{name}')
+      
       data = attr.fget(obj)
       
-      try:
-        if isgenerator(data):
-          for i, each in enumerate(data):
-            if not test_properties(each, indent_level + INDENTATION_LEVEL, f'{obj.__class__.__name__}#{name}', i):
-              return False
+      if isgenerator(data):
+        stdout.write('[0] -> ')
+        
+        for i, each in enumerate(data):
+          if i > 0:
+            stdout.write(
+              f'{" " * indent_level}{obj.__class__.__name__}#{name}[{i}] -> '
+            )
           
-          continue
+          _test_properties(each, indent_level + INDENTATION)
         
-        stdout.write(' ' * indent_level)
-        
-        if generator_name is not None:
-          stdout.write(f'{generator_name}[{index}]: ')
-        
-        stdout.write(f'{obj.__class__.__name__}#{name} -> ')
-        
-        if getattr(data, '__module__', '').startswith('python_weather'):
-          stdout.write('\n')
-        
-          if not test_properties(data, indent_level + INDENTATION_LEVEL):
-            return False
-        else:
-          print(repr(data))
-      except:
-        print(f'error: cannot retrieve {obj.__class__.__name__}#{name}:\n\n{traceback.format_exc()}')
-        
-        return False
+        continue
+      
+      stdout.write(' -> ')
+      
+      if getattr(data, '__module__', '').startswith('python_weather'):
+        _test_properties(data, indent_level + INDENTATION)
+      else:
+        print(repr(data))
   
-  return True
+  if not exists:
+    print(repr(obj))
+
+def test(obj):
+  try:
+    _test_properties(obj)
+  except:
+    print(f'\n\n{traceback.format_exc()}')
+    exit(1)
 
 async def getweather():
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
-    if not test_properties(await client.get('New York')):
-      exit(1)
+    test(await client.get('New York'))
 
 if __name__ == '__main__':
   if os.name == 'nt':

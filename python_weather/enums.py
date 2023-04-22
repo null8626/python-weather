@@ -279,11 +279,6 @@ class Kind(Enum):
     elif num == 200:
       return self.THUNDERY_SHOWERS
   
-  def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
-    
-    return f'<{self.__class__.__name__}.{self.name} emoji={self.emoji!r}>'
-  
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -345,11 +340,6 @@ class Phase(Enum):
   WANING_GIBBOUS = 'Waning Gibbous'
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
-  
-  def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
-    
-    return f'<{self.__class__.__name__}.{self.name} emoji={self.emoji!r}>'
   
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
