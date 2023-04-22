@@ -25,7 +25,7 @@ SOFTWARE.
 from enum import Enum, auto
 
 from .enums import Direction, Kind, Locale, UltraViolet
-from .constants import METRIC, VALID_FORMATS
+from .constants import METRIC, VALID_UNITS
 
 class CustomizableBase:
   __slots__ = ('__unit', '__locale')
@@ -56,7 +56,7 @@ class CustomizableBase:
       If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
     """
     
-    if to not in VALID_FORMATS:
+    if to not in VALID_UNITS:
       raise Error('Invalid measuring unit specified!')
     
     self.__unit = to
