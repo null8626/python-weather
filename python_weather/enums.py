@@ -329,9 +329,9 @@ class Kind(Enum):
 
 class Phase(Enum):
   """Represents a moon phase."""
-
+  
   __slots__ = ()
-
+  
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
   FIRST_QUARTER = 'First Quarter'
