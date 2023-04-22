@@ -27,7 +27,7 @@ from typing import Iterable, Optional, Tuple
 from enum import auto
 
 from .constants import (
-  VALID_FORMATS, TIME_REGEX, LOCAL_DATETIME_REGEX, UTC_DATETIME_REGEX,
+  VALID_UNITS, TIME_REGEX, LOCAL_DATETIME_REGEX, UTC_DATETIME_REGEX,
   DATE_REGEX, LATLON_REGEX, METRIC
 )
 
