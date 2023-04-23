@@ -280,12 +280,10 @@ class HourlyForecast(BaseForecast):
   def local_time(self) -> time:
     """:class:`time`: The local time in hours and minutes."""
     
-    try:
-      t = self._BaseForecast__inner['time']
-      
-      return time(int(t[:-2]), int(t[2:]))
-    except ValueError:
+    if not len(self._BaseForecast__inner['time']):
       return time()
+    else:
+      return datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time()
 
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
