@@ -22,28 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from datetime import datetime, date, time, timedelta, timezone
 from typing import Iterable, Optional, Tuple
+from datetime import datetime, date, time
 from enum import auto
 
-from .constants import (
-  VALID_UNITS, TIME_REGEX, LOCAL_DATETIME_REGEX, UTC_DATETIME_REGEX, DATE_REGEX,
-  LATLON_REGEX, METRIC
-)
-
-from .enums import Kind, Phase, Direction, Locale, UltraViolet
+from .enums import Kind, Phase, WindDirection, Locale, UltraViolet
+from .constants import VALID_UNITS, LATLON_REGEX, METRIC
 from .base import BaseForecast, CustomizableBase
 from .errors import Error
-
-def _convert_to_24h(hour, ampm):
-  res = (0 if ampm == 'A' else 12) + int(hour)
-  
-  if res == 24:
-    return 12
-  elif res == 0 or res == 12:
-    return 0
-  else:
-    return res
 
 class Area:
   """Represents the location of the weather forecast."""
@@ -109,62 +95,50 @@ class Astronomy:
   
   @property
   def moon_illumination(self) -> int:
-    """:class:`int`: The illumination value of the moon."""
+    """:class:`int`: The percentage of the moon illuminated."""
     
     return int(self.__inner['moon_illumination'])
   
   @property
   def moon_phase(self) -> Phase:
-    """:class:`Phase`: The moon phase."""
+    """:class:`Phase`: The moon's phase."""
     
     return Phase(self.__inner['moon_phase'])
   
   @property
   def moon_rise(self) -> Optional[time]:
-    """Optional[:class:`time`]: The time when the moon rises. This can be ``None``."""
+    """Optional[:class:`time`]: The local time when the moon rises. This can be ``None``."""
     
     try:
-      h12, m, ampm = TIME_REGEX.findall(self.__inner['moonrise'])[0]
-      h24 = _convert_to_24h(h12, ampm)
-      
-      return time(h24, int(m))
-    except:
+      return datetime.strptime(self.__inner['moonrise'], '%I:%M %p').time()
+    except ValueError:
       ...
   
   @property
-  def moon_set(self) -> Optional[time]:
-    """Optional[:class:`time`]: The time when the moon sets. This can be ``None``."""
+  def moon_set(self) -> time:
+    """Optional[:class:`time`]: The local time when the moon sets. This can be ``None``."""
     
     try:
-      h12, m, ampm = TIME_REGEX.findall(self.__inner['moonset'])[0]
-      h24 = _convert_to_24h(h12, ampm)
-      
-      return time(h24, int(m))
-    except:
+      return datetime.strptime(self.__inner['moonset'], '%I:%M %p').time()
+    except ValueError:
       ...
   
   @property
   def sun_rise(self) -> Optional[time]:
-    """Optional[:class:`time`]: The time when the sun rises. This can be ``None``."""
+    """Optional[:class:`time`]:  The local time when the sun rises. This can be ``None``."""
     
     try:
-      h12, m, ampm = TIME_REGEX.findall(self.__inner['sunrise'])[0]
-      h24 = _convert_to_24h(h12, ampm)
-      
-      return time(h24, int(m))
-    except:
+      return datetime.strptime(self.__inner['sunrise'], '%I:%M %p').time()
+    except ValueError:
       ...
   
   @property
   def sun_set(self) -> Optional[time]:
-    """Optional[:class:`time`]: The time when the sun sets. This can be ``None``."""
+    """Optional[:class:`time`]: The local time when the sun sets. This can be ``None``."""
     
     try:
-      h12, m, ampm = TIME_REGEX.findall(self.__inner['sunset'])[0]
-      h24 = _convert_to_24h(h12, ampm)
-      
-      return time(h24, int(m))
-    except:
+      return datetime.strptime(self.__inner['sunset'], '%I:%M %p').time()
+    except ValueError:
       ...
 
 class CurrentForecast(BaseForecast):
@@ -336,8 +310,7 @@ class DailyForecast(CustomizableBase):
   def local_date(self) -> date:
     """:class:`date`: The local date of this forecast."""
     
-    h, m, d = DATE_REGEX.findall(self.__inner['date'])[0]
-    return date(int(h), int(m), int(d))
+    return datetime.strptime(self.__inner['date'], '%Y-%m-%d').date()
   
   @property
   def lowest_temperature(self) -> int:
@@ -368,13 +341,13 @@ class DailyForecast(CustomizableBase):
   
   @property
   def sun_shines(self) -> float:
-    """:class:`float`: The amount of hours the sun shines."""
+    """:class:`float`: Hours of sunlight."""
     
     return float(self.__inner['sunHour'])
   
   @property
   def snow_width(self) -> float:
-    """:class:`float`: Total snow width in either Centimeters or Inches."""
+    """:class:`float`: Total snowfall in either Centimeters or Inches."""
     
     width = float(self.__inner['totalSnow_cm'])
     return width if self._CustomizableBase__unit == METRIC else width / 2.54

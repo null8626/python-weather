@@ -24,7 +24,7 @@ SOFTWARE.
 
 from enum import Enum, auto
 
-from .enums import Direction, Kind, Locale, UltraViolet
+from .enums import WindDirection, Kind, Locale, UltraViolet
 from .constants import METRIC, VALID_UNITS
 
 class CustomizableBase:
@@ -165,10 +165,12 @@ class BaseForecast(CustomizableBase):
     )
   
   @property
-  def wind_direction(self) -> Direction:
-    """:class:`Direction`: The wind direction."""
+  def wind_direction(self) -> WindDirection:
+    """:class:`WindDirection`: The wind direction."""
     
-    return Direction(self.__inner['winddir16Point'])
+    return WindDirection._new(
+      self.__inner['winddir16Point'], int(self.__inner['winddirDegree'])
+    )
   
   @property
   def description(self) -> str:

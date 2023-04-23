@@ -50,15 +50,20 @@ class UltraViolet(Enum):
     else:
       return self.EXTREME
   
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'{self.__class__.__name__}.{self.name}'
+  
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
     return self.name.replace('_', ' ').title()
 
-class Direction(Enum):
+class WindDirection(Enum):
   """Represents a wind direction."""
   
-  __slots__ = ()
+  __slots__ = ('__degrees',)
   
   NORTH = "N"
   NORTH_NORTHEAST = "NNE"
@@ -76,6 +81,17 @@ class Direction(Enum):
   WEST_NORTHWEST = "WNW"
   NORTHWEST = "NW"
   NORTH_NORTHWEST = "NNW"
+  
+  def _new(value: str, degrees: float) -> Self:
+    enum = WindDirection(value)
+    enum.__degrees = degrees
+    
+    return enum
+  
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'<{self.__class__.__name__}.{self.name} degrees={self.__degrees!r}>'
   
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
@@ -137,6 +153,12 @@ class Direction(Enum):
       return 303.75 < degrees <= 326.25
     else:
       return 326.25 < degrees <= 348.75
+  
+  @property
+  def degrees(self) -> int:
+    """:class:`int`: The wind direction's value in degrees."""
+    
+    return self.__degrees
 
 class Locale(Enum):
   """Represents the list of supported :term:`locales`/languages by this library."""
@@ -216,6 +238,11 @@ class Locale(Enum):
   WELSH = 'cy'
   ZULU = 'zu'
   
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'{self.__class__.__name__}.{self.name}'
+  
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
     
@@ -272,6 +299,11 @@ class Kind(Enum):
       return self.LIGHT_SNOW_SHOWERS
     elif value == 371 or value == 395:
       return self.HEAVY_SNOW_SHOWERS
+  
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'{self.__class__.__name__}.{self.name}'
   
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
@@ -334,6 +366,11 @@ class Phase(Enum):
   WANING_GIBBOUS = 'Waning Gibbous'
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
+  
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'{self.__class__.__name__}.{self.name}'
   
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
