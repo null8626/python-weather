@@ -17,6 +17,7 @@ A free and asynchronous weather Python API wrapper made in Python, for Python.
 ```py
 # import the module
 import python_weather
+
 import asyncio
 import os
 
