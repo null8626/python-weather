@@ -63,19 +63,19 @@ class CustomizableBase:
   
   @property
   def locale(self) -> Locale:
-    """:class:`Locale`: The :term:`localization`/translation/language used to display information in this object."""
+    """:class:`Locale`: The :term:`localization` used to display information in this object."""
     
     return self.__locale
   
   @locale.setter
   def locale(self, to: Locale):
     """
-    Sets the default :term:`localization`/translation/language used to display information in this object.
+    Sets the default :term:`localization` used to display information in this object.
     
     Parameters
     ----------
     to: :class:`Locale`
-      The new :term:`localization`/translation/language to be used to display information in this object.
+      The new :term:`localization` to be used to display information in this object.
 
     Raises
     ------
@@ -174,7 +174,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def description(self) -> str:
-    """:class:`str`: The description regarding the forecast. This can be localized in different languages depending on the :term:`localization`/translation used."""
+    """:class:`str`: The description regarding the forecast. This can be localized in different languages depending on the :term:`localization` used."""
     
     return self.__inner['weatherDesc'][0][
       'value'

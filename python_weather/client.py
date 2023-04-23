@@ -52,7 +52,7 @@ class Client(CustomizableBase):
     Parameters
     ----------
     unit: Optional[:class:`auto`]
-      Whether to use the metric or imperial/customary system (:attr:`IMPERIAL`). Defaults to :attr:`METRIC`.
+      Whether to use the :term:`metric` or :term:`imperial/customary system` (:attr:`IMPERIAL`). Defaults to :attr:`METRIC`.
     locale: Optional[:class:`Locale`]
       Whether to use a different :term:`locale`/language as the description for the returned weather events. Defaults to :attr:`Locale.ENGLISH`.
     session: Optional[:class:`ClientSession`]
@@ -92,7 +92,7 @@ class Client(CustomizableBase):
     location: :class:`str`
       The requested location name for said weather forecast.
     unit: Optional[:class:`auto`]
-      Overrides the metric or imperial/customary system (:attr:`IMPERIAL`) used by the :class:`Client` object. Defaults to ``None`` (uses the one from the :class:`Client`).
+      Overrides the :term:`metric` or :term:`imperial/customary system` (:attr:`IMPERIAL`) used by the :class:`Client` object. Defaults to ``None`` (uses the one from the :class:`Client`).
     locale: Optional[:class:`Locale`]
       Overrides the :term:`locale`/language used by the :class:`Client` object. Defaults to ``None`` (uses the one from the :class:`Client`).
     
