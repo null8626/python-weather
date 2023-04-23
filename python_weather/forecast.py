@@ -152,8 +152,8 @@ class CurrentForecast(BaseForecast):
     return f'<{self.__class__.__name__} temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
   
   @property
-  def local_time(self) -> datetime:
-    """:class:`datetime`: The local time of this weather forecast."""
+  def local_date(self) -> datetime:
+    """:class:`datetime`: The local date of this weather forecast."""
     
     return datetime.strptime(
       self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
@@ -280,7 +280,7 @@ class HourlyForecast(BaseForecast):
   def local_time(self) -> time:
     """:class:`time`: The local time in hours and minutes."""
     
-    if not len(self._BaseForecast__inner['time']):
+    if len(self._BaseForecast__inner['time']) < 3:
       return time()
     else:
       return datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time()
