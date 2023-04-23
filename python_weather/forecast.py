@@ -27,8 +27,8 @@ from typing import Iterable, Optional, Tuple
 from enum import auto
 
 from .constants import (
-  VALID_UNITS, TIME_REGEX, LOCAL_DATETIME_REGEX, UTC_DATETIME_REGEX,
-  DATE_REGEX, LATLON_REGEX, METRIC
+  VALID_UNITS, TIME_REGEX, LOCAL_DATETIME_REGEX, UTC_DATETIME_REGEX, DATE_REGEX,
+  LATLON_REGEX, METRIC
 )
 
 from .enums import Kind, Phase, Direction, Locale, UltraViolet
@@ -69,6 +69,12 @@ class Area:
     """:class:`float`: The :term:`longitude`."""
     
     return float(self.__inner['longitude'])
+  
+  @property
+  def population(self) -> int:
+    """:class:`float`: The location's population count."""
+    
+    return int(self.__inner['population'])
   
   @property
   def region(self) -> str:
@@ -162,7 +168,7 @@ class Astronomy:
       ...
 
 class CurrentForecast(BaseForecast):
-  """Represents a weather forecast for the current day."""
+  """Represents a weather forecast of the current day."""
   
   __slots__ = ()
   
@@ -172,41 +178,15 @@ class CurrentForecast(BaseForecast):
     return f'<{self.__class__.__name__} temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
   
   @property
-  def local_timezone(self) -> timezone:
-    """:class:`timezone`: The local timezone of this weather forecast."""
-    
-    h_local, m_local, ampm_local = LOCAL_DATETIME_REGEX.findall(
-      self._BaseForecast__inner['localObsDateTime']
-    )[0]
-    h_utc, m_utc, ampm_utc = UTC_DATETIME_REGEX.findall(
-      self._BaseForecast__inner['observation_time']
-    )[0]
-    
-    h_local_24h = _convert_to_24h(h_local, ampm_local)
-    h_utc_24h = _convert_to_24h(h_utc, ampm_utc)
-    
-    return timezone(
-      timedelta(
-        hours=h_local_24h - h_utc_24h, minutes=int(m_local) - int(m_utc)
-      )
-    )
-  
-  @property
   def local_time(self) -> datetime:
     """:class:`datetime`: The local time of this weather forecast."""
     
     return datetime.strptime(
       self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
-    ).astimezone(self.local_timezone)
-  
-  @property
-  def utc_time(self) -> datetime:
-    """:class:`datetime`: The local time of this weather forecast in :term:`UTC`/:term:`GMT`."""
-    
-    return self.local_time.astimezone(timezone.utc)
+    )
 
 class HourlyForecast(BaseForecast):
-  """Represents a weather forecast for a specific hour."""
+  """Represents a weather forecast of a specific hour."""
   
   __slots__ = ()
   
@@ -257,61 +237,61 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner[key])
   
   @property
-  def chance_of_fog(self) -> int:
+  def chances_of_fog(self) -> int:
     """:class:`int`: Chances of a fog in percent."""
     
     return int(self._BaseForecast__inner['chanceoffog'])
   
   @property
-  def chance_of_frost(self) -> int:
+  def chances_of_frost(self) -> int:
     """:class:`int`: Chances of a frost in percent."""
     
     return int(self._BaseForecast__inner['chanceoffrost'])
   
   @property
-  def chance_of_hightemp(self) -> int:
+  def chances_of_hightemp(self) -> int:
     """:class:`int`: Chances of a high temperature in percent."""
     
     return int(self._BaseForecast__inner['chanceofhightemp'])
   
   @property
-  def chance_of_overcast(self) -> int:
+  def chances_of_overcast(self) -> int:
     """:class:`int`: Chances of an overcast in percent."""
     
     return int(self._BaseForecast__inner['chanceofovercast'])
   
   @property
-  def chance_of_rain(self) -> int:
+  def chances_of_rain(self) -> int:
     """:class:`int`: Chances of a rain in percent."""
     
     return int(self._BaseForecast__inner['chanceofrain'])
   
   @property
-  def chance_of_remdry(self) -> int:
+  def chances_of_remdry(self) -> int:
     """:class:`int`: Chances of a rem dry in percent."""
     
     return int(self._BaseForecast__inner['chanceofremdry'])
   
   @property
-  def chance_of_snow(self) -> int:
+  def chances_of_snow(self) -> int:
     """:class:`int`: Chances of a snow in percent."""
     
     return int(self._BaseForecast__inner['chanceofsnow'])
   
   @property
-  def chance_of_sunshine(self) -> int:
+  def chances_of_sunshine(self) -> int:
     """:class:`int`: Chances of a sunshine in percent."""
     
     return int(self._BaseForecast__inner['chanceofsunshine'])
   
   @property
-  def chance_of_thunder(self) -> int:
+  def chances_of_thunder(self) -> int:
     """:class:`int`: Chances of a thunder in percent."""
     
     return int(self._BaseForecast__inner['chanceofthunder'])
   
   @property
-  def chance_of_windy(self) -> int:
+  def chances_of_windy(self) -> int:
     """:class:`int`: Chances of windy in percent."""
     
     return int(self._BaseForecast__inner['chanceofwindy'])
@@ -323,8 +303,8 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner['cloudcover'])
   
   @property
-  def time(self) -> time:
-    """:class:`time`: The time in hours and minutes."""
+  def local_time(self) -> time:
+    """:class:`time`: The local time in hours and minutes."""
     
     try:
       t = self._BaseForecast__inner['time']
@@ -353,8 +333,8 @@ class DailyForecast(CustomizableBase):
     return Astronomy(self.__inner['astronomy'][0])
   
   @property
-  def date(self) -> date:
-    """:class:`date`: The date for this forecast."""
+  def local_date(self) -> date:
+    """:class:`date`: The local date of this forecast."""
     
     h, m, d = DATE_REGEX.findall(self.__inner['date'])[0]
     return date(int(h), int(m), int(d))
@@ -407,7 +387,7 @@ class DailyForecast(CustomizableBase):
   
   @property
   def hourly(self) -> Iterable[HourlyForecast]:
-    """Iterable[:class:`HourlyForecast`]: The hourly forecasts for this day."""
+    """Iterable[:class:`HourlyForecast`]: The hourly forecasts of this day."""
     
     return (
       HourlyForecast(
@@ -432,7 +412,7 @@ class Weather(CustomizableBase):
   
   @property
   def current(self) -> CurrentForecast:
-    """:class:`CurrentForecast`: The forecast for the current day."""
+    """:class:`CurrentForecast`: The forecast of the current day."""
     
     return CurrentForecast(
       self.__inner['current_condition'][0], self._CustomizableBase__unit,
@@ -447,7 +427,7 @@ class Weather(CustomizableBase):
   
   @property
   def forecasts(self) -> Iterable[DailyForecast]:
-    """Iterable[:class:`DailyForecast`]: Daily forecasts for the current weather forecast."""
+    """Iterable[:class:`DailyForecast`]: Daily forecasts of the current weather forecast."""
     
     return (
       DailyForecast(
