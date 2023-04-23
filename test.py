@@ -7,8 +7,8 @@ import os
 
 INDENTATION = 2
 
-def _test_properties(obj, indent_level=0):
-  exists = False
+def _test_properties(obj, indent_level=0, in_recursion=False):
+  exists = not in_recursion
   
   for name in dir(obj.__class__):
     attr = getattr(obj.__class__, name)
@@ -31,14 +31,14 @@ def _test_properties(obj, indent_level=0):
               f'{" " * indent_level}{obj.__class__.__name__}#{name}[{i}] -> '
             )
           
-          _test_properties(each, indent_level + INDENTATION)
+          _test_properties(each, indent_level + INDENTATION, True)
         
         continue
       
       stdout.write(' -> ')
       
       if getattr(data, '__module__', '').startswith('python_weather'):
-        _test_properties(data, indent_level + INDENTATION)
+        _test_properties(data, indent_level + INDENTATION, True)
       else:
         print(repr(data))
   
@@ -49,7 +49,7 @@ def test(obj):
   try:
     _test_properties(obj)
   except:
-    print(f'\n\n{traceback.format_exc()}')
+    print(f'\n\n{traceback.format_exc().rstrip()}')
     exit(1)
 
 async def getweather():

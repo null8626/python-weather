@@ -233,51 +233,45 @@ class Kind(Enum):
   VERY_CLOUDY = 122
   FOG = 143
   LIGHT_SHOWERS = 176
-  MIST = 260
-  LIGHT_RAIN = 296
-  LIGHT_SNOW = 320
-  HEAVY_SNOW = 338
-  HEAVY_SHOWERS = 356
-  HEAVY_RAIN = 359
-  LIGHT_SNOW_SHOWERS = 368
-  LIGHT_SLEET_SHOWERS = 374
-  LIGHT_SLEET = 377
-  THUNDERY_SHOWERS = 386
+  LIGHT_SLEET_SHOWERS = 179
+  LIGHT_SLEET = 182
+  THUNDERY_SHOWERS = 200
+  LIGHT_SNOW = 227
+  HEAVY_SNOW = 230
+  LIGHT_RAIN = 266
+  HEAVY_SHOWERS = 299
+  HEAVY_RAIN = 302
+  LIGHT_SNOW_SHOWERS = 323
+  HEAVY_SNOW_SHOWERS = 335
   THUNDERY_HEAVY_RAIN = 389
   THUNDERY_SNOW_SHOWERS = 392
-  HEAVY_SNOW_SHOWERS = 395
   
   @classmethod
-  def _missing_(self, num: int) -> Self:
-    # handle dups
-    
-    if num == 248 or num == 143:
-      return self.MIST
-    elif num == 263 or num == 353:
+  def _missing_(self, value: int) -> Self:
+    if value == 248 or value == 260:
+      return self.FOG
+    elif value == 263 or value == 353:
       return self.LIGHT_SHOWERS
-    elif (
-      num == 182 or num == 185 or num == 281 or num == 284 or num == 311 or
-      num == 314 or num == 317 or num == 350
-    ):
-      return self.LIGHT_SLEET
-    elif num == 179 or num == 362 or num == 365:
+    elif value == 362 or value == 365 or value == 374:
       return self.LIGHT_SLEET_SHOWERS
-    elif num == 266 or num == 293:
-      return self.LIGHT_RAIN
-    elif num == 302 or num == 358:
-      return self.HEAVY_RAIN
-    elif num == 299 or num == 305:
-      return self.HEAVY_SHOWERS
-    elif num == 323 or num == 326:
-      return self.LIGHT_SNOW_SHOWERS
-    elif num == 227:
-      return self.LIGHT_SNOW
-    elif num == 230 or num == 329 or num == 332:
-      return self.HEAVY_SNOW
-    elif num == 335 or num == 371:
-      return self.HEAVY_SNOW_SHOWERS
-    elif num == 200:
+    elif value == 185 or value == 281 or value == 284 or value == 311 or value == 314 or value == 317 or value == 350 or value == 377:
+      return self.LIGHT_SLEET
+    elif value == 386:
       return self.THUNDERY_SHOWERS
+    elif value == 320:
+      return self.LIGHT_SNOW
+    elif value == 329 or value == 332 or value == 338:
+      return self.HEAVY_SNOW
+    elif value == 293 or value == 296:
+      return self.LIGHT_RAIN
+    elif value == 305 or value == 356:
+      return self.HEAVY_SHOWERS
+    elif value == 308 or value == 359:
+      return self.HEAVY_RAIN
+    elif value == 326 or value == 368:
+      return self.LIGHT_SNOW_SHOWERS
+    elif value == 371 or value == 395:
+      return self.HEAVY_SNOW_SHOWERS
   
   def __str__(self) -> str:
     """:class:`str`: The stylized name for this :class:`Enum`."""
