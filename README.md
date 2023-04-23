@@ -12,11 +12,18 @@
 
 A free and asynchronous weather Python API wrapper made in Python, for Python.
 
+## Installation
+
+```console
+$ pip install python-weather
+```
+
 ## Example
 
 ```py
 # import the module
 import python_weather
+
 import asyncio
 import os
 
@@ -44,16 +51,4 @@ if __name__ == '__main__':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
   
   asyncio.run(getweather())
-```
-
-If you're running Debian, make sure to install [`aiohttp`](https://github.com/aio-libs/aiohttp) first:
-
-```shell
-sudo apt install python3-aiohttp
-```
-
-Otherwise install the ones in `pyproject.toml` by running:
-
-```shell
-python -m pip install .
 ```
