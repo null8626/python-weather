@@ -22,11 +22,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from .errors import Error
 from typing import Union, Self
 from enum import Enum, auto
 
-class UltraViolet(Enum):
+from .errors import Error
+
+class BasicEnum(Enum):
+  __slots__ = ()
+  
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this object."""
+    
+    return f'{self.__class__.__name__}.{self.name}'
+  
+  def __str__(self) -> str:
+    """:class:`str`: The stylized name for this :class:`Enum`."""
+    
+    return self.name.replace('_', ' ').title()
+
+class Ultraviolet(BasicEnum):
   """Represents a :term:`UV index`."""
   
   __slots__ = ()
@@ -49,16 +63,6 @@ class UltraViolet(Enum):
       return self.VERY_HIGH
     else:
       return self.EXTREME
-  
-  def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
-    
-    return f'{self.__class__.__name__}.{self.name}'
-  
-  def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
-    return self.name.replace('_', ' ').title()
 
 class WindDirection(Enum):
   """Represents a wind direction."""
@@ -249,7 +253,7 @@ class Locale(Enum):
     arr = self.name.title().split('_')
     return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
-class Kind(Enum):
+class Kind(BasicEnum):
   """Represents a weather forecast kind."""
   
   __slots__ = ()
@@ -300,16 +304,6 @@ class Kind(Enum):
     elif value == 371 or value == 395:
       return self.HEAVY_SNOW_SHOWERS
   
-  def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
-    
-    return f'{self.__class__.__name__}.{self.name}'
-  
-  def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
-    return self.name.replace('_', ' ').title()
-  
   @property
   def emoji(self) -> str:
     """:class:`str`: The emoji representing this :class:`Enum`."""
@@ -353,7 +347,7 @@ class Kind(Enum):
     else:
       return '✨'
 
-class Phase(Enum):
+class Phase(BasicEnum):
   """Represents a moon phase."""
   
   __slots__ = ()
@@ -366,16 +360,6 @@ class Phase(Enum):
   WANING_GIBBOUS = 'Waning Gibbous'
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
-  
-  def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
-    
-    return f'{self.__class__.__name__}.{self.name}'
-  
-  def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
-    return self.value
   
   @property
   def emoji(self) -> str:

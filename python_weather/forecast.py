@@ -26,7 +26,7 @@ from typing import Iterable, Optional, Tuple
 from datetime import datetime, date, time
 from enum import auto
 
-from .enums import Kind, Phase, WindDirection, Locale, UltraViolet
+from .enums import Kind, Phase, WindDirection, Locale, Ultraviolet
 from .constants import VALID_UNITS, LATLON_REGEX, METRIC
 from .base import BaseForecast, CustomizableBase
 from .errors import Error
@@ -152,7 +152,7 @@ class CurrentForecast(BaseForecast):
     return f'<{self.__class__.__name__} temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
   
   @property
-  def local_date(self) -> datetime:
+  def date(self) -> datetime:
     """:class:`datetime`: The local date of this weather forecast."""
     
     return datetime.strptime(
@@ -183,7 +183,7 @@ class HourlyForecast(BaseForecast):
     return int(
       self._BaseForecast__inner[
         f'DewPoint{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
   def heat_index(self) -> int:
@@ -192,7 +192,7 @@ class HourlyForecast(BaseForecast):
     return int(
       self._BaseForecast__inner[
         f'HeatIndex{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
   def wind_chill(self) -> int:
@@ -201,7 +201,7 @@ class HourlyForecast(BaseForecast):
     return int(
       self._BaseForecast__inner[
         f'WindChill{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
   def wind_gust(self) -> int:
@@ -272,18 +272,18 @@ class HourlyForecast(BaseForecast):
   
   @property
   def cloud_cover(self) -> int:
-    """:class:`int`: The Cloud cover value in percent."""
+    """:class:`int`: The cloud cover value in percent."""
     
     return int(self._BaseForecast__inner['cloudcover'])
   
   @property
-  def local_time(self) -> time:
+  def time(self) -> time:
     """:class:`time`: The local time in hours and minutes."""
     
-    if len(self._BaseForecast__inner['time']) < 3:
-      return time()
-    else:
-      return datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time()
+    return time() if len(
+      self._BaseForecast__inner['time']
+    ) < 3 else datetime.strptime(self._BaseForecast__inner['time'],
+                                 '%H%M').time()  # yapf: ignore
 
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
@@ -305,7 +305,7 @@ class DailyForecast(CustomizableBase):
     return Astronomy(self.__inner['astronomy'][0])
   
   @property
-  def local_date(self) -> date:
+  def date(self) -> date:
     """:class:`date`: The local date of this forecast."""
     
     return datetime.strptime(self.__inner['date'], '%Y-%m-%d').date()
@@ -317,7 +317,7 @@ class DailyForecast(CustomizableBase):
     return int(
       self.__inner[
         f'mintemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
   def highest_temperature(self) -> int:
@@ -326,7 +326,7 @@ class DailyForecast(CustomizableBase):
     return int(
       self.__inner[
         f'maxtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
   def temperature(self) -> int:
@@ -335,26 +335,20 @@ class DailyForecast(CustomizableBase):
     return int(
       self.__inner[
         f'avgtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    )  # yapf: ignore
   
   @property
-  def sun_shines(self) -> float:
+  def sunlight(self) -> float:
     """:class:`float`: Hours of sunlight."""
     
     return float(self.__inner['sunHour'])
   
   @property
-  def snow_width(self) -> float:
+  def snowfall(self) -> float:
     """:class:`float`: Total snowfall in either Centimeters or Inches."""
     
     width = float(self.__inner['totalSnow_cm'])
     return width if self._CustomizableBase__unit == METRIC else width / 2.54
-  
-  @property
-  def ultra_violet(self) -> UltraViolet:
-    """:class:`UltraViolet`: The UV (:term:`ultraviolet`) index."""
-    
-    return UltraViolet(int(self.__inner['uvIndex']))
   
   @property
   def hourly(self) -> Iterable[HourlyForecast]:

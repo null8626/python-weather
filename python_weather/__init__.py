@@ -25,10 +25,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from .enums import Kind, Locale, Phase, Ultraviolet, WindDirection
+from .constants import METRIC, IMPERIAL
 from .client import Client
 from .errors import Error
-from .constants import METRIC, IMPERIAL
-from .enums import Locale
 
-__version__ = '0.5.0'
-__all__ = ('METRIC', 'IMPERIAL', 'Client', 'Error', 'Locale')
+__version__ = '1.0.0'
+__all__ = (
+  'METRIC', 'IMPERIAL', 'Client', 'Error', 'Kind', 'Locale', 'Phase',
+  'Ultraviolet', 'WindDirection'
+)
