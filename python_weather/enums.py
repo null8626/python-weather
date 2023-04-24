@@ -122,8 +122,7 @@ class WindDirection(Enum):
       The boolean.
     """
     
-    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and
-            0 <= degrees <= 360):
+    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and 0 <= degrees <= 360): # yapf: disable
       raise Error('Invalid degrees value.')
     elif self is self.NORTH:
       return degrees > 348.75 or degrees <= 11.25
