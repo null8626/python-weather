@@ -181,24 +181,27 @@ class HourlyForecast(BaseForecast):
     """:class:`int`: The dew point in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'DewPoint{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self._BaseForecast__inner[
+        f'DewPoint{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def heat_index(self) -> int:
     """:class:`int`: The heat index in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'HeatIndex{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self._BaseForecast__inner[
+        f'HeatIndex{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def wind_chill(self) -> int:
     """:class:`int`: The wind chill value in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'WindChill{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self._BaseForecast__inner[
+        f'WindChill{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def wind_gust(self) -> int:
@@ -277,7 +280,10 @@ class HourlyForecast(BaseForecast):
   def time(self) -> time:
     """:class:`time`: The local time in hours and minutes."""
     
-    return time() if len(self._BaseForecast__inner['time']) < 3 else datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time() # yapf: ignore
+    return time() if len(
+      self._BaseForecast__inner['time']
+    ) < 3 else datetime.strptime(self._BaseForecast__inner['time'],
+                                 '%H%M').time()  # yapf: ignore
 
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
@@ -309,24 +315,27 @@ class DailyForecast(CustomizableBase):
     """:class:`int`: The lowest temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'mintemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self.__inner[
+        f'mintemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def highest_temperature(self) -> int:
     """:class:`int`: The highest temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'maxtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self.__inner[
+        f'maxtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def temperature(self) -> int:
     """:class:`int`: The average temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'avgtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    ) # yapf: ignore
+      self.__inner[
+        f'avgtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+    )  # yapf: ignore
   
   @property
   def sunlight(self) -> float:
