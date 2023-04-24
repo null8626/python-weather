@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from enum import Enum, auto
+from enum import auto, Enum
 
-from .enums import WindDirection, Kind, Locale, UltraViolet
+from .enums import WindDirection, Kind, Locale, Ultraviolet
 from .constants import METRIC, VALID_UNITS
 
 class CustomizableBase:
@@ -97,10 +97,10 @@ class BaseForecast(CustomizableBase):
     super().__init__(unit, locale)
   
   @property
-  def ultra_violet(self) -> UltraViolet:
-    """:class:`UltraViolet`: The UV (:term:`ultraviolet`) index."""
+  def ultraviolet(self) -> Ultraviolet:
+    """:class:`Ultraviolet`: The UV (:term:`ultraviolet`) index."""
     
-    return UltraViolet(int(self.__inner['uvIndex']))
+    return Ultraviolet(int(self.__inner['uvIndex']))
   
   @property
   def feels_like(self) -> int:

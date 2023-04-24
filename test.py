@@ -1,26 +1,21 @@
 from inspect import isgenerator
 from sys import stdout
 import python_weather
-import traceback
 import asyncio
 import os
 
 INDENTATION = 2
 
-def _test_properties(obj, indent_level=0, in_recursion=False):
-  exists = not in_recursion
-  
+is_local = lambda data: getattr(data, '__module__', '').startswith('python_weather') # yapf: disable
+
+def _test(obj, indent_level=0):
   for name in dir(obj.__class__):
     attr = getattr(obj.__class__, name)
     
     if isinstance(attr, property) and attr.fget:
-      if not exists:
-        print()
-        exists = True
-      
       stdout.write(f'{" " * indent_level}{obj.__class__.__name__}#{name}')
       
-      data = attr.fget(obj)
+      data = getattr(obj, name)
       
       if isgenerator(data):
         stdout.write('[0] -> ')
@@ -31,26 +26,19 @@ def _test_properties(obj, indent_level=0, in_recursion=False):
               f'{" " * indent_level}{obj.__class__.__name__}#{name}[{i}] -> '
             )
           
-          _test_properties(each, indent_level + INDENTATION, True)
+          print(repr(each))
+          _test(each, indent_level + INDENTATION)
         
         continue
       
-      stdout.write(' -> ')
+      print(f' -> {data!r}')
       
-      if getattr(data, '__module__', '').startswith('python_weather'):
-        _test_properties(data, indent_level + INDENTATION, True)
-      else:
-        print(repr(data))
-  
-  if not exists:
-    print(repr(obj))
+      if is_local(data):
+        _test(data, indent_level + INDENTATION)
 
 def test(obj):
-  try:
-    _test_properties(obj)
-  except:
-    print(f'\n\n{traceback.format_exc().rstrip()}')
-    exit(1)
+  print(f'{obj!r} -> ')
+  _test(obj, INDENTATION)
 
 async def getweather():
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
