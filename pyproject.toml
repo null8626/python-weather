@@ -8,7 +8,7 @@ description = "A free and asynchronous weather API wrapper made in Python, for P
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "null8626" }]
-keywords = ["weather", "wrapper"]
+keywords = ["weather", "forecast", "weather-api", "weather-forecast"]
 dependencies = ["aiohttp==3.8.4"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -34,7 +34,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12"
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 
 [project.urls]
 repository = "https://github.com/null8626/python-weather"
