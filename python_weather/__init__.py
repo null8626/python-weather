@@ -30,7 +30,7 @@ from .constants import METRIC, IMPERIAL
 from .client import Client
 from .errors import Error
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
 __all__ = (
   'METRIC', 'IMPERIAL', 'Client', 'Error', 'Kind', 'Locale', 'Phase',
   'Ultraviolet', 'WindDirection'

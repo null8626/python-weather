@@ -24,7 +24,7 @@ SOFTWARE.
 
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
-from typing import Optional, Self
+from typing import Optional
 from asyncio import sleep
 from enum import auto
 
@@ -148,7 +148,7 @@ class Client(CustomizableBase):
     if not self.__session.closed:
       await self.__session.close()
   
-  async def __aenter__(self) -> Self:
+  async def __aenter__(self):
     """|coro|
     `async with` handler. Does nothing. Returns `self`
     """

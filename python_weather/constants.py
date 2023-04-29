@@ -25,8 +25,8 @@ SOFTWARE.
 from re import compile
 from enum import auto
 
-METRIC = auto('METRIC')
-IMPERIAL = auto('IMPERIAL')
+METRIC = auto()
+IMPERIAL = auto()
 
 LATLON_REGEX = compile(r'^Lat (\-?[\d\.]+) and Lon (\-?[\d\.]+)$')
 VALID_UNITS = (METRIC, IMPERIAL)
