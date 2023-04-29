@@ -2,7 +2,7 @@
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
-[downloads-image]: https://img.shields.io/pypi/dt/python-weather?style=flat-square
+[downloads-image]: https://img.shields.io/pypi/dm/python-weather?style=flat-square
 [ci-image]: https://github.com/null8626/python-weather/workflows/CI/badge.svg
 [ci-url]: https://github.com/null8626/python-weather/actions/workflows/CI.yml
 [github-license-image]: https://img.shields.io/github/license/null8626/python-weather?style=flat-square
