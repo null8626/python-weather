@@ -22,8 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union, Self
 from enum import Enum, auto
+from typing import Union
 
 from .errors import Error
 
@@ -52,7 +52,7 @@ class Ultraviolet(BasicEnum):
   EXTREME = auto()
   
   @classmethod
-  def _missing_(self, index: int) -> Self:
+  def _missing_(self, index: int):
     if index <= 2:
       return self.LOW
     elif index <= 5:
@@ -86,7 +86,7 @@ class WindDirection(Enum):
   NORTHWEST = "NW"
   NORTH_NORTHWEST = "NNW"
   
-  def _new(value: str, degrees: float) -> Self:
+  def _new(value: str, degrees: float):
     enum = WindDirection(value)
     enum.__degrees = degrees
     
@@ -277,7 +277,7 @@ class Kind(BasicEnum):
   THUNDERY_SNOW_SHOWERS = 392
   
   @classmethod
-  def _missing_(self, value: int) -> Self:
+  def _missing_(self, value: int):
     if value == 248 or value == 260:
       return self.FOG
     elif value == 263 or value == 353:
