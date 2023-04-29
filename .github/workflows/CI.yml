@@ -6,6 +6,7 @@ on:
     tags-ignore:
       - '**'
     paths:
+      - '.github/workflows/CI.yml'
       - 'python_weather/**/*.py'
   pull_request: null
 jobs:
