@@ -166,8 +166,10 @@ class HourlyForecast(BaseForecast):
   
   def __init__(self, json: dict, unit: auto, locale: Locale):
     # for inheritance purposes
-    json['temp_C'] = json.pop('tempC')
-    json['temp_F'] = json.pop('tempF')
+    if 'temp_C' not in json:
+      json['temp_C'] = json.pop('tempC')
+    if 'temp_F' not in json:
+      json['temp_F'] = json.pop('tempF')
     
     super().__init__(json, unit, locale)
   
