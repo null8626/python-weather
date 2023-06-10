@@ -8,7 +8,7 @@ INDENTATION = 2
 
 is_local = lambda data: getattr(data, '__module__', '').startswith('python_weather') # yapf: disable
 
-def _test(obj, indent_level=0):
+def _test(obj, indent_level):
   for name in dir(obj.__class__):
     attr = getattr(obj.__class__, name)
     
