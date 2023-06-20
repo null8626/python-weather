@@ -26,10 +26,9 @@ from typing import Iterable, Optional, Tuple
 from datetime import datetime, date, time
 from enum import auto
 
-from .enums import Kind, Phase, WindDirection, Locale, Ultraviolet
-from .constants import VALID_UNITS, LATLON_REGEX, METRIC
+from .enums import Phase, Locale
+from .constants import LATLON_REGEX, METRIC
 from .base import BaseForecast, CustomizableBase
-from .errors import Error
 
 class Area:
   """Represents the location of the weather forecast."""
