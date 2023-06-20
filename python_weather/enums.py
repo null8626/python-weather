@@ -45,7 +45,7 @@ class Ultraviolet(Enum):
   
   __slots__ = ('__index',)
   
-  LOW = auto()
+  LOW = 13
   MODERATE = auto()
   HIGH = auto()
   VERY_HIGH = auto()
