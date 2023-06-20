@@ -69,7 +69,7 @@ class Ultraviolet(Enum):
       return self.VERY_HIGH
     else:
       return self.EXTREME
-
+  
   def __repr__(self) -> str:
     """:class:`str`: The string representation of this :class:`Enum`."""
     
@@ -103,7 +103,7 @@ class Ultraviolet(Enum):
       return self.__index < other.index
     else:
       return self.__index < other
-
+  
   def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:
     """
     Checks if this :class:`Enum`'s ultraviolet index is equal to the other ultraviolet index.
@@ -127,7 +127,7 @@ class Ultraviolet(Enum):
       return self.__index == other.index
     else:
       return self.__index == other
-
+  
   def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:
     """
     Checks if this :class:`Enum`'s ultraviolet index is greater than the other ultraviolet index.
@@ -151,21 +151,21 @@ class Ultraviolet(Enum):
       return self.__index > other.index
     else:
       return self.__index > other
-
+  
   def __hash__(self) -> int:
     """:class:`int`: A hashed version of this :class:`Enum`."""
     
     return self.__index
-
+  
   def __int__(self) -> int:
     """:class:`int`: The ultraviolet index."""
     
     return self.__index
-
+  
   @property
   def index(self) -> int:
     """:class:`int`: The ultraviolet index."""
-  
+    
     return self.__index
 
 class WindDirection(Enum):
