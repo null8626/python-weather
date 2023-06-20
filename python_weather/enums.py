@@ -31,7 +31,7 @@ class BasicEnum(Enum):
   __slots__ = ()
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
+    """:class:`str`: The string representation of this :class:`Enum`."""
     
     return f'{self.__class__.__name__}.{self.name}'
   
@@ -40,16 +40,22 @@ class BasicEnum(Enum):
     
     return self.name.replace('_', ' ').title()
 
-class Ultraviolet(BasicEnum):
+class Ultraviolet(Enum):
   """Represents a :term:`UV index`."""
   
-  __slots__ = ()
+  __slots__ = ('__index',)
   
   LOW = 13
   MODERATE = auto()
   HIGH = auto()
   VERY_HIGH = auto()
   EXTREME = auto()
+  
+  def _new(index: int):
+    enum = Ultraviolet(index)
+    enum.__index = index
+    
+    return enum
   
   @classmethod
   def _missing_(self, index: int):
@@ -63,6 +69,104 @@ class Ultraviolet(BasicEnum):
       return self.VERY_HIGH
     else:
       return self.EXTREME
+  
+  def __repr__(self) -> str:
+    """:class:`str`: The string representation of this :class:`Enum`."""
+    
+    return f'<{self.__class__.__name__}.{self.name} index={self.__index}>'
+  
+  def __str__(self) -> str:
+    """:class:`str`: The stylized name for this :class:`Enum`."""
+    
+    return self.name.replace('_', ' ').title()
+  
+  def __lt__(self, other: Union["Ultraviolet", int, float]) -> bool:
+    """
+    Checks if this :class:`Enum`'s ultraviolet index is less than the other ultraviolet index.
+    
+    Parameters
+    ----------
+    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
+      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
+    
+    Raises
+    ------
+    TypeError
+      If the ``other`` argument's type is incompatible.
+    
+    Returns
+    -------
+    :class:`bool`
+    """
+    
+    if isinstance(other, self.__class__):
+      return self.__index < other.index
+    else:
+      return self.__index < other
+  
+  def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:
+    """
+    Checks if this :class:`Enum`'s ultraviolet index is equal to the other ultraviolet index.
+    
+    Parameters
+    ----------
+    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
+      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
+    
+    Raises
+    ------
+    TypeError
+      If the ``other`` argument's type is incompatible.
+    
+    Returns
+    -------
+    :class:`bool`
+    """
+    
+    if isinstance(other, self.__class__):
+      return self.__index == other.index
+    else:
+      return self.__index == other
+  
+  def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:
+    """
+    Checks if this :class:`Enum`'s ultraviolet index is greater than the other ultraviolet index.
+    
+    Parameters
+    ----------
+    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
+      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
+    
+    Raises
+    ------
+    TypeError
+      If the ``other`` argument's type is incompatible.
+    
+    Returns
+    -------
+    :class:`bool`
+    """
+    
+    if isinstance(other, self.__class__):
+      return self.__index > other.index
+    else:
+      return self.__index > other
+  
+  def __hash__(self) -> int:
+    """:class:`int`: A hashed version of this :class:`Enum`."""
+    
+    return self.__index
+  
+  def __int__(self) -> int:
+    """:class:`int`: The ultraviolet index."""
+    
+    return self.__index
+  
+  @property
+  def index(self) -> int:
+    """:class:`int`: The ultraviolet index."""
+    
+    return self.__index
 
 class WindDirection(Enum):
   """Represents a wind direction."""
@@ -93,7 +197,7 @@ class WindDirection(Enum):
     return enum
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
+    """:class:`str`: The string representation of this :class:`Enum`."""
     
     return f'<{self.__class__.__name__}.{self.name} degrees={self.__degrees!r}>'
   
@@ -102,60 +206,60 @@ class WindDirection(Enum):
     
     return self.name.replace('_', ' ').title()
   
-  def __contains__(self, degrees: Union[float, int]) -> bool:
+  def __contains__(self, other: Union["WindDirection", float, int]) -> bool:
     """
-    Checks if the degrees value is a part of this wind direction.
+    Checks if the other degrees value is a part of this :class:`Enum`'s wind direction category.
     
     Parameters
     ----------
-    degrees: Union[:class:`float`, :class:`int`]
-      The degrees value. Must be between 0 and 360.
+    other: Union[:class:`WindDirection`, :class:`int`, :class:`float`]
+      The other degrees value to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with a :class:`float`.
     
     Raises
     ------
-    Error
-      Invalid ``degrees`` argument.
+    TypeError
+      If the ``other`` argument's type is incompatible.
     
     Returns
     -------
     :class:`bool`
-      The boolean.
     """
     
-    if not ((isinstance(degrees, int) or isinstance(degrees, float)) and 0 <= degrees <= 360): # yapf: disable
-      raise Error('Invalid degrees value.')
-    elif self is self.NORTH:
-      return degrees > 348.75 or degrees <= 11.25
+    if isinstance(other, self.__class__):
+      other = other.degrees
+    
+    if self is self.NORTH:
+      return other > 348.75 or other <= 11.25
     elif self is self.NORTH_NORTHEAST:
-      return 11.25 < degrees <= 33.75
+      return 11.25 < other <= 33.75
     elif self is self.NORTHEAST:
-      return 33.75 < degrees <= 56.25
+      return 33.75 < other <= 56.25
     elif self is self.EAST_NORTHEAST:
-      return 56.25 < degrees <= 78.75
+      return 56.25 < other <= 78.75
     elif self is self.EAST:
-      return 78.75 < degrees <= 101.25
+      return 78.75 < other <= 101.25
     elif self is self.EAST_SOUTHEAST:
-      return 101.25 < degrees <= 123.75
+      return 101.25 < other <= 123.75
     elif self is self.SOUTHEAST:
-      return 123.75 < degrees <= 146.25
+      return 123.75 < other <= 146.25
     elif self is self.SOUTH_SOUTHEAST:
-      return 146.25 < degrees <= 168.75
+      return 146.25 < other <= 168.75
     elif self is self.SOUTH:
-      return 168.75 < degrees <= 191.25
+      return 168.75 < other <= 191.25
     elif self is self.SOUTH_SOUTHWEST:
-      return 191.25 < degrees <= 213.75
+      return 191.25 < other <= 213.75
     elif self is self.SOUTHWEST:
-      return 213.75 < degrees <= 236.25
+      return 213.75 < other <= 236.25
     elif self is self.WEST_SOUTHWEST:
-      return 236.25 < degrees <= 258.75
+      return 236.25 < other <= 258.75
     elif self is self.WEST:
-      return 258.75 < degrees <= 281.25
+      return 258.75 < other <= 281.25
     elif self is self.WEST_NORTHWEST:
-      return 281.25 < degrees <= 303.75
+      return 281.25 < other <= 303.75
     elif self is self.NORTHWEST:
-      return 303.75 < degrees <= 326.25
+      return 303.75 < other <= 326.25
     else:
-      return 326.25 < degrees <= 348.75
+      return 326.25 < other <= 348.75
   
   @property
   def degrees(self) -> int:
@@ -242,7 +346,7 @@ class Locale(Enum):
   ZULU = 'zu'
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this object."""
+    """:class:`str`: The string representation of this :class:`Enum`."""
     
     return f'{self.__class__.__name__}.{self.name}'
   

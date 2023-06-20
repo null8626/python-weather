@@ -100,7 +100,7 @@ class BaseForecast(CustomizableBase):
   def ultraviolet(self) -> Ultraviolet:
     """:class:`Ultraviolet`: The UV (:term:`ultraviolet`) index."""
     
-    return Ultraviolet(int(self.__inner['uvIndex']))
+    return Ultraviolet._new(int(self.__inner['uvIndex']))
   
   @property
   def feels_like(self) -> int:
