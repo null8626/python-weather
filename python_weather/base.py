@@ -25,7 +25,7 @@ SOFTWARE.
 from enum import auto, Enum
 
 from .enums import WindDirection, Kind, Locale, Ultraviolet
-from .constants import METRIC, VALID_UNITS
+from .constants import _Unit
 
 class CustomizableBase:
   __slots__ = ('__unit', '__locale')
@@ -56,7 +56,7 @@ class CustomizableBase:
       If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
     """
     
-    if to not in VALID_UNITS:
+    if not isinstance(to, _Unit):
       raise Error('Invalid measuring unit specified!')
     
     self.__unit = to
@@ -108,7 +108,7 @@ class BaseForecast(CustomizableBase):
     
     return int(
       self.__inner[
-        f'FeelsLike{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+        f'FeelsLike{self._CustomizableBase__unit.temperature}']
     )
   
   @property
@@ -123,7 +123,7 @@ class BaseForecast(CustomizableBase):
     
     return int(
       self.
-      __inner[f'temp_{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      __inner[f'temp_{self._CustomizableBase__unit.temperature}']
     )
   
   @property
@@ -132,7 +132,7 @@ class BaseForecast(CustomizableBase):
     
     return float(
       self.__inner[
-        f'precip{"MM" if self._CustomizableBase__unit == METRIC else "Inches"}']
+        f'precip{self._CustomizableBase__unit.precipitation}']
     )
   
   @property
@@ -141,7 +141,7 @@ class BaseForecast(CustomizableBase):
     
     return float(
       self.__inner[
-        f'pressure{"" if self._CustomizableBase__unit == METRIC else "Inches"}']
+        f'pressure{self._CustomizableBase__unit.pressure}']
     )
   
   @property
@@ -150,7 +150,7 @@ class BaseForecast(CustomizableBase):
     
     return int(
       self.__inner[
-        f'visibility{"" if self._CustomizableBase__unit == METRIC else "Miles"}'
+        f'visibility{self._CustomizableBase__unit.visibility}'
       ]
     )
   
@@ -160,7 +160,7 @@ class BaseForecast(CustomizableBase):
     
     return int(
       self.__inner[
-        f'windspeed{"Kmph" if self._CustomizableBase__unit == METRIC else "Miles"}'
+        f'windspeed{self._CustomizableBase__unit.velocity}'
       ]
     )
   
