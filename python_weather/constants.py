@@ -27,7 +27,10 @@ from re import compile
 from enum import auto
 
 class _Unit:
-  __slots__ = ('temperature', 'velocity', 'pressure', 'precipitation', 'visibility', 'cm_divisor')
+  __slots__ = (
+    'temperature', 'velocity', 'pressure', 'precipitation', 'visibility',
+    'cm_divisor'
+  )
   
   def __init__(
     self,

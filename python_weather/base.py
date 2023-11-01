@@ -107,8 +107,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: What it felt like, in Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[
-        f'FeelsLike{self._CustomizableBase__unit.temperature}']
+      self.__inner[f'FeelsLike{self._CustomizableBase__unit.temperature}']
     )
   
   @property
@@ -121,18 +120,14 @@ class BaseForecast(CustomizableBase):
   def temperature(self) -> int:
     """:class:`int`: The weather temperature in either Celcius or Fahrenheit."""
     
-    return int(
-      self.
-      __inner[f'temp_{self._CustomizableBase__unit.temperature}']
-    )
+    return int(self.__inner[f'temp_{self._CustomizableBase__unit.temperature}'])
   
   @property
   def precipitation(self) -> float:
     """:class:`float`: The precipitation in either Millimeters or Inches."""
     
     return float(
-      self.__inner[
-        f'precip{self._CustomizableBase__unit.precipitation}']
+      self.__inner[f'precip{self._CustomizableBase__unit.precipitation}']
     )
   
   @property
@@ -140,8 +135,7 @@ class BaseForecast(CustomizableBase):
     """:class:`float`: The pressure in either Pascal or Inches."""
     
     return float(
-      self.__inner[
-        f'pressure{self._CustomizableBase__unit.pressure}']
+      self.__inner[f'pressure{self._CustomizableBase__unit.pressure}']
     )
   
   @property
@@ -149,9 +143,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: The visibility distance in either Kilometers or Miles."""
     
     return int(
-      self.__inner[
-        f'visibility{self._CustomizableBase__unit.visibility}'
-      ]
+      self.__inner[f'visibility{self._CustomizableBase__unit.visibility}']
     )
   
   @property
@@ -159,9 +151,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: The wind speeds in either Kilometers per hour or Miles per hour."""
     
     return int(
-      self.__inner[
-        f'windspeed{self._CustomizableBase__unit.velocity}'
-      ]
+      self.__inner[f'windspeed{self._CustomizableBase__unit.velocity}']
     )
   
   @property

@@ -339,7 +339,9 @@ class DailyForecast(CustomizableBase):
   def snowfall(self) -> float:
     """:class:`float`: Total snowfall in either Centimeters or Inches."""
     
-    return float(self.__inner['totalSnow_cm']) / self._CustomizableBase__unit.cm_divisor
+    return float(
+      self.__inner['totalSnow_cm']
+    ) / self._CustomizableBase__unit.cm_divisor
   
   @property
   def hourly(self) -> Iterable[HourlyForecast]:
