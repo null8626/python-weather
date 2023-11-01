@@ -28,7 +28,7 @@ from typing import Optional
 from asyncio import sleep
 from enum import auto
 
-from .constants import METRIC, VALID_UNITS
+from .constants import _Unit, METRIC
 from .base import CustomizableBase
 from .forecast import Weather
 from .errors import Error
@@ -115,7 +115,7 @@ class Client(CustomizableBase):
     elif self.__session.closed:
       raise Error('Client is already closed')
     
-    if unit not in VALID_UNITS:
+    if not isinstance(unit, _Unit):
       unit = self._CustomizableBase__unit
     
     if not isinstance(locale, Locale):

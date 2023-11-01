@@ -25,7 +25,7 @@ SOFTWARE.
 from enum import auto, Enum
 
 from .enums import WindDirection, Kind, Locale, Ultraviolet
-from .constants import METRIC, VALID_UNITS
+from .constants import _Unit
 
 class CustomizableBase:
   __slots__ = ('__unit', '__locale')
@@ -56,7 +56,7 @@ class CustomizableBase:
       If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
     """
     
-    if to not in VALID_UNITS:
+    if not isinstance(to, _Unit):
       raise Error('Invalid measuring unit specified!')
     
     self.__unit = to
@@ -107,8 +107,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: What it felt like, in Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[
-        f'FeelsLike{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self.__inner[f'FeelsLike{self._CustomizableBase__unit.temperature}']
     )
   
   @property
@@ -121,18 +120,14 @@ class BaseForecast(CustomizableBase):
   def temperature(self) -> int:
     """:class:`int`: The weather temperature in either Celcius or Fahrenheit."""
     
-    return int(
-      self.
-      __inner[f'temp_{"C" if self._CustomizableBase__unit == METRIC else "F"}']
-    )
+    return int(self.__inner[f'temp_{self._CustomizableBase__unit.temperature}'])
   
   @property
   def precipitation(self) -> float:
     """:class:`float`: The precipitation in either Millimeters or Inches."""
     
     return float(
-      self.__inner[
-        f'precip{"MM" if self._CustomizableBase__unit == METRIC else "Inches"}']
+      self.__inner[f'precip{self._CustomizableBase__unit.precipitation}']
     )
   
   @property
@@ -140,8 +135,7 @@ class BaseForecast(CustomizableBase):
     """:class:`float`: The pressure in either Pascal or Inches."""
     
     return float(
-      self.__inner[
-        f'pressure{"" if self._CustomizableBase__unit == METRIC else "Inches"}']
+      self.__inner[f'pressure{self._CustomizableBase__unit.pressure}']
     )
   
   @property
@@ -149,9 +143,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: The visibility distance in either Kilometers or Miles."""
     
     return int(
-      self.__inner[
-        f'visibility{"" if self._CustomizableBase__unit == METRIC else "Miles"}'
-      ]
+      self.__inner[f'visibility{self._CustomizableBase__unit.visibility}']
     )
   
   @property
@@ -159,9 +151,7 @@ class BaseForecast(CustomizableBase):
     """:class:`int`: The wind speeds in either Kilometers per hour or Miles per hour."""
     
     return int(
-      self.__inner[
-        f'windspeed{"Kmph" if self._CustomizableBase__unit == METRIC else "Miles"}'
-      ]
+      self.__inner[f'windspeed{self._CustomizableBase__unit.velocity}']
     )
   
   @property

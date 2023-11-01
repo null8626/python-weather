@@ -26,9 +26,9 @@ from typing import Iterable, Optional, Tuple
 from datetime import datetime, date, time
 from enum import auto
 
-from .enums import Phase, Locale
-from .constants import LATLON_REGEX, METRIC
 from .base import BaseForecast, CustomizableBase
+from .constants import LATLON_REGEX
+from .enums import Phase, Locale
 
 class Area:
   """Represents the location of the weather forecast."""
@@ -182,7 +182,7 @@ class HourlyForecast(BaseForecast):
     """:class:`int`: The dew point in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'DewPoint{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self._BaseForecast__inner[f'DewPoint{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
@@ -190,7 +190,7 @@ class HourlyForecast(BaseForecast):
     """:class:`int`: The heat index in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'HeatIndex{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self._BaseForecast__inner[f'HeatIndex{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
@@ -198,14 +198,14 @@ class HourlyForecast(BaseForecast):
     """:class:`int`: The wind chill value in either Celcius or Fahrenheit."""
     
     return int(
-      self._BaseForecast__inner[f'WindChill{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self._BaseForecast__inner[f'WindChill{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
   def wind_gust(self) -> int:
     """:class:`int`: The wind gust value in either Kilometers per hour or Miles per hour."""
     
-    key = f'WindGust{"Kmph" if self._CustomizableBase__unit == METRIC else "Miles"}'
+    key = f'WindGust{self._CustomizableBase__unit.velocity}'
     return int(self._BaseForecast__inner[key])
   
   @property
@@ -310,7 +310,7 @@ class DailyForecast(CustomizableBase):
     """:class:`int`: The lowest temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'mintemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self.__inner[f'mintemp{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
@@ -318,7 +318,7 @@ class DailyForecast(CustomizableBase):
     """:class:`int`: The highest temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'maxtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self.__inner[f'maxtemp{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
@@ -326,7 +326,7 @@ class DailyForecast(CustomizableBase):
     """:class:`int`: The average temperature in either Celcius or Fahrenheit."""
     
     return int(
-      self.__inner[f'avgtemp{"C" if self._CustomizableBase__unit == METRIC else "F"}']
+      self.__inner[f'avgtemp{self._CustomizableBase__unit.temperature}']
     ) # yapf: disable
   
   @property
@@ -339,8 +339,9 @@ class DailyForecast(CustomizableBase):
   def snowfall(self) -> float:
     """:class:`float`: Total snowfall in either Centimeters or Inches."""
     
-    width = float(self.__inner['totalSnow_cm'])
-    return width if self._CustomizableBase__unit == METRIC else width / 2.54
+    return float(
+      self.__inner['totalSnow_cm']
+    ) / self._CustomizableBase__unit.cm_divisor
   
   @property
   def hourly(self) -> Iterable[HourlyForecast]:
