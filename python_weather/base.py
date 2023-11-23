@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2021-2023 null (https://github.com/null8626)
+Copyright (c) 2021-2024 null (https://github.com/null8626)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
@@ -30,7 +30,7 @@ from .constants import _Unit
 class CustomizableBase:
   __slots__ = ('__unit', '__locale')
   
-  def __init__(self, unit: auto, locale: Locale):
+  def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
     self.locale = locale
   
@@ -41,7 +41,7 @@ class CustomizableBase:
     return self.__unit
   
   @unit.setter
-  def unit(self, to: auto):
+  def unit(self, to: _Unit):
     """
     Sets the default measuring unit used to display information in this object.
     
@@ -91,7 +91,7 @@ class CustomizableBase:
 class BaseForecast(CustomizableBase):
   __slots__ = ('__inner',)
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)

@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2021-2023 null (https://github.com/null8626)
+Copyright (c) 2021-2024 null (https://github.com/null8626)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
@@ -27,7 +27,7 @@ from datetime import datetime, date, time
 from enum import auto
 
 from .base import BaseForecast, CustomizableBase
-from .constants import LATLON_REGEX
+from .constants import _Unit, LATLON_REGEX
 from .enums import Phase, Locale
 
 class Area:
@@ -163,7 +163,7 @@ class HourlyForecast(BaseForecast):
   
   __slots__ = ()
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     # for inheritance purposes
     if 'temp_C' not in json:
       json['temp_C'] = json.pop('tempC')
@@ -283,7 +283,7 @@ class HourlyForecast(BaseForecast):
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
@@ -358,7 +358,7 @@ class Weather(CustomizableBase):
   
   __slots__ = ('__inner',)
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
