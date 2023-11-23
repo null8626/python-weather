@@ -27,7 +27,7 @@ from datetime import datetime, date, time
 from enum import auto
 
 from .base import BaseForecast, CustomizableBase
-from .constants import LATLON_REGEX
+from .constants import _Unit, LATLON_REGEX
 from .enums import Phase, Locale
 
 class Area:
@@ -163,7 +163,7 @@ class HourlyForecast(BaseForecast):
   
   __slots__ = ()
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     # for inheritance purposes
     if 'temp_C' not in json:
       json['temp_C'] = json.pop('tempC')
@@ -283,7 +283,7 @@ class HourlyForecast(BaseForecast):
 class DailyForecast(CustomizableBase):
   __slots__ = ('__inner',)
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
@@ -358,7 +358,7 @@ class Weather(CustomizableBase):
   
   __slots__ = ('__inner',)
   
-  def __init__(self, json: dict, unit: auto, locale: Locale):
+  def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json
     
     super().__init__(unit, locale)
