@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import warnings
 from typing import Iterable, Optional, Tuple
 from datetime import datetime, date, time
 from enum import auto
@@ -239,10 +240,20 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner['chanceofrain'])
   
   @property
-  def chances_of_remdry(self) -> int:
-    """:class:`int`: Chances of a rem dry in percent."""
+  def chances_of_remaining_dry(self) -> int:
+    """:class:`int`: Chances of remaining dry in percent."""
     
     return int(self._BaseForecast__inner['chanceofremdry'])
+  
+  @property
+  def chances_of_remdry(self) -> int:
+    """:class:`int`: Deprecated, use chances_of_remaining_dry instead."""
+    
+    warnings.warn(
+      'Deprecated as of v1.1.1. Use `chances_of_remaining_dry` instead.',
+      DeprecationWarning
+    )
+    return self.chances_of_remaining_dry
   
   @property
   def chances_of_snow(self) -> int:
