@@ -87,9 +87,8 @@ with open(os.path.join(os.path.abspath('..'), 'changelog.yml')) as yml_stream:
     
     for change in changelog['changes']:
       key = list(change.keys())[0]
-      value = list(change.values())[0]
       
-      change_strings.append(f'- {CHANGE_EMOJIS[key]} {value}')
+      change_strings.append(f'- {CHANGE_EMOJIS[key]} {change[key]}')
     
     changes.append('\n'.join(change_strings))
   
