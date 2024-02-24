@@ -1,0 +1,119 @@
+changelog:
+  - version: 0.2.1
+    release-date: 10 January 2021
+    changes: 
+      - add: Create ``python-weather``.
+  - version: 0.2.3
+    release-date: 11 January 2021
+    changes:
+      - fix: Fix an :py:class:`IndexError` while initiating :class:`Weather`.
+      - rem: Remove ``__getattribute__`` from :class:`Weather`.
+  - version: 0.3.0
+    release-date: 24 May 2021
+    changes:
+      - fix: Use properties instead of directly storing attributes.
+      - add: Add built-in caching capabilities.
+      - rem: Rename ``Weather#forecast`` to ``Weather#forecasts``.
+      - add: Add an exception class ``HTTPException``.
+      - add: Add ``__slots__`` to class definitions.
+      - add: Add ``example.py`` in the project root directory.
+      - fix: Use python's walrus operator to clean up repetitive code.
+      - fix: Implement Python's inheritance rather than keeping everything in one class.
+      - fix: Separate ``Client`` from ``HTTPClient``.
+      - fix: Improve the example in README.
+  - version: 0.3.3
+    release-date: 18 June 2021
+    changes:
+      - add: Add a bundled-in CLI.
+      - add: Add ``Weather#format`` property.
+      - add: Add ``Weather#locale`` property.
+      - fix: Improve the project's typings.
+      - add: Add ``.gitignore`` in the project's root to remove ``__pycache__`` from appearing.
+      - fix: Tweaks to the project's documentation.
+  - version: 0.3.4
+    release-date: 27 June 2021
+    changes:
+      - fix: Fix backwards-compatibility for Python 3.7 users by removing all walrus operators.
+  - version: 0.3.5
+    release-date: 29 June 2021
+    changes:
+      - fix: Fix typo that causes a :py:class:`NameError`.
+  - version: 0.3.6
+    release-date: 26 July 2021
+    changes:
+      - fix: Fix bug that causes ``IMPERIAL`` to have no effect.
+  - version: 0.3.7
+    release-date: 5 November 2021
+    changes:
+      - fix: Fix bug that raises an exception when calling ``HTTPException#__repr__``.
+      - fix: "``HTTPException`` now derives from the :py:class:`Exception` class."
+      - add: Add ``__slots__`` to the class definition for ``HTTPException``.
+  - version: 0.3.8
+    release-date: 28 June 2022
+    changes:
+      - rem: Remove the bundled-in CLI.
+      - fix: Fix potential :py:class:`NameError` bug.
+      - rem: Remove all built-in caching capabilities.
+      - fix: Update the example with a fix for all Windows systems.
+      - add: Add ``MANIFEST.in`` which would ignore useless files and directories before being sent to PyPI.
+      - add: Add GitHub workflows for testing.
+      - fix: Change indentation from 4 to 2.
+  - version: 0.4.0
+    release-date: 6 August 2022
+    changes:
+      - fix: Migrate from using Microsoft's MSN API to ``wttr.in``.
+      - fix: Fix dependabot alerts.
+      - add: Add ``async with`` support for the client instance.
+      - add: Add additional installation instructions for debian users.
+  - version: 0.4.1
+    release-date: 8 August 2022
+    changes:
+      - fix: Fix bug when retrieving ``CurrentForecast#local_time``.
+      - rem: Remove ``MANIFEST.in`` as it is unnecessary.
+  - version: 0.4.2
+    release-date: 9 September 2022
+    changes:
+      - rem: Rename ``DailyForecast#average_temperature`` to ``DailyForecast#temperature``.
+      - fix: Printing the forecast result should no longer raise an :py:class:`AttributeError`.
+      - fix: "``Weather#location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)"
+      - add: Add ``Mist`` property to the ``WeatherType`` enum.
+      - add: Add an additional ``TCPConnector`` argument to the default ``aiohttp ClientSession``.
+      - rem: Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.
+  - version: 0.4.3
+    release-date: 23 October 2022
+    changes:
+      - fix: The ``HourlyForecast#time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.
+  - version: 1.0.0
+    release-date: 28 April 2023
+    changes:
+      - add: Add custom locale support.
+      - add: Add lots of new classes and enums, and improve inheritance use.
+      - add: Add code testing workflow on every commit.
+      - add: Add code formatting workflow with ``yapf``.
+      - add: Add dependabot to automatically bump dependencies weekly.
+  - version: 1.0.1
+    release-date: 29 April 2023
+    changes:
+      - fix: Fix backwards-compatibility for Python 3.7 users by removing the ``Self`` typing.
+  - version: 1.0.2
+    release-date: 18 May 2023
+    changes:
+      - fix: Fix ``tempC`` and ``tempF`` :py:class:`KeyError`.
+      - fix: Fix :class:`UltraViolet` enum returning incorrect values.
+  - version: 1.0.3
+    release-date: 20 June 2023
+    changes:
+      - add: Add missing ``index`` property in the :class:`UltraViolet` enum.
+      - add: Add more helper methods.
+      - fix: Improve docstrings of several properties.
+  - version: 1.1.0
+    release-date: 23 November 2023
+    changes:
+      - add: Add support for Python 3.12 by upgrading the ``aiohttp`` dependency to v3.9.0.
+      - rem: The library no longer supports Python 3.7, which was discontinued in June 2023.
+      - fix: Removed several instances of copy-pasted code.
+  - version: 1.1.1
+    release-date: 20 February 2024
+    changes:
+      - rem: Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.
+      - fix: Bump ``aiohttp`` dependency from v3.9.0 to v3.9.3.
