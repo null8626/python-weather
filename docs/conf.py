@@ -3,12 +3,9 @@ copyright = '2021-2024, null8626'
 author = 'null8626'
 release = '1.1.2'
 
-extensions = []
-
 extensions = [
   'sphinx.ext.autodoc',
-  'sphinx.ext.intersphinx',
-  'sphinxcontrib_trio'
+  'sphinx.ext.intersphinx'
 ]
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
