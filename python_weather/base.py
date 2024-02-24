@@ -1,27 +1,3 @@
-"""
-The MIT License (MIT)
-
-Copyright (c) 2021-2024 null (https://github.com/null8626)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the 'Software'), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
 from enum import auto, Enum
 
 from .enums import WindDirection, Kind, Locale, Ultraviolet
@@ -36,7 +12,7 @@ class CustomizableBase:
   
   @property
   def unit(self) -> auto:
-    """:class:`auto`: The measuring unit used to display information in this object."""
+    """The measuring unit used to display information in this object."""
     
     return self.__unit
   
@@ -45,15 +21,8 @@ class CustomizableBase:
     """
     Sets the default measuring unit used to display information in this object.
     
-    Parameters
-    ----------
-    to: :class:`auto`
-      The new default measuring unit to be used to display information in this object. Must be either :attr:`METRIC` or :attr:`IMPERIAL`.
-
-    Raises
-    ------
-    Error
-      If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
+    :param to: The new default measuring unit to be used to display information in this object. Must be either :attr:`METRIC` or :attr:`IMPERIAL`.
+    :exception Error: If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
     """
     
     if not isinstance(to, _Unit):
@@ -63,24 +32,18 @@ class CustomizableBase:
   
   @property
   def locale(self) -> Locale:
-    """:class:`Locale`: The :term:`localization` used to display information in this object."""
+    """The localization used to display information in this object."""
     
     return self.__locale
   
   @locale.setter
   def locale(self, to: Locale):
     """
-    Sets the default :term:`localization` used to display information in this object.
+    Sets the default localization used to display information in this object.
     
-    Parameters
-    ----------
-    to: :class:`Locale`
-      The new :term:`localization` to be used to display information in this object.
-
-    Raises
-    ------
-    Error
-      If the ``to`` argument is not a part of the :class:`Locale` :class:`Enum`.
+    :param to: The new :class:`Locale` to be used to display information in this object.
+    :type to: Locale
+    :exception Error: If the ``to`` argument is not a part of the :class:`Locale` enum.
     """
     
     if not isinstance(to, Locale):
@@ -98,13 +61,13 @@ class BaseForecast(CustomizableBase):
   
   @property
   def ultraviolet(self) -> Ultraviolet:
-    """:class:`Ultraviolet`: The UV (:term:`ultraviolet`) index."""
+    """The UV (ultraviolet) index."""
     
     return Ultraviolet._new(int(self.__inner['uvIndex']))
   
   @property
   def feels_like(self) -> int:
-    """:class:`int`: What it felt like, in Celcius or Fahrenheit."""
+    """What it felt like, in Celcius or Fahrenheit."""
     
     return int(
       self.__inner[f'FeelsLike{self._CustomizableBase__unit.temperature}']
@@ -112,19 +75,19 @@ class BaseForecast(CustomizableBase):
   
   @property
   def humidity(self) -> int:
-    """:class:`int`: The humidity value in percent."""
+    """The humidity value in percent."""
     
     return int(self.__inner['humidity'])
   
   @property
   def temperature(self) -> int:
-    """:class:`int`: The weather temperature in either Celcius or Fahrenheit."""
+    """The weather temperature in either Celcius or Fahrenheit."""
     
     return int(self.__inner[f'temp_{self._CustomizableBase__unit.temperature}'])
   
   @property
   def precipitation(self) -> float:
-    """:class:`float`: The precipitation in either Millimeters or Inches."""
+    """The precipitation in either Millimeters or Inches."""
     
     return float(
       self.__inner[f'precip{self._CustomizableBase__unit.precipitation}']
@@ -132,7 +95,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def pressure(self) -> float:
-    """:class:`float`: The pressure in either Pascal or Inches."""
+    """The pressure in either Pascal or Inches."""
     
     return float(
       self.__inner[f'pressure{self._CustomizableBase__unit.pressure}']
@@ -140,7 +103,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def visibility(self) -> int:
-    """:class:`int`: The visibility distance in either Kilometers or Miles."""
+    """The visibility distance in either Kilometers or Miles."""
     
     return int(
       self.__inner[f'visibility{self._CustomizableBase__unit.visibility}']
@@ -148,7 +111,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def wind_speed(self) -> int:
-    """:class:`int`: The wind speeds in either Kilometers per hour or Miles per hour."""
+    """The wind speeds in either Kilometers per hour or Miles per hour."""
     
     return int(
       self.__inner[f'windspeed{self._CustomizableBase__unit.velocity}']
@@ -156,7 +119,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def wind_direction(self) -> WindDirection:
-    """:class:`WindDirection`: The wind direction."""
+    """The wind direction."""
     
     return WindDirection._new(
       self.__inner['winddir16Point'], int(self.__inner['winddirDegree'])
@@ -164,7 +127,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def description(self) -> str:
-    """:class:`str`: The description regarding the forecast. This can be localized in different languages depending on the :term:`localization` used."""
+    """The description regarding the forecast. This can be localized in different languages depending on the localization used."""
     
     return self.__inner['weatherDesc'][0][
       'value'
@@ -173,6 +136,6 @@ class BaseForecast(CustomizableBase):
   
   @property
   def kind(self) -> Kind:
-    """:class:`Kind`: The kind of the weather."""
+    """The kind of the weather."""
     
     return Kind(int(self.__inner['weatherCode']))

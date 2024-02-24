@@ -1,27 +1,3 @@
-"""
-The MIT License (MIT)
-
-Copyright (c) 2021-2024 null (https://github.com/null8626)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the 'Software'), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-"""
-
 from enum import Enum, auto
 from typing import Union
 
@@ -31,17 +7,13 @@ class BasicEnum(Enum):
   __slots__ = ()
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this :class:`Enum`."""
-    
     return f'{self.__class__.__name__}.{self.name}'
   
   def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
     return self.name.replace('_', ' ').title()
 
 class Ultraviolet(Enum):
-  """Represents a :term:`UV index`."""
+  """Represents UV (ultraviolet) index."""
   
   __slots__ = ('__index',)
   
@@ -71,100 +43,38 @@ class Ultraviolet(Enum):
       return self.EXTREME
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this :class:`Enum`."""
-    
     return f'<{self.__class__.__name__}.{self.name} index={self.__index}>'
   
   def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
     return self.name.replace('_', ' ').title()
   
   def __lt__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    """
-    Checks if this :class:`Enum`'s ultraviolet index is less than the other ultraviolet index.
-    
-    Parameters
-    ----------
-    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
-      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
-    
-    Raises
-    ------
-    TypeError
-      If the ``other`` argument's type is incompatible.
-    
-    Returns
-    -------
-    :class:`bool`
-    """
-    
     if isinstance(other, self.__class__):
       return self.__index < other.index
     else:
       return self.__index < other
   
   def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    """
-    Checks if this :class:`Enum`'s ultraviolet index is equal to the other ultraviolet index.
-    
-    Parameters
-    ----------
-    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
-      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
-    
-    Raises
-    ------
-    TypeError
-      If the ``other`` argument's type is incompatible.
-    
-    Returns
-    -------
-    :class:`bool`
-    """
-    
     if isinstance(other, self.__class__):
       return self.__index == other.index
     else:
       return self.__index == other
   
   def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    """
-    Checks if this :class:`Enum`'s ultraviolet index is greater than the other ultraviolet index.
-    
-    Parameters
-    ----------
-    other: Union[:class:`Ultraviolet`, :class:`int`, :class:`float`]
-      The other ultraviolet index to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with an :class:`int`.
-    
-    Raises
-    ------
-    TypeError
-      If the ``other`` argument's type is incompatible.
-    
-    Returns
-    -------
-    :class:`bool`
-    """
-    
     if isinstance(other, self.__class__):
       return self.__index > other.index
     else:
       return self.__index > other
   
   def __hash__(self) -> int:
-    """:class:`int`: A hashed version of this :class:`Enum`."""
-    
     return self.__index
   
   def __int__(self) -> int:
-    """:class:`int`: The ultraviolet index."""
-    
     return self.__index
   
   @property
   def index(self) -> int:
-    """:class:`int`: The ultraviolet index."""
+    """The ultraviolet index."""
     
     return self.__index
 
@@ -197,34 +107,12 @@ class WindDirection(Enum):
     return enum
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this :class:`Enum`."""
-    
     return f'<{self.__class__.__name__}.{self.name} degrees={self.__degrees!r}>'
   
   def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
     return self.name.replace('_', ' ').title()
   
   def __contains__(self, other: Union["WindDirection", float, int]) -> bool:
-    """
-    Checks if the other degrees value is a part of this :class:`Enum`'s wind direction category.
-    
-    Parameters
-    ----------
-    other: Union[:class:`WindDirection`, :class:`int`, :class:`float`]
-      The other degrees value to compare. Besides :class:`int` and :class:`float`, this also works for any type that can be compared with a :class:`float`.
-    
-    Raises
-    ------
-    TypeError
-      If the ``other`` argument's type is incompatible.
-    
-    Returns
-    -------
-    :class:`bool`
-    """
-    
     if isinstance(other, self.__class__):
       other = other.degrees
     
@@ -263,12 +151,12 @@ class WindDirection(Enum):
   
   @property
   def degrees(self) -> int:
-    """:class:`int`: The wind direction's value in degrees."""
+    """The wind direction's value in degrees."""
     
     return self.__degrees
 
 class Locale(Enum):
-  """Represents the list of supported :term:`locales`/languages by this library."""
+  """Represents the list of supported locales/languages by this library."""
   
   __slots__ = ()
   
@@ -346,13 +234,9 @@ class Locale(Enum):
   ZULU = 'zu'
   
   def __repr__(self) -> str:
-    """:class:`str`: The string representation of this :class:`Enum`."""
-    
     return f'{self.__class__.__name__}.{self.name}'
   
   def __str__(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
-    
     arr = self.name.title().split('_')
     return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
@@ -409,7 +293,7 @@ class Kind(BasicEnum):
   
   @property
   def emoji(self) -> str:
-    """:class:`str`: The emoji representing this :class:`Enum`."""
+    """The emoji representing this :class:`Enum`."""
     
     if self is self.CLOUDY:
       return '☁️'
@@ -466,7 +350,7 @@ class Phase(BasicEnum):
   
   @property
   def emoji(self) -> str:
-    """:class:`str`: The stylized name for this :class:`Enum`."""
+    """The stylized name for this :class:`Enum`."""
     
     if self is self.NEW_MOON:
       return '🌑'
