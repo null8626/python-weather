@@ -79,13 +79,13 @@ changes = Row('Changes')
 with open(os.path.join(os.path.abspath('..'), 'changelog.yml')) as yml_stream:
   parsed_yml = yaml.safe_load(yml_stream)
   
-  for stream in parsed_yml['changelog']:
-    versions.append(stream['version'])
-    release_dates.append(stream['release-date'])
+  for changelog in parsed_yml['changelog']:
+    versions.append(changelog['version'])
+    release_dates.append(changelog['release-date'])
  
     change_strings = []
     
-    for change in stream['changes']:
+    for change in changelog['changes']:
       key = list(change.keys())[0]
       value = list(change.values())[0]
       
