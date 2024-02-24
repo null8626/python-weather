@@ -1,4 +1,5 @@
 prune .github
+prune docs
 exclude .gitattributes
 exclude .style.yapf
 exclude .gitignore
