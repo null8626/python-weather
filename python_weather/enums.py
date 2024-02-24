@@ -54,13 +54,13 @@ class Ultraviolet(Enum):
     else:
       return self.__index < other
   
-  def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:    
+  def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index == other.index
     else:
       return self.__index == other
   
-  def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:    
+  def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index > other.index
     else:
