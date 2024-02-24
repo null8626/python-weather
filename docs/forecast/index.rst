@@ -3,7 +3,6 @@ Forecasts
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
 
    weather
    current_forecast
