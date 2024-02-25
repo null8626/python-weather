@@ -3,9 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-==============
-python-weather
-==============
+===============
+python-weather_
+===============
+
+.. _python-weather: https://pypi.org/project/python-weather/
 
 A free and asynchronous weather Python API wrapper made in Python, for Python.
 
