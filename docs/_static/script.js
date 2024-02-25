@@ -1,6 +1,6 @@
 try {
   // remove this useless crap that appears on official readthedocs builds
-  document.querySelector('#furo-readthedocs-versions').remove()
+  document.querySelector('.injected').remove()
 } catch {}
 
 if (document.querySelector('section#python-weather')) {
