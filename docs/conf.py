@@ -1,12 +1,16 @@
 import sys
 import os
+import re
 
 sys.path.insert(0, os.path.abspath('..'))
 
 project = 'python-weather'
 copyright = '2021-2024, null8626'
 author = 'null8626'
-release = '1.1.2'
+
+version = ''
+with open('../python_weather/__init__.py') as f:
+  version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
 extensions = [
   'sphinx.ext.autodoc',
