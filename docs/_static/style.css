@@ -9,6 +9,10 @@ body {
   --font-stack--monospace: "Roboto Mono", monospace !important;
 }
 
+aside.toc-drawer {
+  visibility: hidden;
+}
+
 #furo-readthedocs-versions, .injected, .edit-this-page, .related-pages, .headerlink {
   visibility: hidden;
   user-select: none;
