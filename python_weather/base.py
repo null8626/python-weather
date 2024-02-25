@@ -21,8 +21,8 @@ class CustomizableBase:
     """
     Sets the default measuring unit used to display information in this object.
     
-    :param to: The new default measuring unit to be used to display information in this object. Must be either :attr:`METRIC` or :attr:`IMPERIAL`.
-    :exception Error: If the ``to`` argument is not either :attr:`METRIC` or :attr:`IMPERIAL`.
+    :param to: The new default measuring unit to be used to display information in this object. Must be either ``METRIC`` or ``IMPERIAL``.
+    :exception Error: If the ``to`` argument is not either ``METRIC`` or ``IMPERIAL``.
     """
     
     if not isinstance(to, _Unit):

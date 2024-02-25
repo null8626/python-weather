@@ -11,7 +11,6 @@ on:
   pull_request: null
 jobs:
   ci:
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
     name: Run test.py and pretty files
     runs-on: ubuntu-latest
     steps:
@@ -19,7 +18,7 @@ jobs:
       - uses: actions/setup-python@v4
         with:
           python-version: '3.8'
-          architecture: 'x64'
+          architecture: x64
       - name: Install dependencies
         run: python3 -m pip install .
       - name: Run test
