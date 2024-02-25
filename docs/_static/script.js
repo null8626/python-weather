@@ -16,7 +16,7 @@ if (document.querySelector('section#python-weather')) {
   // we don't need the right sidebar on the main landing page
   tocDrawer.remove()
 } else {
-  document.addEventListener('load', () => tocDrawer.style.visibility = 'visible')
+  tocDrawer.style.visibility = 'visible'
   
   const enumProperties = [...document.querySelectorAll('.property')].filter(x => x.parentElement.children.length === 3)
 
