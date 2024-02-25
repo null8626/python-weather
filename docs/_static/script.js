@@ -1,5 +1,7 @@
 document.addEventListener('load', () => {
   try {
+    document.querySelector('.edit-this-page').remove()
+    
     // remove these useless crap that appears on official readthedocs builds
     document.querySelector('#furo-readthedocs-versions').remove()
     document.querySelector('.injected').remove()
