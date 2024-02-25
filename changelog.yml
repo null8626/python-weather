@@ -13,7 +13,7 @@ changelog:
     changes:
       - fix: Use properties instead of directly storing attributes.
       - add: Add built-in caching capabilities.
-      - rem: Rename ``Weather#forecast`` to ``Weather#forecasts``.
+      - rem: Rename ``Weather.forecast`` to ``Weather.forecasts``.
       - add: Add an exception class ``HTTPException``.
       - add: Add ``__slots__`` to class definitions.
       - add: Add ``example.py`` in the project root directory.
@@ -25,8 +25,8 @@ changelog:
     release-date: 18 June 2021
     changes:
       - add: Add a bundled-in CLI.
-      - add: Add ``Weather#format`` property.
-      - add: Add ``Weather#locale`` property.
+      - add: Add ``Weather.format`` property.
+      - add: Add ``Weather.locale`` property.
       - fix: Improve the project's typings.
       - add: Add ``.gitignore`` in the project's root to remove ``__pycache__`` from appearing.
       - fix: Tweaks to the project's documentation.
@@ -45,7 +45,7 @@ changelog:
   - version: 0.3.7
     release-date: 5 November 2021
     changes:
-      - fix: Fix bug that raises an exception when calling ``HTTPException#__repr__``.
+      - fix: Fix bug that raises an exception when calling ``HTTPException.__repr__``.
       - fix: '``HTTPException`` now derives from the :py:class:`Exception` class.'
       - add: Add ``__slots__`` to the class definition for ``HTTPException``.
   - version: 0.3.8
@@ -55,9 +55,7 @@ changelog:
       - fix: Fix potential :py:class:`NameError` bug.
       - rem: Remove all built-in caching capabilities.
       - fix: Update the example with a fix for all Windows systems.
-      - add: Add ``MANIFEST.in`` which would ignore useless files and directories before being sent to PyPI.
       - add: Add GitHub workflows for testing.
-      - fix: Change indentation from 4 to 2.
   - version: 0.4.0
     release-date: 6 August 2022
     changes:
@@ -68,21 +66,20 @@ changelog:
   - version: 0.4.1
     release-date: 8 August 2022
     changes:
-      - fix: Fix bug when retrieving ``CurrentForecast#local_time``.
-      - rem: Remove ``MANIFEST.in`` as it is unnecessary.
+      - fix: Fix bug when retrieving ``CurrentForecast.local_time``.
   - version: 0.4.2
     release-date: 9 September 2022
     changes:
-      - rem: Rename ``DailyForecast#average_temperature`` to ``DailyForecast#temperature``.
+      - rem: Rename ``DailyForecast.average_temperature`` to ``DailyForecast.temperature``.
       - fix: Printing the forecast result should no longer raise an :py:class:`AttributeError`.
-      - fix: '``Weather#location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)'
+      - fix: '``Weather.location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)'
       - add: Add ``Mist`` property to the ``WeatherType`` enum.
       - add: Add an additional ``TCPConnector`` argument to the default ``aiohttp ClientSession``.
       - rem: Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.
   - version: 0.4.3
     release-date: 23 October 2022
     changes:
-      - fix: The ``HourlyForecast#time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.
+      - fix: The ``HourlyForecast.time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.
   - version: 1.0.0
     release-date: 28 April 2023
     changes:
