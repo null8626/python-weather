@@ -81,3 +81,5 @@ Changelog
 | 1.1.1   | 20 February 2024 | - 🟥 Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.                                           |
 |         |                  | - 🟦 Bump ``aiohttp`` dependency from v3.9.0 to v3.9.3.                                                                                   |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| 1.1.2   | 25 February 2024 | - 🟩 Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.                                           |
++---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
