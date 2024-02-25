@@ -11,7 +11,7 @@ Changelog
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.3.0   | 24 May 2021      | - 🟦 Use properties instead of directly storing attributes.                                                                               |
 |         |                  | - 🟩 Add built-in caching capabilities.                                                                                                   |
-|         |                  | - 🟥 Rename ``Weather#forecast`` to ``Weather#forecasts``.                                                                                |
+|         |                  | - 🟥 Rename ``Weather.forecast`` to ``Weather.forecasts``.                                                                                |
 |         |                  | - 🟩 Add an exception class ``HTTPException``.                                                                                            |
 |         |                  | - 🟩 Add ``__slots__`` to class definitions.                                                                                              |
 |         |                  | - 🟩 Add ``example.py`` in the project root directory.                                                                                    |
@@ -21,8 +21,8 @@ Changelog
 |         |                  | - 🟦 Improve the example in README.                                                                                                       |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.3.3   | 18 June 2021     | - 🟩 Add a bundled-in CLI.                                                                                                                |
-|         |                  | - 🟩 Add ``Weather#format`` property.                                                                                                     |
-|         |                  | - 🟩 Add ``Weather#locale`` property.                                                                                                     |
+|         |                  | - 🟩 Add ``Weather.format`` property.                                                                                                     |
+|         |                  | - 🟩 Add ``Weather.locale`` property.                                                                                                     |
 |         |                  | - 🟦 Improve the project's typings.                                                                                                       |
 |         |                  | - 🟩 Add ``.gitignore`` in the project's root to remove ``__pycache__`` from appearing.                                                   |
 |         |                  | - 🟦 Tweaks to the project's documentation.                                                                                               |
@@ -33,7 +33,7 @@ Changelog
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.3.6   | 26 July 2021     | - 🟦 Fix bug that causes ``IMPERIAL`` to have no effect.                                                                                  |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.3.7   | 5 November 2021  | - 🟦 Fix bug that raises an exception when calling ``HTTPException#__repr__``.                                                            |
+| 0.3.7   | 5 November 2021  | - 🟦 Fix bug that raises an exception when calling ``HTTPException.__repr__``.                                                            |
 |         |                  | - 🟦 ``HTTPException`` now derives from the :py:class:`Exception` class.                                                                  |
 |         |                  | - 🟩 Add ``__slots__`` to the class definition for ``HTTPException``.                                                                     |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
@@ -41,26 +41,23 @@ Changelog
 |         |                  | - 🟦 Fix potential :py:class:`NameError` bug.                                                                                             |
 |         |                  | - 🟥 Remove all built-in caching capabilities.                                                                                            |
 |         |                  | - 🟦 Update the example with a fix for all Windows systems.                                                                               |
-|         |                  | - 🟩 Add ``MANIFEST.in`` which would ignore useless files and directories before being sent to PyPI.                                      |
 |         |                  | - 🟩 Add GitHub workflows for testing.                                                                                                    |
-|         |                  | - 🟦 Change indentation from 4 to 2.                                                                                                      |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.4.0   | 6 August 2022    | - 🟦 Migrate from using Microsoft's MSN API to ``wttr.in``.                                                                               |
 |         |                  | - 🟦 Fix dependabot alerts.                                                                                                               |
 |         |                  | - 🟩 Add ``async with`` support for the client instance.                                                                                  |
 |         |                  | - 🟩 Add additional installation instructions for debian users.                                                                           |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.4.1   | 8 August 2022    | - 🟦 Fix bug when retrieving ``CurrentForecast#local_time``.                                                                              |
-|         |                  | - 🟥 Remove ``MANIFEST.in`` as it is unnecessary.                                                                                         |
+| 0.4.1   | 8 August 2022    | - 🟦 Fix bug when retrieving ``CurrentForecast.local_time``.                                                                              |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.4.2   | 9 September 2022 | - 🟥 Rename ``DailyForecast#average_temperature`` to ``DailyForecast#temperature``.                                                       |
+| 0.4.2   | 9 September 2022 | - 🟥 Rename ``DailyForecast.average_temperature`` to ``DailyForecast.temperature``.                                                       |
 |         |                  | - 🟦 Printing the forecast result should no longer raise an :py:class:`AttributeError`.                                                   |
-|         |                  | - 🟦 ``Weather#location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)|
+|         |                  | - 🟦 ``Weather.location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)|
 |         |                  | - 🟩 Add ``Mist`` property to the ``WeatherType`` enum.                                                                                   |
 |         |                  | - 🟩 Add an additional ``TCPConnector`` argument to the default ``aiohttp ClientSession``.                                                |
 |         |                  | - 🟥 Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.                                                     |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.4.3   | 23 October 2022  | - 🟦 The ``HourlyForecast#time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.              |
+| 0.4.3   | 23 October 2022  | - 🟦 The ``HourlyForecast.time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.              |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 1.0.0   | 28 April 2023    | - 🟩 Add custom locale support.                                                                                                           |
 |         |                  | - 🟩 Add lots of new classes and enums, and improve inheritance use.                                                                      |

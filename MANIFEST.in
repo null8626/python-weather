@@ -1,8 +1,9 @@
 prune .github
 prune docs
 exclude .gitattributes
-exclude .style.yapf
 exclude .gitignore
+exclude .readthedocs.yml
+exclude .style.yapf
 exclude LICENSE
 exclude changelog.yml
 exclude test.py
