@@ -1,16 +1,24 @@
-html {
-  visibility: hidden;
-}
-
 body {
   --color-link-underline: rgba(0, 0, 0, 0);
   --color-link-underline--hover: var(--color-link);
+  --color-inline-code-background: rgba(0, 0, 0, 0);
+  --color-api-background-hover: var(--color-background-primary);
+  --color-highlight-on-target: var(--color-background-primary) !important;
   
   --font-stack: "Inter", sans-serif !important;
   --font-stack--monospace: "Roboto Mono", monospace !important;
 }
 
-.highlight .c1 {
+dd dt {
+  color: var(--color-foreground-secondary);
+}
+
+aside.toc-drawer .docutils:hover {
+  transition: 0.15s;
+  filter: brightness(75%);
+}
+
+.highlight .c1, em {
   font-style: normal !important;
 }
 
@@ -18,10 +26,14 @@ body {
   text-decoration: none !important;
 }
 
+h1 {
+  font-weight: 900;
+}
+
 .sidebar-brand-text {
   font-weight: bolder;
 }
 
 .sidebar-scroll .reference.internal {
-  color: #2b8cee;
+  color: var(--color-brand-primary);
 }
