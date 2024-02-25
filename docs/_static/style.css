@@ -9,6 +9,10 @@ body {
   --font-stack--monospace: "Roboto Mono", monospace !important;
 }
 
+#furo-readthedocs-versions, .injected {
+  visibility: hidden;
+}
+
 dd dt {
   color: var(--color-foreground-secondary);
 }

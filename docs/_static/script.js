@@ -1,8 +1,12 @@
-try {
-  // remove these useless crap that appears on official readthedocs builds
-  document.querySelector('#furo-readthedocs-versions').remove()
-  document.querySelector('.injected').remove()
-} catch {}
+document.addEventListener('load', () => {
+  try {
+    // remove these useless crap that appears on official readthedocs builds
+    document.querySelector('#furo-readthedocs-versions').remove()
+    document.querySelector('.injected').remove()
+  } catch {
+    // we're building this locally, forget it
+  }
+})
 
 if (document.querySelector('section#python-weather')) {
   // we don't need the right sidebar on the main landing page
