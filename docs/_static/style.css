@@ -1,0 +1,27 @@
+html {
+  visibility: hidden;
+}
+
+body {
+  --color-link-underline: rgba(0, 0, 0, 0);
+  --color-link-underline--hover: var(--color-link);
+  
+  --font-stack: "Inter", sans-serif !important;
+  --font-stack--monospace: "Roboto Mono", monospace !important;
+}
+
+.highlight .c1 {
+  font-style: normal !important;
+}
+
+.highlight .nn {
+  text-decoration: none !important;
+}
+
+.sidebar-brand-text {
+  font-weight: bolder;
+}
+
+.sidebar-scroll .reference.internal {
+  color: #2b8cee;
+}
