@@ -1,10 +1,12 @@
-# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
+# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![Documentation Build Status][doc-ci-image]][doc-ci-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
 [downloads-image]: https://img.shields.io/pypi/dm/python-weather?style=flat-square
 [ci-image]: https://github.com/null8626/python-weather/workflows/CI/badge.svg
 [ci-url]: https://github.com/null8626/python-weather/actions/workflows/CI.yml
+[doc-ci-image]: https://readthedocs.org/projects/python-weather/badge/?version=latest
+[doc-ci-url]: https://python-weather.readthedocs.io/en/latest/?badge=latest
 [github-license-image]: https://img.shields.io/github/license/null8626/python-weather?style=flat-square
 [github-license-url]: https://github.com/null8626/python-weather/blob/main/LICENSE
 [blazingly-fast-image]: https://img.shields.io/badge/speed-BLAZINGLY%20FAST!!!%20%F0%9F%94%A5%F0%9F%9A%80%F0%9F%92%AA%F0%9F%98%8E-brightgreen.svg?style=flat-square
@@ -19,6 +21,8 @@ $ pip install python-weather
 ```
 
 ## Example
+
+For more information, please read the [documentation](https://python-weather.readthedocs.io/en/latest/).
 
 ```py
 # import the module
