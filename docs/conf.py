@@ -22,6 +22,7 @@ intersphinx_mapping = {
   'aio': ('https://docs.aiohttp.org/en/stable/', None)
 }
 
+html_css_files = ['style.css', 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto+Mono&display=swap']
 html_js_files = ['script.js']
 html_static_path = ['_static']
 html_theme = 'furo'

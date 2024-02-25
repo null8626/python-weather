@@ -1,18 +1,31 @@
-const enumProperties = [...document.querySelectorAll('.property')].filter(x => x.parentElement.children.length === 3)
+try {
+  // remove this useless crap that appears on official readthedocs builds
+  document.querySelector('#furo-readthedocs-versions').remove()
+} catch {}
 
-for (const enumProperty of enumProperties) {
-  // we don't need to display enum values
-  enumProperty.children[3].innerText = '...'
-  
-  // kill the rest of the children >:)
-  for (let i = 4; i < enumProperty.children.length; i++) {
-    enumProperty.children[i].remove()
+if (document.querySelector('section#python-weather')) {
+  // we don't need the right sidebar on the main landing page
+  document.querySelector('aside.toc-drawer').remove()
+} else {
+  const enumProperties = [...document.querySelectorAll('.property')].filter(x => x.parentElement.children.length === 3)
+
+  for (const enumProperty of enumProperties) {
+    // we don't need to display enum values
+    enumProperty.children[3].innerText = '...'
+    
+    // kill the rest of the children >:)
+    for (let i = 4; i < enumProperty.children.length; i++) {
+      enumProperty.children[i].remove()
+    }
   }
-  
-  // remove hyperlinks to enum properties as they are useless
-  const parentChildren = enumProperty.parentElement.children
-  
-  parentChildren[parentChildren.length - 1].remove()
+}
+
+// remove related pages in the footer
+document.querySelector('.related-pages').remove()
+
+// remove all header links
+for (const headerLink of document.querySelectorAll('.headerlink')) {
+  headerLink.remove()
 }
 
 let control = false
@@ -28,6 +41,6 @@ document.addEventListener('keydown', event => {
 
 document.addEventListener('keyup', event => {
   if (event.key === 'Control') {
-    control = false;
+    control = false
   }
 })
