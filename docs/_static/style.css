@@ -9,8 +9,9 @@ body {
   --font-stack--monospace: "Roboto Mono", monospace !important;
 }
 
-#furo-readthedocs-versions, .injected {
+#furo-readthedocs-versions, .injected, .edit-this-page, .related-pages, .headerlink {
   visibility: hidden;
+  user-select: none;
 }
 
 dd dt {
