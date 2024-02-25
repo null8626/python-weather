@@ -13,18 +13,9 @@ dd dt {
   color: var(--color-foreground-secondary);
 }
 
-@media (prefers-color-scheme: dark) {
-  aside.toc-drawer .docutils:hover, .sidebar-brand-text:hover {
-    transition: 0.15s;
-    filter: brightness(75%);
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  aside.toc-drawer .docutils:hover, .sidebar-brand-text:hover {
-    transition: 0.15s;
-    filter: opacity(25%);
-  }
+aside.toc-drawer .docutils:hover, .sidebar-brand-text:hover {
+  transition: 0.15s;
+  filter: opacity(75%);
 }
 
 .highlight .c1, em {
