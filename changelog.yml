@@ -114,3 +114,7 @@ changelog:
     changes:
       - rem: Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.
       - fix: Bump ``aiohttp`` dependency from v3.9.0 to v3.9.3.
+  - version: 1.1.2
+    release-date: 25 February 2024
+    changes:
+      - add: Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.

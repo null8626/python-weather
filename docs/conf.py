@@ -5,11 +5,14 @@ import re
 sys.path.insert(0, os.path.abspath('..'))
 
 project = 'python-weather'
-copyright = '2021-2024, null8626'
 author = 'null8626'
 
+copyright = author
+with open('../LICENSE', 'r') as f:
+  copyright = f'{re.search(r"\d{4}\-\d{4}", f.read()).group()} {copyright}'
+
 version = ''
-with open('../python_weather/__init__.py') as f:
+with open('../python_weather/__init__.py', 'r') as f:
   version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
 
 extensions = [
