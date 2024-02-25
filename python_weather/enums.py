@@ -293,7 +293,7 @@ class Kind(BasicEnum):
   
   @property
   def emoji(self) -> str:
-    """The emoji representing this :class:`Enum`."""
+    """The emoji representing this enum."""
     
     if self is self.CLOUDY:
       return '☁️'
@@ -350,7 +350,7 @@ class Phase(BasicEnum):
   
   @property
   def emoji(self) -> str:
-    """The stylized name for this :class:`Enum`."""
+    """The stylized name for this enum."""
     
     if self is self.NEW_MOON:
       return '🌑'

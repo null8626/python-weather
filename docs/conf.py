@@ -13,5 +13,12 @@ extensions = [
   'sphinx.ext.intersphinx'
 ]
 
+intersphinx_mapping = {
+  'py': ('https://docs.python.org/3', None),
+  'aio': ('https://docs.aiohttp.org/en/stable/', None)
+}
+
+html_js_files = ['script.js']
+html_static_path = ['_static']
 html_theme = 'furo'
 html_title = 'python-weather'

@@ -46,7 +46,7 @@ changelog:
     release-date: 5 November 2021
     changes:
       - fix: Fix bug that raises an exception when calling ``HTTPException#__repr__``.
-      - fix: "``HTTPException`` now derives from the :py:class:`Exception` class."
+      - fix: '``HTTPException`` now derives from the :py:class:`Exception` class.'
       - add: Add ``__slots__`` to the class definition for ``HTTPException``.
   - version: 0.3.8
     release-date: 28 June 2022
@@ -75,7 +75,7 @@ changelog:
     changes:
       - rem: Rename ``DailyForecast#average_temperature`` to ``DailyForecast#temperature``.
       - fix: Printing the forecast result should no longer raise an :py:class:`AttributeError`.
-      - fix: "``Weather#location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)"
+      - fix: '``Weather#location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)'
       - add: Add ``Mist`` property to the ``WeatherType`` enum.
       - add: Add an additional ``TCPConnector`` argument to the default ``aiohttp ClientSession``.
       - rem: Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.
