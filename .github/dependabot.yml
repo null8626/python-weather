@@ -1,10 +1,18 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: pip
+    directory: /
     commit-message:
-      prefix: "deps: "
+      prefix: 'deps: '
     schedule:
-      day: "saturday"
-      interval: "weekly"
-      time: "06:00"
+      day: saturday
+      interval: weekly
+      time: 06:00
+  - package-ecosystem: pip
+    directory: docs
+    commit-message:
+      prefix: 'deps: '
+    schedule:
+      day: saturday
+      interval: weekly
+      time: 06:15
