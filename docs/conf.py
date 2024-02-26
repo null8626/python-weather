@@ -29,4 +29,4 @@ html_css_files = ['style.css', 'https://fonts.googleapis.com/css2?family=Inter:w
 html_js_files = ['script.js']
 html_static_path = ['_static']
 html_theme = 'furo'
-html_title = 'python-weather'
+html_title = project
