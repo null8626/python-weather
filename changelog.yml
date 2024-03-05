@@ -125,7 +125,7 @@ changelog:
       - rem: Merge ``CurrentForecast`` class' properties with :class:`Forecast`. Therefore the ``current`` property is removed.
       - rem: Merge ``Area`` class' properties with :class:`Forecast`.
       - rem: Rename ``Forecast.forecasts`` to ``Forecast.daily_forecasts``.
-      - rem: Rename ``Forecast.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name.
+      - rem: Rename ``Forecast.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name and the latter is no longer an optional type.
       - rem: Rename ``Forecast.chances_of_hightemp`` to ``Forecast.chances_of_high_temperature``.
       - rem: Remove ``Forecast.chances_of_remdry``, use ``Forecast.chances_of_remaining_dry`` instead.
       - rem: Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.
