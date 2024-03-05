@@ -16,7 +16,7 @@ class Client(CustomizableBase):
   
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
   :type unit: Optional[:py:class:`enum.auto`]
-  :param locale: Whether to use a different locale/language as the description for the returned forecst. Defaults to ``Locale.ENGLISH``.
+  :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to ``Locale.ENGLISH``.
   :type locale: Optional[Locale]
   :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead)
   :type session: Optional[:class:`aiohttp.ClientSession`]
