@@ -118,3 +118,19 @@ changelog:
     release-date: 25 February 2024
     changes:
       - add: Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.
+  - version: 2.0.0
+    release-date: March 2024
+    changes:
+      - rem: Rename the main forecast's class name from ``Weather`` to :class:`Forecast`.
+      - rem: Merge ``CurrentForecast`` class' properties with :class:`Forecast`. Therefore the ``current`` property is removed.
+      - rem: Merge ``Area`` class' properties with :class:`Forecast`.
+      - rem: Rename ``Forecast.forecasts`` to ``Forecast.daily_forecasts``.
+      - rem: Rename ``Forecast.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name.
+      - rem: Rename ``Forecast.chances_of_hightemp`` to ``Forecast.chances_of_high_temperature``.
+      - rem: Remove ``Forecast.chances_of_remdry``, use ``Forecast.chances_of_remaining_dry`` instead.
+      - rem: Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.
+      - rem: Merge ``Astronomy`` class' properties with :class:`DailyForecast`.
+      - rem: Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.
+      - rem: Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.
+      - rem: Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.
+      - rem: Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.

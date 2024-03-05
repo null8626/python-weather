@@ -83,3 +83,17 @@ Changelog
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
 | 1.1.2   | 25 February 2024 | - 🟩 Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.                                           |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.0.0   | March 2024       | - 🟥 Rename the main forecast's class name from ``Weather`` to :class:`Forecast`.                                                         |
+|         |                  | - 🟥 Merge ``CurrentForecast`` class' properties with :class:`Forecast`. Therefore the ``current`` property is removed.                   |
+|         |                  | - 🟥 Merge ``Area`` class' properties with :class:`Forecast`.                                                                             |
+|         |                  | - 🟥 Rename ``Forecast.forecasts`` to ``Forecast.daily_forecasts``.                                                                       |
+|         |                  | - 🟥 Rename ``Forecast.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name.                       |
+|         |                  | - 🟥 Rename ``Forecast.chances_of_hightemp`` to ``Forecast.chances_of_high_temperature``.                                                 |
+|         |                  | - 🟥 Remove ``Forecast.chances_of_remdry``, use ``Forecast.chances_of_remaining_dry`` instead.                                            |
+|         |                  | - 🟥 Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.                                                               |
+|         |                  | - 🟥 Merge ``Astronomy`` class' properties with :class:`DailyForecast`.                                                                   |
+|         |                  | - 🟥 Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.                                                                          |
+|         |                  | - 🟥 Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.                                                                            |
+|         |                  | - 🟥 Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.                                                                        |
+|         |                  | - 🟥 Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.                                                                          |
++---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------+
