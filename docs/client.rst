@@ -1,5 +1,5 @@
-Client
-======
+Client reference
+================
 
 .. autoclass:: python_weather.client.Client
    :members:

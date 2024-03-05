@@ -81,7 +81,7 @@ class BaseForecast(CustomizableBase):
   
   @property
   def temperature(self) -> int:
-    """The weather temperature in either Celcius or Fahrenheit."""
+    """The temperature in either Celcius or Fahrenheit."""
     
     return int(self.__inner[f'temp_{self._CustomizableBase__unit.temperature}'])
   
@@ -136,6 +136,6 @@ class BaseForecast(CustomizableBase):
   
   @property
   def kind(self) -> Kind:
-    """The kind of the weather."""
+    """The kind of the forecast."""
     
     return Kind(int(self.__inner['weatherCode']))

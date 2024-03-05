@@ -1,4 +1,3 @@
-import warnings
 from typing import Iterable, Optional, Tuple
 from datetime import datetime, date, time
 from enum import auto
@@ -6,128 +5,6 @@ from enum import auto
 from .base import BaseForecast, CustomizableBase
 from .constants import _Unit, LATLON_REGEX
 from .enums import Phase, Locale
-
-class Area:
-  """Represents the location of the weather forecast."""
-  
-  __slots__ = ('__inner',)
-  
-  def __init__(self, json: dict):
-    self.__inner = json
-  
-  def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} name={self.name!r} country={self.country!r} region={self.region!r}>'
-  
-  @property
-  def latitude(self) -> float:
-    """The latitude."""
-    
-    return float(self.__inner['latitude'])
-  
-  @property
-  def longitude(self) -> float:
-    """The longitude."""
-    
-    return float(self.__inner['longitude'])
-  
-  @property
-  def population(self) -> int:
-    """The location's population count."""
-    
-    return int(self.__inner['population'])
-  
-  @property
-  def region(self) -> str:
-    """The location's region name."""
-    
-    return self.__inner['region'][0]['value']
-  
-  @property
-  def name(self) -> str:
-    """The location's name."""
-    
-    return self.__inner['areaName'][0]['value']
-  
-  @property
-  def country(self) -> str:
-    """The location's country name."""
-    
-    return self.__inner['country'][0]['value']
-
-class Astronomy:
-  """Represents the astronomical information of said weather forecast."""
-  
-  __slots__ = ('__inner',)
-  
-  def __init__(self, json: dict):
-    self.__inner = json
-  
-  def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} moon_phase="{self.moon_phase!r}" sun_rise={self.sun_rise!r} sun_set={self.sun_set!r}>'
-  
-  @property
-  def moon_illumination(self) -> int:
-    """The percentage of the moon illuminated."""
-    
-    return int(self.__inner['moon_illumination'])
-  
-  @property
-  def moon_phase(self) -> Phase:
-    """The moon's phase."""
-    
-    return Phase(self.__inner['moon_phase'])
-  
-  @property
-  def moon_rise(self) -> Optional[time]:
-    """The local time when the moon rises. This can be ``None``."""
-    
-    try:
-      return datetime.strptime(self.__inner['moonrise'], '%I:%M %p').time()
-    except ValueError:
-      ...
-  
-  @property
-  def moon_set(self) -> time:
-    """The local time when the moon sets. This can be ``None``."""
-    
-    try:
-      return datetime.strptime(self.__inner['moonset'], '%I:%M %p').time()
-    except ValueError:
-      ...
-  
-  @property
-  def sun_rise(self) -> Optional[time]:
-    """The local time when the sun rises. This can be ``None``."""
-    
-    try:
-      return datetime.strptime(self.__inner['sunrise'], '%I:%M %p').time()
-    except ValueError:
-      ...
-  
-  @property
-  def sun_set(self) -> Optional[time]:
-    """The local time when the sun sets. This can be ``None``."""
-    
-    try:
-      return datetime.strptime(self.__inner['sunset'], '%I:%M %p').time()
-    except ValueError:
-      ...
-
-class CurrentForecast(BaseForecast):
-  """Represents a weather forecast of the current day."""
-  
-  __slots__ = ()
-  
-  def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} temperature={self.temperature!r} description={self.description!r} kind="{self.kind!r}">'
-  
-  @property
-  def date(self) -> datetime:
-    """The local date of this weather forecast."""
-    
-    return datetime.strptime(
-      self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
-    )
 
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast of a specific hour."""
@@ -190,7 +67,7 @@ class HourlyForecast(BaseForecast):
     return int(self._BaseForecast__inner['chanceoffrost'])
   
   @property
-  def chances_of_hightemp(self) -> int:
+  def chances_of_high_temperature(self) -> int:
     """Chances of a high temperature in percent."""
     
     return int(self._BaseForecast__inner['chanceofhightemp'])
@@ -212,16 +89,6 @@ class HourlyForecast(BaseForecast):
     """Chances of remaining dry in percent."""
     
     return int(self._BaseForecast__inner['chanceofremdry'])
-  
-  @property
-  def chances_of_remdry(self) -> int:
-    """Deprecated, use chances_of_remaining_dry instead."""
-    
-    warnings.warn(
-      'Deprecated as of v1.1.2. Use `chances_of_remaining_dry` instead.',
-      DeprecationWarning
-    )
-    return self.chances_of_remaining_dry
   
   @property
   def chances_of_snow(self) -> int:
@@ -260,21 +127,64 @@ class HourlyForecast(BaseForecast):
     return time() if len(self._BaseForecast__inner['time']) < 3 else datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time() # yapf: disable
 
 class DailyForecast(CustomizableBase):
-  __slots__ = ('__inner',)
+  __slots__ = ('__inner', '__astronomy')
   
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
+    self.__astronomy = json.pop('astronomy')[0]
     self.__inner = json
     
     super().__init__(unit, locale)
   
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} date={self.date!r} astronomy={self.astronomy!r} temperature={self.temperature!r}>'
+    return f'<{self.__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
   
   @property
-  def astronomy(self) -> Astronomy:
-    """The astronomical information of said weather forecast."""
+  def moon_illumination(self) -> int:
+    """The percentage of the moon illuminated."""
     
-    return Astronomy(self.__inner['astronomy'][0])
+    return int(self.__astronomy['moon_illumination'])
+  
+  @property
+  def moon_phase(self) -> Phase:
+    """The moon's phase."""
+    
+    return Phase(self.__astronomy['moon_phase'])
+  
+  @property
+  def moonrise(self) -> Optional[time]:
+    """The local time when the moon rises. This can be ``None``."""
+    
+    try:
+      return datetime.strptime(self.__astronomy['moonrise'], '%I:%M %p').time()
+    except ValueError:
+      ...
+  
+  @property
+  def moonset(self) -> Optional[time]:
+    """The local time when the moon sets. This can be ``None``."""
+    
+    try:
+      return datetime.strptime(self.__astronomy['moonset'], '%I:%M %p').time()
+    except ValueError:
+      ...
+  
+  @property
+  def sunrise(self) -> Optional[time]:
+    """The local time when the sun rises. This can be ``None``."""
+    
+    try:
+      return datetime.strptime(self.__astronomy['sunrise'], '%I:%M %p').time()
+    except ValueError:
+      ...
+  
+  @property
+  def sunset(self) -> Optional[time]:
+    """The local time when the sun sets. This can be ``None``."""
+    
+    try:
+      return datetime.strptime(self.__astronomy['sunset'], '%I:%M %p').time()
+    except ValueError:
+      ...
   
   @property
   def date(self) -> date:
@@ -321,7 +231,7 @@ class DailyForecast(CustomizableBase):
     ) / self._CustomizableBase__unit.cm_divisor
   
   @property
-  def hourly(self) -> Iterable[HourlyForecast]:
+  def hourly_forecasts(self) -> Iterable[HourlyForecast]:
     """The hourly forecasts of this day."""
     
     return (
@@ -330,36 +240,55 @@ class DailyForecast(CustomizableBase):
       ) for elem in self.__inner['hourly']
     )
 
-class Weather(CustomizableBase):
+class Forecast(BaseForecast):
   """Represents an entire weather forecast."""
   
-  __slots__ = ('__inner',)
+  __slots__ = ('__inner', '__nearest')
   
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
+    current = json['current_condition'][0]
+    self.__nearest = json.pop('nearest_area')[0]
     self.__inner = json
     
-    super().__init__(unit, locale)
+    super().__init__(current, unit, locale)
   
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} current={self.current!r} location={self.location!r}>'
+    return f'<{self.__class__.__name__} location={self.location!r} date={self.date!r} temperature={self.temperature!r}>'
   
   @property
-  def current(self) -> CurrentForecast:
-    """The forecast of the current day."""
+  def local_population(self) -> int:
+    """The local population count."""
     
-    return CurrentForecast(
-      self.__inner['current_condition'][0], self._CustomizableBase__unit,
-      self._CustomizableBase__locale
+    return int(self.__nearest['population'])
+  
+  @property
+  def region(self) -> str:
+    """The local region's name."""
+    
+    return self.__nearest['region'][0]['value']
+  
+  @property
+  def location(self) -> str:
+    """The location's name."""
+    
+    return self.__nearest['areaName'][0]['value']
+  
+  @property
+  def country(self) -> str:
+    """The local country's name."""
+    
+    return self.__nearest['country'][0]['value']
+  
+  @property
+  def date(self) -> datetime:
+    """The local date of this weather forecast."""
+    
+    return datetime.strptime(
+      self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
     )
   
   @property
-  def nearest_area(self) -> Area:
-    """The information of the nearest area of the current weather forecast."""
-    
-    return Area(self.__inner['nearest_area'][0])
-  
-  @property
-  def forecasts(self) -> Iterable[DailyForecast]:
+  def daily_forecasts(self) -> Iterable[DailyForecast]:
     """Daily forecasts of the current weather forecast."""
     
     return (
@@ -369,8 +298,8 @@ class Weather(CustomizableBase):
     )
   
   @property
-  def location(self) -> Optional[Tuple[float, float]]:
-    """A tuple of both latitude and longitude. This can be ``None``."""
+  def coordinates(self) -> Tuple[float, float]:
+    """A tuple of this forecast's latitude and longitude."""
     
     try:
       for req in filter(
@@ -380,4 +309,5 @@ class Weather(CustomizableBase):
         
         return float(lat), float(lon)
     except:
-      ...
+      return float(self.__nearest['latitude']
+                   ), float(self.__nearest['longitude'])

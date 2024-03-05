@@ -6,7 +6,7 @@ from enum import auto
 
 from .constants import _Unit, METRIC
 from .base import CustomizableBase
-from .forecast import Weather
+from .forecast import Forecast
 from .errors import Error
 from .enums import Locale
 
@@ -16,7 +16,7 @@ class Client(CustomizableBase):
   
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
   :type unit: Optional[:py:class:`enum.auto`]
-  :param locale: Whether to use a different locale/language as the description for the returned weather events. Defaults to ``Locale.ENGLISH``.
+  :param locale: Whether to use a different locale/language as the description for the returned forecst. Defaults to ``Locale.ENGLISH``.
   :type locale: Optional[Locale]
   :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead)
   :type session: Optional[:class:`aiohttp.ClientSession`]
@@ -49,7 +49,7 @@ class Client(CustomizableBase):
     *,
     unit: Optional[auto] = None,
     locale: Optional[Locale] = None
-  ) -> Weather:
+  ) -> Forecast:
     """
     Fetches a weather forecast for a specific location.
     
@@ -63,7 +63,7 @@ class Client(CustomizableBase):
     :exception Error: If the aiohttp client session used by the :class:`Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`Locale` enum, or if the :class:`Client` cannot send a web request to the web server.
     
     :returns: The requested weather forecast.
-    :rtype: Weather
+    :rtype: Forecast
     """
     
     if (not isinstance(location, str)) or (not location):
@@ -89,7 +89,7 @@ class Client(CustomizableBase):
         f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
         try:
-          return Weather(await resp.json(), unit, locale)
+          return Forecast(await resp.json(), unit, locale)
         except Exception as e:
           if delay == 4:
             raise e  # okay, that's too much requests - just raise the error

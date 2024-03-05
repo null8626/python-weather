@@ -1,12 +1,9 @@
-Weather forecasts
------------------
+Weather forecast
+----------------
 
-.. autoclass:: python_weather.forecast.Weather()
+.. autoclass:: python_weather.forecast.Forecast()
    :members:
    :inherited-members:
-
-.. autoclass:: python_weather.forecast.Area()
-   :members:
 
 .. autoclass:: python_weather.enums.Kind()
    :members:

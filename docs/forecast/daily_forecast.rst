@@ -5,9 +5,6 @@ Daily forecast
    :members:
    :inherited-members:
 
-.. autoclass:: python_weather.forecast.Astronomy()
-   :members:
-
 .. autoclass:: python_weather.enums.Phase()
    :members:
    :undoc-members:
