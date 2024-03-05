@@ -309,4 +309,5 @@ class Forecast(BaseForecast):
         
         return float(lat), float(lon)
     except:
-      return float(self.__nearest['latitude']), float(self.__nearest['longitude'])
+      return float(self.__nearest['latitude']
+                   ), float(self.__nearest['longitude'])
