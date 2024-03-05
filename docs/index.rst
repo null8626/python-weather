@@ -36,14 +36,14 @@ Example
       weather = await client.get('New York')
       
       # returns the current day's forecast temperature (int)
-      print(weather.current.temperature)
+      print(weather.temperature)
       
       # get the weather forecast for a few days
-      for forecast in weather.forecasts:
-        print(forecast)
+      for daily in weather.daily_forecasts:
+        print(daily)
         
         # hourly forecasts
-        for hourly in forecast.hourly:
+        for hourly in daily.hourly_forecasts:
           print(f' --> {hourly!r}')
   
   if __name__ == '__main__':
