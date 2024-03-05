@@ -1,4 +1,4 @@
-# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![Documentation Build Status][doc-ci-image]][doc-ci-url] [![license][github-license-image]][github-license-url] [![BLAZINGLY FAST!!!][blazingly-fast-image]][blazingly-fast-url]
+# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![Documentation Build Status][doc-ci-image]][doc-ci-url]
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
@@ -7,10 +7,6 @@
 [ci-url]: https://github.com/null8626/python-weather/actions/workflows/CI.yml
 [doc-ci-image]: https://readthedocs.org/projects/python-weather/badge/?version=latest
 [doc-ci-url]: https://python-weather.readthedocs.io/en/latest/?badge=latest
-[github-license-image]: https://img.shields.io/github/license/null8626/python-weather?style=flat-square
-[github-license-url]: https://github.com/null8626/python-weather/blob/main/LICENSE
-[blazingly-fast-image]: https://img.shields.io/badge/speed-BLAZINGLY%20FAST!!!%20%F0%9F%94%A5%F0%9F%9A%80%F0%9F%92%AA%F0%9F%98%8E-brightgreen.svg?style=flat-square
-[blazingly-fast-url]: https://twitter.com/acdlite/status/974390255393505280
 
 A free and asynchronous weather Python API wrapper made in Python, for Python.
 
@@ -38,14 +34,14 @@ async def getweather():
     weather = await client.get('New York')
     
     # returns the current day's forecast temperature (int)
-    print(weather.current.temperature)
+    print(weather.temperature)
     
     # get the weather forecast for a few days
-    for forecast in weather.forecasts:
-      print(forecast)
+    for daily in weather.daily_forecasts:
+      print(daily)
       
       # hourly forecasts
-      for hourly in forecast.hourly:
+      for hourly in daily.hourly_forecasts:
         print(f' --> {hourly!r}')
 
 if __name__ == '__main__':
