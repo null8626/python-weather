@@ -56,7 +56,6 @@ Example
 
 .. toctree::
    :maxdepth: 2
-   :hidden:
 
    client
    forecast/index.rst
