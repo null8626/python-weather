@@ -130,6 +130,8 @@ changelog:
       - rem: Rename ``CurrentForecast.chances_of_remdry`` to ``Forecast.chances_of_remaining_dry``.
       - rem: Rename ``CurrentForecast.date`` to ``Forecast.datetime``.
       - rem: Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.
+      - rem: Rename ``Ultraviolet`` to :class:`UltraViolet`.
+      - add: ``HourlyForecast.heat_index`` now returns a convenience enum called :class:`HeatIndex`.
       - rem: Merge ``Astronomy`` class' properties with :class:`DailyForecast`.
       - rem: Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.
       - rem: Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.

@@ -3,8 +3,8 @@ from datetime import datetime, date, time
 from enum import auto
 
 from .base import BaseForecast, CustomizableBase
+from .enums import Phase, Locale, HeatIndex
 from .constants import _Unit, LATLON_REGEX
-from .enums import Phase, Locale
 
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast of a specific hour."""
@@ -32,11 +32,14 @@ class HourlyForecast(BaseForecast):
     ) # yapf: disable
   
   @property
-  def heat_index(self) -> int:
+  def heat_index(self) -> HeatIndex:
     """The heat index in either Celcius or Fahrenheit."""
     
-    return int(
-      self._BaseForecast__inner[f'HeatIndex{self._CustomizableBase__unit.temperature}']
+    celcius_index = int(self._BaseForecast__inner['HeatIndexC'])
+    
+    return HeatIndex._new(
+      celcius_index,
+      int(self._BaseForecast__inner[f'HeatIndex{self._CustomizableBase__unit.temperature}'])
     ) # yapf: disable
   
   @property
@@ -253,7 +256,7 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
   
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} location={self.location!r} date={self.date!r} temperature={self.temperature!r}>'
+    return f'<{self.__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
   
   @property
   def local_population(self) -> int:
