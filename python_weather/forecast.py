@@ -280,8 +280,8 @@ class Forecast(BaseForecast):
     return self.__nearest['country'][0]['value']
   
   @property
-  def date(self) -> datetime:
-    """The local date of this weather forecast."""
+  def datetime(self) -> datetime:
+    """The local datetime of this weather forecast."""
     
     return datetime.strptime(
       self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
