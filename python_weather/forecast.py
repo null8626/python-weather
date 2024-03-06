@@ -241,7 +241,7 @@ class DailyForecast(CustomizableBase):
     )
 
 class Forecast(BaseForecast):
-  """Represents today's weather forecast, alongside daily and hourly forecasts."""
+  """Represents today's weather forecast, alongside daily and hourly weather forecasts."""
   
   __slots__ = ('__inner', '__nearest')
   
@@ -289,7 +289,7 @@ class Forecast(BaseForecast):
   
   @property
   def daily_forecasts(self) -> Iterable[DailyForecast]:
-    """Daily forecasts of the current weather forecast."""
+    """Daily weather forecasts in this location."""
     
     return (
       DailyForecast(
