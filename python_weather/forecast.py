@@ -241,7 +241,7 @@ class DailyForecast(CustomizableBase):
     )
 
 class Forecast(BaseForecast):
-  """Represents an entire weather forecast."""
+  """Represents today's weather forecast, alongside daily and hourly weather forecasts."""
   
   __slots__ = ('__inner', '__nearest')
   
@@ -280,8 +280,8 @@ class Forecast(BaseForecast):
     return self.__nearest['country'][0]['value']
   
   @property
-  def date(self) -> datetime:
-    """The local date of this weather forecast."""
+  def datetime(self) -> datetime:
+    """The local date and time of this weather forecast."""
     
     return datetime.strptime(
       self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
@@ -289,7 +289,7 @@ class Forecast(BaseForecast):
   
   @property
   def daily_forecasts(self) -> Iterable[DailyForecast]:
-    """Daily forecasts of the current weather forecast."""
+    """Daily weather forecasts in this location."""
     
     return (
       DailyForecast(
