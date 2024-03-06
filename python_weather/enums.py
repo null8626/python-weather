@@ -14,6 +14,7 @@ class BasicEnum(Enum):
     return self.name.replace('_', ' ').title()
 
 class IndexedEnum(Enum):
+  __slots__ = ('__index',)
   
   def __lt__(self, other: Union["Self", int, float]) -> bool:
     if isinstance(other, self.__class__):
@@ -44,20 +45,22 @@ class IndexedEnum(Enum):
     """The index value."""
     
     return self.__index
+  
+  @index.setter
+  def index(self, new_index: int) -> int:
+    self.__index = new_index
 
-class HeatIndex(BasicEnum, IndexedEnum):
-  """Represents ultra-violet (UV) index."""
+class HeatIndex(IndexedEnum):
+  """Represents a heat index."""
   
-  __slots__ = ('__index',)
-  
-  CAUTION = auto()
-  EXTREME_CAUTION = auto()
-  DANGER = auto()
-  EXTREME_DANGER = auto()
+  CAUTION = None
+  EXTREME_CAUTION = None
+  DANGER = None
+  EXTREME_DANGER = None
   
   def _new(celcius_index: int, true_index: int):
     enum = HeatIndex(celcius_index)
-    enum.__index = true_index
+    enum.index = true_index
     
     return enum
   
@@ -75,17 +78,15 @@ class HeatIndex(BasicEnum, IndexedEnum):
 class UltraViolet(BasicEnum, IndexedEnum):
   """Represents ultra-violet (UV) index."""
   
-  __slots__ = ('__index',)
-  
-  LOW = auto()
-  MODERATE = auto()
-  HIGH = auto()
-  VERY_HIGH = auto()
-  EXTREME = auto()
+  LOW = None
+  MODERATE = None
+  HIGH = None
+  VERY_HIGH = None
+  EXTREME = None
   
   def _new(index: int):
     enum = UltraViolet(index)
-    enum.__index = index
+    enum.index = index
     
     return enum
   
