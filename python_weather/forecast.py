@@ -241,7 +241,7 @@ class DailyForecast(CustomizableBase):
     )
 
 class Forecast(BaseForecast):
-  """Represents an entire weather forecast."""
+  """Represents today's weather forecast, alongside daily and hourly forecasts."""
   
   __slots__ = ('__inner', '__nearest')
   
