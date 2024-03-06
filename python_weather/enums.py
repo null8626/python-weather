@@ -14,6 +14,7 @@ class BasicEnum(Enum):
     return self.name.replace('_', ' ').title()
 
 class IndexedEnum(Enum):
+  
   def __lt__(self, other: Union["Self", int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index < other.index
@@ -165,7 +166,7 @@ class WindDirection(BasicEnum):
       return 303.75 < other <= 326.25
     else:
       return 326.25 < other <= 348.75
-
+  
   def __float__(self) -> float:
     return self.__degrees
   
@@ -174,11 +175,11 @@ class WindDirection(BasicEnum):
     """The wind direction's value in degrees."""
     
     return self.__degrees
-
+  
   @property
   def emoji(self) -> str:
     """The emoji representing this enum."""
-  
+    
     return WIND_DIRECTION_EMOJIS[int(((self.__degrees + 22.5) % 360) / 45.0)]
 
 class Locale(Enum):
