@@ -13,7 +13,7 @@ def _test(obj, indent_level):
     attr = getattr(obj.__class__, name)
     
     if isinstance(attr, property) and attr.fget:
-      stdout.write(f'{" " * indent_level}{obj.__class__.__name__}#{name}')
+      stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}')
       
       data = getattr(obj, name)
       
@@ -23,7 +23,7 @@ def _test(obj, indent_level):
         for i, each in enumerate(data):
           if i > 0:
             stdout.write(
-              f'{" " * indent_level}{obj.__class__.__name__}#{name}[{i}] -> '
+              f'{" " * indent_level}{obj.__class__.__name__}.{name}[{i}] -> '
             )
           
           print(repr(each))

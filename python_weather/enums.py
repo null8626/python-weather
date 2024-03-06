@@ -1,6 +1,7 @@
 from enum import Enum, auto
 from typing import Union
 
+from .constants import WIND_DIRECTION_EMOJIS
 from .errors import Error
 
 class BasicEnum(Enum):
@@ -12,19 +13,78 @@ class BasicEnum(Enum):
   def __str__(self) -> str:
     return self.name.replace('_', ' ').title()
 
-class Ultraviolet(Enum):
-  """Represents UV (ultraviolet) index."""
+class IndexedEnum(Enum):
+  
+  def __lt__(self, other: Union["Self", int, float]) -> bool:
+    if isinstance(other, self.__class__):
+      return self.__index < other.index
+    else:
+      return self.__index < other
+  
+  def __eq__(self, other: Union["Self", int, float]) -> bool:
+    if isinstance(other, self.__class__):
+      return self.__index == other.index
+    else:
+      return self.__index == other
+  
+  def __gt__(self, other: Union["Self", int, float]) -> bool:
+    if isinstance(other, self.__class__):
+      return self.__index > other.index
+    else:
+      return self.__index > other
+  
+  def __hash__(self) -> int:
+    return self.__index
+  
+  def __int__(self) -> int:
+    return self.__index
+  
+  @property
+  def index(self) -> int:
+    """The index value."""
+    
+    return self.__index
+
+class HeatIndex(BasicEnum, IndexedEnum):
+  """Represents ultra-violet (UV) index."""
   
   __slots__ = ('__index',)
   
-  LOW = 13
+  CAUTION = auto()
+  EXTREME_CAUTION = auto()
+  DANGER = auto()
+  EXTREME_DANGER = auto()
+  
+  def _new(celcius_index: int, true_index: int):
+    enum = HeatIndex(celcius_index)
+    enum.__index = true_index
+    
+    return enum
+  
+  @classmethod
+  def _missing_(self, celcius_index: int):
+    if celcius_index <= 32:
+      return self.CAUTION
+    elif celcius_index <= 39:
+      return self.EXTREME_CAUTION
+    elif celcius_index <= 51:
+      return self.DANGER
+    else:
+      return self.EXTREME_DANGER
+
+class UltraViolet(BasicEnum, IndexedEnum):
+  """Represents ultra-violet (UV) index."""
+  
+  __slots__ = ('__index',)
+  
+  LOW = auto()
   MODERATE = auto()
   HIGH = auto()
   VERY_HIGH = auto()
   EXTREME = auto()
   
   def _new(index: int):
-    enum = Ultraviolet(index)
+    enum = UltraViolet(index)
     enum.__index = index
     
     return enum
@@ -41,44 +101,8 @@ class Ultraviolet(Enum):
       return self.VERY_HIGH
     else:
       return self.EXTREME
-  
-  def __repr__(self) -> str:
-    return f'<{self.__class__.__name__}.{self.name} index={self.__index}>'
-  
-  def __str__(self) -> str:
-    return self.name.replace('_', ' ').title()
-  
-  def __lt__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index < other.index
-    else:
-      return self.__index < other
-  
-  def __eq__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index == other.index
-    else:
-      return self.__index == other
-  
-  def __gt__(self, other: Union["Ultraviolet", int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index > other.index
-    else:
-      return self.__index > other
-  
-  def __hash__(self) -> int:
-    return self.__index
-  
-  def __int__(self) -> int:
-    return self.__index
-  
-  @property
-  def index(self) -> int:
-    """The ultraviolet index."""
-    
-    return self.__index
 
-class WindDirection(Enum):
+class WindDirection(BasicEnum):
   """Represents a wind direction."""
   
   __slots__ = ('__degrees',)
@@ -105,12 +129,6 @@ class WindDirection(Enum):
     enum.__degrees = degrees
     
     return enum
-  
-  def __repr__(self) -> str:
-    return f'<{self.__class__.__name__}.{self.name} degrees={self.__degrees!r}>'
-  
-  def __str__(self) -> str:
-    return self.name.replace('_', ' ').title()
   
   def __contains__(self, other: Union["WindDirection", float, int]) -> bool:
     if isinstance(other, self.__class__):
@@ -149,11 +167,20 @@ class WindDirection(Enum):
     else:
       return 326.25 < other <= 348.75
   
+  def __float__(self) -> float:
+    return self.__degrees
+  
   @property
   def degrees(self) -> int:
     """The wind direction's value in degrees."""
     
     return self.__degrees
+  
+  @property
+  def emoji(self) -> str:
+    """The emoji representing this enum."""
+    
+    return WIND_DIRECTION_EMOJIS[int(((self.__degrees + 22.5) % 360) / 45.0)]
 
 class Locale(Enum):
   """Represents the list of supported locales/languages by this library."""

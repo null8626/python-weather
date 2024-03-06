@@ -1,6 +1,6 @@
 from enum import auto, Enum
 
-from .enums import WindDirection, Kind, Locale, Ultraviolet
+from .enums import WindDirection, Kind, Locale, UltraViolet
 from .constants import _Unit
 
 class CustomizableBase:
@@ -60,10 +60,10 @@ class BaseForecast(CustomizableBase):
     super().__init__(unit, locale)
   
   @property
-  def ultraviolet(self) -> Ultraviolet:
-    """The UV (ultraviolet) index."""
+  def ultraviolet(self) -> UltraViolet:
+    """The ultra-violet (UV) index."""
     
-    return Ultraviolet._new(int(self.__inner['uvIndex']))
+    return UltraViolet._new(int(self.__inner['uvIndex']))
   
   @property
   def feels_like(self) -> int:
@@ -129,10 +129,9 @@ class BaseForecast(CustomizableBase):
   def description(self) -> str:
     """The description regarding the forecast. This can be localized in different languages depending on the localization used."""
     
-    return self.__inner['weatherDesc'][0][
-      'value'
-    ] if self._CustomizableBase__locale == Locale.ENGLISH else self.__inner[
-      f'lang_{self._CustomizableBase__locale.value}'][0]['value']
+    description = self.__inner['weatherDesc'][0]['value'] if self._CustomizableBase__locale == Locale.ENGLISH else self.__inner[f'lang_{self._CustomizableBase__locale.value}'][0]['value'] # yapf: disable
+    
+    return description.strip()
   
   @property
   def kind(self) -> Kind:
