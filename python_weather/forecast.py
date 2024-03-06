@@ -281,7 +281,7 @@ class Forecast(BaseForecast):
   
   @property
   def datetime(self) -> datetime:
-    """The local datetime of this weather forecast."""
+    """The local date and time of this weather forecast."""
     
     return datetime.strptime(
       self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
