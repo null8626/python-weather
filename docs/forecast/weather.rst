@@ -10,10 +10,12 @@ Weather forecast
    :undoc-members:
    :inherited-members:
 
-.. autoclass:: python_weather.enums.Ultraviolet()
+.. autoclass:: python_weather.enums.UltraViolet()
    :members:
    :undoc-members:
    :inherited-members:
+   
+   .. autoproperty:: UltraViolet.index
 
 .. autoclass:: python_weather.enums.WindDirection()
    :members:
