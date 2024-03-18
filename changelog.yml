@@ -119,7 +119,7 @@ changelog:
     changes:
       - add: Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.
   - version: 2.0.0
-    release-date: March 2024
+    release-date: 18 March 2024
     changes:
       - rem: Rename the main forecast's class name from ``Weather`` to :class:`Forecast`.
       - rem: Merge ``CurrentForecast`` class' properties with :class:`Forecast`'s. Therefore the ``current`` property is removed.
@@ -131,7 +131,7 @@ changelog:
       - rem: Rename ``CurrentForecast.date`` to ``Forecast.datetime``.
       - rem: Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.
       - rem: Rename ``Ultraviolet`` to :class:`UltraViolet`.
-      - add: ``HourlyForecast.heat_index`` now returns a convenience enum called :class:`HeatIndex`.
+      - add: '``HourlyForecast.heat_index`` now returns a convenience enum called :class:`HeatIndex`.'
       - rem: Merge ``Astronomy`` class' properties with :class:`DailyForecast`.
       - rem: Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.
       - rem: Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.
