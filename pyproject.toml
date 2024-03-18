@@ -36,8 +36,7 @@ classifiers = [
 requires-python = ">=3.8"
 
 [project.urls]
-changes = "https://python-weather.readthedocs.io/en/latest/changelog.html"
-homepage = "https://python-weather.readthedocs.io/en/latest/"
-documentation = "https://python-weather.readthedocs.io/en/latest/"
-repository = "https://github.com/null8626/python-weather"
-download_url = "https://github.com/null8626/python-weather/archive/2.0.0.tar.gz"
+Changelog = "https://python-weather.readthedocs.io/en/latest/changelog.html"
+Homepage = "https://python-weather.readthedocs.io/en/latest/"
+Documentation = "https://python-weather.readthedocs.io/en/latest/"
+Repository = "https://github.com/null8626/python-weather"
