@@ -1,12 +1,8 @@
-# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url] [![Build Status][ci-image]][ci-url] [![Documentation Build Status][doc-ci-image]][doc-ci-url]
+# [python-weather][pypi-url] [![pypi][pypi-image]][pypi-url] [![downloads][downloads-image]][pypi-url]
 
 [pypi-image]: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 [pypi-url]: https://pypi.org/project/python-weather/
 [downloads-image]: https://img.shields.io/pypi/dm/python-weather?style=flat-square
-[ci-image]: https://github.com/null8626/python-weather/workflows/CI/badge.svg
-[ci-url]: https://github.com/null8626/python-weather/actions/workflows/CI.yml
-[doc-ci-image]: https://readthedocs.org/projects/python-weather/badge/?version=latest
-[doc-ci-url]: https://python-weather.readthedocs.io/en/latest/?badge=latest
 
 A free and asynchronous weather Python API wrapper made in Python, for Python.
 
