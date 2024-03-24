@@ -1,9 +1,10 @@
+prune .ruff_cache
 prune .github
 prune docs
 exclude .gitattributes
 exclude .gitignore
 exclude .readthedocs.yml
-exclude .style.yapf
+exclude ruff.toml
 exclude LICENSE
 exclude changelog.yml
 exclude test.py

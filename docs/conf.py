@@ -13,19 +13,21 @@ with open('../LICENSE', 'r') as f:
 
 version = ''
 with open('../python_weather/__init__.py', 'r') as f:
-  version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+  version = re.search(
+    r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
+  ).group(1)
 
-extensions = [
-  'sphinx.ext.autodoc',
-  'sphinx.ext.intersphinx'
-]
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
 
 intersphinx_mapping = {
   'py': ('https://docs.python.org/3', None),
-  'aio': ('https://docs.aiohttp.org/en/stable/', None)
+  'aio': ('https://docs.aiohttp.org/en/stable/', None),
 }
 
-html_css_files = ['style.css', 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto+Mono&display=swap']
+html_css_files = [
+  'style.css',
+  'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto+Mono&display=swap',
+]
 html_js_files = ['script.js']
 html_static_path = ['_static']
 html_theme = 'furo'
