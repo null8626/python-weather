@@ -101,7 +101,7 @@ Changelog
 |         |                  | - 🟥 Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.                                                                                               |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2.0.1   | 25 March 2024    | - 🟦 Migrate from ``yapf`` to ``ruff``.                                                                                                                        |
-|         |                  | - 🟦 Fix potential :py:`NameError` while modifying forecast unit or locale.                                                                                    |
+|         |                  | - 🟦 Fix potential :py:class:`NameError` while modifying forecast unit or locale.                                                                              |
 |         |                  | - 🟦 Remove several unused imports.                                                                                                                            |
-|         |                  | - 🟦 Fix potential :py:`NameError`s on some typings.                                                                                                           |
+|         |                  | - 🟦 Fix potential :py:class:`NameError` on some typings.                                                                                                      |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
