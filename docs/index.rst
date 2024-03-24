@@ -60,3 +60,4 @@ Example
    client
    forecast/index.rst
    changelog
+   repository

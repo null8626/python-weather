@@ -17,11 +17,15 @@ with open('../python_weather/__init__.py', 'r') as f:
     r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
   ).group(1)
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx_reredirects']
 
 intersphinx_mapping = {
   'py': ('https://docs.python.org/3', None),
   'aio': ('https://docs.aiohttp.org/en/stable/', None),
+}
+
+redirects = {
+  'repository': 'https://github.com/null8626/python-weather'
 }
 
 html_css_files = [
