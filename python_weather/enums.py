@@ -1,69 +1,71 @@
-from enum import Enum, auto
+from enum import Enum
 from typing import Union
 
 from .constants import WIND_DIRECTION_EMOJIS
-from .errors import Error
+
 
 class BasicEnum(Enum):
   __slots__ = ()
-  
+
   def __repr__(self) -> str:
     return f'{self.__class__.__name__}.{self.name}'
-  
+
   def __str__(self) -> str:
     return self.name.replace('_', ' ').title()
 
+
 class IndexedEnum(Enum):
   __slots__ = ('__index',)
-  
-  def __lt__(self, other: Union["Self", int, float]) -> bool:
+
+  def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index < other.index
     else:
       return self.__index < other
-  
-  def __eq__(self, other: Union["Self", int, float]) -> bool:
+
+  def __eq__(self, other: Union['IndexedEnum', int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index == other.index
     else:
       return self.__index == other
-  
-  def __gt__(self, other: Union["Self", int, float]) -> bool:
+
+  def __gt__(self, other: Union['IndexedEnum', int, float]) -> bool:
     if isinstance(other, self.__class__):
       return self.__index > other.index
     else:
       return self.__index > other
-  
+
   def __hash__(self) -> int:
     return self.__index
-  
+
   def __int__(self) -> int:
     return self.__index
-  
+
   @property
   def index(self) -> int:
     """The index value."""
-    
+
     return self.__index
-  
+
   @index.setter
   def index(self, new_index: int) -> int:
     self.__index = new_index
 
+
 class HeatIndex(IndexedEnum):
   """Represents a heat index."""
-  
+
   CAUTION = None
   EXTREME_CAUTION = None
   DANGER = None
   EXTREME_DANGER = None
-  
+
   def _new(celcius_index: int, true_index: int):
     enum = HeatIndex(celcius_index)
     enum.index = true_index
-    
+
     return enum
-  
+
   @classmethod
   def _missing_(self, celcius_index: int):
     if celcius_index <= 32:
@@ -75,21 +77,22 @@ class HeatIndex(IndexedEnum):
     else:
       return self.EXTREME_DANGER
 
+
 class UltraViolet(BasicEnum, IndexedEnum):
   """Represents ultra-violet (UV) index."""
-  
+
   LOW = None
   MODERATE = None
   HIGH = None
   VERY_HIGH = None
   EXTREME = None
-  
+
   def _new(index: int):
     enum = UltraViolet(index)
     enum.index = index
-    
+
     return enum
-  
+
   @classmethod
   def _missing_(self, index: int):
     if index <= 2:
@@ -103,38 +106,39 @@ class UltraViolet(BasicEnum, IndexedEnum):
     else:
       return self.EXTREME
 
+
 class WindDirection(BasicEnum):
   """Represents a wind direction."""
-  
+
   __slots__ = ('__degrees',)
-  
-  NORTH = "N"
-  NORTH_NORTHEAST = "NNE"
-  NORTHEAST = "NE"
-  EAST_NORTHEAST = "ENE"
-  EAST = "E"
-  EAST_SOUTHEAST = "ESE"
-  SOUTHEAST = "SE"
-  SOUTH_SOUTHEAST = "SSE"
-  SOUTH = "S"
-  SOUTH_SOUTHWEST = "SSW"
-  SOUTHWEST = "SW"
-  WEST_SOUTHWEST = "WSW"
-  WEST = "W"
-  WEST_NORTHWEST = "WNW"
-  NORTHWEST = "NW"
-  NORTH_NORTHWEST = "NNW"
-  
+
+  NORTH = 'N'
+  NORTH_NORTHEAST = 'NNE'
+  NORTHEAST = 'NE'
+  EAST_NORTHEAST = 'ENE'
+  EAST = 'E'
+  EAST_SOUTHEAST = 'ESE'
+  SOUTHEAST = 'SE'
+  SOUTH_SOUTHEAST = 'SSE'
+  SOUTH = 'S'
+  SOUTH_SOUTHWEST = 'SSW'
+  SOUTHWEST = 'SW'
+  WEST_SOUTHWEST = 'WSW'
+  WEST = 'W'
+  WEST_NORTHWEST = 'WNW'
+  NORTHWEST = 'NW'
+  NORTH_NORTHWEST = 'NNW'
+
   def _new(value: str, degrees: float):
     enum = WindDirection(value)
     enum.__degrees = degrees
-    
+
     return enum
-  
-  def __contains__(self, other: Union["WindDirection", float, int]) -> bool:
+
+  def __contains__(self, other: Union['WindDirection', float, int]) -> bool:
     if isinstance(other, self.__class__):
       other = other.degrees
-    
+
     if self is self.NORTH:
       return other > 348.75 or other <= 11.25
     elif self is self.NORTH_NORTHEAST:
@@ -167,27 +171,28 @@ class WindDirection(BasicEnum):
       return 303.75 < other <= 326.25
     else:
       return 326.25 < other <= 348.75
-  
+
   def __float__(self) -> float:
     return self.__degrees
-  
+
   @property
   def degrees(self) -> int:
     """The wind direction's value in degrees."""
-    
+
     return self.__degrees
-  
+
   @property
   def emoji(self) -> str:
     """The emoji representing this enum."""
-    
+
     return WIND_DIRECTION_EMOJIS[int(((self.__degrees + 22.5) % 360) / 45.0)]
+
 
 class Locale(Enum):
   """Represents the list of supported locales/languages by this library."""
-  
+
   __slots__ = ()
-  
+
   AFRIKAANS = 'af'
   AMHARIC = 'am'
   ARABIC = 'ar'
@@ -260,19 +265,20 @@ class Locale(Enum):
   VIETNAMESE = 'vi'
   WELSH = 'cy'
   ZULU = 'zu'
-  
+
   def __repr__(self) -> str:
     return f'{self.__class__.__name__}.{self.name}'
-  
+
   def __str__(self) -> str:
     arr = self.name.title().split('_')
     return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
+
 class Kind(BasicEnum):
   """Represents a weather forecast kind."""
-  
+
   __slots__ = ()
-  
+
   SUNNY = 113
   PARTLY_CLOUDY = 116
   CLOUDY = 119
@@ -291,7 +297,7 @@ class Kind(BasicEnum):
   HEAVY_SNOW_SHOWERS = 335
   THUNDERY_HEAVY_RAIN = 389
   THUNDERY_SNOW_SHOWERS = 392
-  
+
   @classmethod
   def _missing_(self, value: int):
     if value == 248 or value == 260:
@@ -300,7 +306,16 @@ class Kind(BasicEnum):
       return self.LIGHT_SHOWERS
     elif value == 362 or value == 365 or value == 374:
       return self.LIGHT_SLEET_SHOWERS
-    elif value == 185 or value == 281 or value == 284 or value == 311 or value == 314 or value == 317 or value == 350 or value == 377:
+    elif (
+      value == 185
+      or value == 281
+      or value == 284
+      or value == 311
+      or value == 314
+      or value == 317
+      or value == 350
+      or value == 377
+    ):
       return self.LIGHT_SLEET
     elif value == 386:
       return self.THUNDERY_SHOWERS
@@ -318,11 +333,11 @@ class Kind(BasicEnum):
       return self.LIGHT_SNOW_SHOWERS
     elif value == 371 or value == 395:
       return self.HEAVY_SNOW_SHOWERS
-  
+
   @property
   def emoji(self) -> str:
     """The emoji representing this enum."""
-    
+
     if self is self.CLOUDY:
       return '☁️'
     elif self is self.FOG:
@@ -362,11 +377,12 @@ class Kind(BasicEnum):
     else:
       return '✨'
 
+
 class Phase(BasicEnum):
   """Represents a moon phase."""
-  
+
   __slots__ = ()
-  
+
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
   FIRST_QUARTER = 'First Quarter'
@@ -375,11 +391,11 @@ class Phase(BasicEnum):
   WANING_GIBBOUS = 'Waning Gibbous'
   LAST_QUARTER = 'Last Quarter'
   WANING_CRESCENT = 'Waning Crescent'
-  
+
   @property
   def emoji(self) -> str:
     """The stylized name for this enum."""
-    
+
     if self is self.NEW_MOON:
       return '🌑'
     elif self is self.WAXING_CRESCENT:

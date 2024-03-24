@@ -3,3 +3,4 @@ python_weather.egg-info/
 docs/_build/
 dist/
 build/
+.ruff_cache/
