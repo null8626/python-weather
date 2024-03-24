@@ -143,4 +143,4 @@ changelog:
       - fix: Migrate from ``yapf`` to ``ruff``.
       - fix: Fix potential :py:`NameError` while modifying forecast unit or locale.
       - fix: Remove several unused imports.
-      - fix: Fix potential :py:`NameError` on some typings.
+      - fix: Fix potential :py:`NameError`s on some typings.
