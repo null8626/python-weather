@@ -141,6 +141,6 @@ changelog:
     release-date: 25 March 2024
     changes:
       - fix: Migrate from ``yapf`` to ``ruff``.
-      - fix: Fix potential :py:`NameError` while modifying forecast unit or locale.
+      - fix: Fix potential :py:class:`NameError` while modifying forecast unit or locale.
       - fix: Remove several unused imports.
-      - fix: Fix potential :py:`NameError`s on some typings.
+      - fix: Fix potential :py:class:`NameError` on some typings.
