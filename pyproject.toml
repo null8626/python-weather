@@ -17,6 +17,7 @@ classifiers = [
   "Intended Audience :: Education",
   "Intended Audience :: Developers",
   "Intended Audience :: Information Technology",
+  "Natural Language :: English",
   "Topic :: Education",
   "Topic :: Internet",
   "Topic :: Scientific/Engineering",
