@@ -8,11 +8,3 @@ updates:
       day: saturday
       interval: weekly
       time: '06:00'
-  - package-ecosystem: pip
-    directory: docs
-    commit-message:
-      prefix: 'deps: '
-    schedule:
-      day: saturday
-      interval: weekly
-      time: '06:15'
