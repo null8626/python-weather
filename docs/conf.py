@@ -24,7 +24,10 @@ intersphinx_mapping = {
   'aio': ('https://docs.aiohttp.org/en/stable/', None),
 }
 
-redirects = {'repository': 'https://github.com/null8626/python-weather'}
+redirects = {
+  'repository': 'https://github.com/null8626/python-weather',
+  'forecast/index': 'weather.html'
+}
 
 html_css_files = [
   'style.css',
