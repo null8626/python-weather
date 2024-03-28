@@ -39,6 +39,15 @@ for (const headerLink of document.querySelectorAll('.headerlink')) {
   headerLink.remove()
 }
 
+for (const label of document.querySelectorAll('.sidebar-container label')) {
+  const link = [...label.parentElement.children].find(child => child.nodeName === 'A')
+
+  link.addEventListener('click', event => {
+    event.preventDefault()
+    label.click()
+  })
+}
+
 let control = false
 
 document.addEventListener('keydown', event => {
