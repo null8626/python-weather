@@ -47,20 +47,3 @@ for (const label of document.querySelectorAll('.sidebar-container label')) {
     label.click()
   })
 }
-
-let control = false
-
-document.addEventListener('keydown', event => {
-  if (event.key === 'Control') {
-    control = true;
-  } else if (event.key === 'f' && control) {
-    event.preventDefault()
-    document.querySelector('.sidebar-search').select()
-  }
-})
-
-document.addEventListener('keyup', event => {
-  if (event.key === 'Control') {
-    control = false
-  }
-})
