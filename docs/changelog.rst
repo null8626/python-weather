@@ -81,7 +81,7 @@ Changelog
 | 1.1.1   | 20 February 2024 | - 🟥 Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.                                                                |
 |         |                  | - 🟦 Bump ``aiohttp`` dependency from v3.9.0 to v3.9.3.                                                                                                        |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 1.1.2   | 25 February 2024 | - 🟩 Add an official project documentation in https://python-weather.readthedocs.io/en/latest/.                                                                |
+| 1.1.2   | 25 February 2024 | - 🟩 Add official project documentation in https://python-weather.readthedocs.io/en/latest/.                                                                   |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2.0.0   | 18 March 2024    | - 🟥 Rename the main forecast's class name from ``Weather`` to :class:`Forecast`.                                                                              |
 |         |                  | - 🟥 Merge ``CurrentForecast`` class' properties with :class:`Forecast`'s. Therefore the ``current`` property is removed.                                      |
