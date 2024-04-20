@@ -7,7 +7,6 @@ on:
       - '**'
     paths:
       - changelog.yml
-  pull_request: null
 jobs:
   changelog:
     name: Update changelog.rst
