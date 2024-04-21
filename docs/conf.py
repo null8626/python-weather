@@ -26,7 +26,7 @@ intersphinx_mapping = {
 
 redirects = {
   'repository': 'https://github.com/null8626/python-weather',
-  'forecast/index': 'weather.html'
+  'forecast/index': 'weather.html',
 }
 
 html_css_files = [
