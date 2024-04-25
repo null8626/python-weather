@@ -100,8 +100,11 @@ Changelog
 |         |                  | - 🟥 Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.                                                                                             |
 |         |                  | - 🟥 Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.                                                                                               |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.2   | 25 March 2024    | - 🟦 Migrate from ``yapf`` to ``ruff``.                                                                                                                        |
+| 2.0.1   | 25 March 2024    | - 🟦 Migrate from ``yapf`` to ``ruff``.                                                                                                                        |
 |         |                  | - 🟦 Fix potential :py:class:`NameError` while modifying forecast unit or locale.                                                                              |
 |         |                  | - 🟦 Remove several unused imports.                                                                                                                            |
 |         |                  | - 🟦 Fix potential :py:class:`NameError` on some typings.                                                                                                      |
++---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.0.2   | 25 April 2024    | - 🟩 Add a donation link over at https://ko-fi.com/null8626.                                                                                                   |
+|         |                  | - 🟦 As of 19 April 2024, all GitHub commits sent to the repository (both manual and automated) will be GPG-signed.                                            |
 +---------+------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
