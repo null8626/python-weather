@@ -137,7 +137,7 @@ changelog:
       - rem: Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.
       - rem: Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.
       - rem: Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.
-  - version: 2.0.1
+  - version: 2.0.2
     release-date: 25 March 2024
     changes:
       - fix: Migrate from ``yapf`` to ``ruff``.
