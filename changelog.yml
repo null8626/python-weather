@@ -149,3 +149,8 @@ changelog:
     changes:
       - add: Add a donation link over at https://ko-fi.com/null8626.
       - fix: As of 19 April 2024, all GitHub commits sent to the repository (both manual and automated) will be GPG-signed.
+  - version: 2.0.3
+    release-date: 5 May 2024
+    changes:
+      - fix: Fix potential :py:class:`NameError` while accessing the ``Phase.emoji`` property.
+      - fix: Refactors on the request delay calculation.
