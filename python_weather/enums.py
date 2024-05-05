@@ -402,7 +402,7 @@ class Phase(BasicEnum):
       return '🌒'
     elif self is self.FIRST_QUARTER:
       return '🌓'
-    elif self is self.Waxing_GIBBOUS:
+    elif self is self.WAXING_GIBBOUS:
       return '🌔'
     elif self is self.FULL_MOON:
       return '🌕'

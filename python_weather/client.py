@@ -79,23 +79,20 @@ class Client(CustomizableBase):
       locale = self._CustomizableBase__locale
 
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
-    delay = 0
+    delay = 0.5
 
     while True:
-      if delay != 0:
-        await sleep(delay)
-        delay *= 2
-
       async with self.__session.get(
         f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
       ) as resp:
         try:
           return Forecast(await resp.json(), unit, locale)
         except Exception as e:
-          if delay == 4:
+          if delay == 2:
             raise e  # okay, that's too much requests - just raise the error
-          elif delay == 0:
-            delay = 0.5
+
+          await sleep(delay)
+          delay *= 2
 
   async def close(self):
     """Closes the :class:`Client` object. Nothing will happen if it's already closed."""
