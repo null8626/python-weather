@@ -154,3 +154,4 @@ changelog:
     changes:
       - fix: Fix potential :py:class:`NameError` while accessing the ``Phase.emoji`` property.
       - fix: Refactors on the request delay calculation.
+      - fix: Fix broken donations redirect in the documentation page.
