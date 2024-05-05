@@ -8,7 +8,7 @@ from .errors import Error
 __title__ = 'python-weather'
 __author__ = 'null8626'
 __license__ = 'MIT'
-__version__ = '2.0.2'
+__version__ = '2.0.3'
 __all__ = (
   'METRIC',
   'IMPERIAL',
