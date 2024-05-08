@@ -90,7 +90,7 @@ class Client(CustomizableBase):
       except:
         if delay == 4:
           raise
-      
+
         await sleep(delay)
         delay *= 2
 

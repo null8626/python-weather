@@ -57,8 +57,10 @@ class HourlyForecast(BaseForecast):
   @property
   def wind_gust(self) -> int:
     """The wind gust value in either Kilometers per hour or Miles per hour."""
-    
-    return int(self._BaseForecast__inner[f'WindGust{self._CustomizableBase__unit.velocity}'])
+
+    return int(
+      self._BaseForecast__inner[f'WindGust{self._CustomizableBase__unit.velocity}']
+    )
 
   @property
   def chances_of_fog(self) -> int:
