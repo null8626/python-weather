@@ -90,7 +90,7 @@ class Client(CustomizableBase):
       except Exception as e:
         if delay == 4:
           raise e  # okay, that's too much requests - just raise the error
-      
+
         await sleep(delay)
         delay *= 2
 
