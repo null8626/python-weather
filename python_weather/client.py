@@ -82,17 +82,17 @@ class Client(CustomizableBase):
     delay = 0.5
 
     while True:
-      async with self.__session.get(
-        f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
-      ) as resp:
-        try:
+      try:
+        async with self.__session.get(
+          f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
+        ) as resp:
           return Forecast(await resp.json(), unit, locale)
-        except Exception as e:
-          if delay == 2:
-            raise e  # okay, that's too much requests - just raise the error
+      except Exception as e:
+        if delay == 4:
+          raise e  # okay, that's too much requests - just raise the error
 
-          await sleep(delay)
-          delay *= 2
+        await sleep(delay)
+        delay *= 2
 
   async def close(self):
     """Closes the :class:`Client` object. Nothing will happen if it's already closed."""
