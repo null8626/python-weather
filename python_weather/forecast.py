@@ -308,9 +308,9 @@ class Forecast(BaseForecast):
     """A tuple of this forecast's latitude and longitude."""
 
     try:
-      for req in filter(lambda x: x['type'] == 'LatLon', self.__inner['request']):
-        lat, lon = LATLON_REGEX.findall(req['query'])[0]
+      req = next(filter(lambda x: x['type'] == 'LatLon', self.__inner['request']))
+      match = LATLON_REGEX.match(req['query'])
 
-        return float(lat), float(lon)
+      return float(match[1]), float(match[2])
     except:
       return float(self.__nearest['latitude']), float(self.__nearest['longitude'])

@@ -87,9 +87,9 @@ class Client(CustomizableBase):
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
         ) as resp:
           return Forecast(await resp.json(), unit, locale)
-      except Exception as e:
+      except:
         if delay == 4:
-          raise e  # okay, that's too much requests - just raise the error
+          raise
 
         await sleep(delay)
         delay *= 2
