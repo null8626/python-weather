@@ -22,7 +22,7 @@ class Client(CustomizableBase):
   :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead)
   :type session: Optional[:class:`aiohttp.ClientSession`]
 
-  :raises Error: If the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, or if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`Locale` enum.
+  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`Locale` enum.
   """
 
   __slots__ = ('__session',)
@@ -56,9 +56,9 @@ class Client(CustomizableBase):
 
     :param location: The requested location name for said weather forecast.
     :type location: str
-    :param unit: Overrides the metric or imperial/customary system (``IMPERIAL``) used by the :class:`Client` object. Defaults to ``None`` (uses the one from the :class:`Client`).
+    :param unit: Overrides the unit used by this object. Defaults to the one used by this object.
     :type unit: Optional[:py:class:`enum.auto`]
-    :param locale: Overrides the locale/language used by the :class:`Client` object. Defaults to ``None`` (uses the one from the :class:`Client`).
+    :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
     :type locale: Optional[Locale]
 
     :exception Error: If the aiohttp client session used by the :class:`Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`Locale` enum, or if the :class:`Client` cannot send a web request to the web server.
