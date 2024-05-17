@@ -312,5 +312,5 @@ class Forecast(BaseForecast):
       match = LATLON_REGEX.match(req['query'])
 
       return float(match[1]), float(match[2])
-    except:
+    except Exception:
       return float(self.__nearest['latitude']), float(self.__nearest['longitude'])

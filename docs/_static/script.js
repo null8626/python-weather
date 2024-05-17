@@ -26,7 +26,7 @@ if (document.querySelector('section#python-weather')) {
     
     // kill the rest of the children >:)
     for (let i = 4; i < enumProperty.children.length; i++) {
-      enumProperty.children[i].remove()
+      enumProperty.children[i].remove() // eslint-disable-line
     }
   }
 }

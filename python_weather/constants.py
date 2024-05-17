@@ -1,5 +1,5 @@
 from typing import Union
-from re import compile
+import re
 
 
 class _Unit:
@@ -36,4 +36,4 @@ METRIC = _Unit('C', 'Kmph', '', 'MM', '', 1)
 IMPERIAL = _Unit('F', 'Miles', 'Inches', 'Inches', 'Miles', 2.54)
 
 WIND_DIRECTION_EMOJIS = ('↓', '↙', '←', '↖', '↑', '↗', '→', '↘')
-LATLON_REGEX = compile(r'^Lat (\-?[\d\.]+) and Lon (\-?[\d\.]+)$')
+LATLON_REGEX = re.compile(r'^Lat (\-?[\d\.]+) and Lon (\-?[\d\.]+)$')

@@ -7,13 +7,15 @@
 python-weather_
 ===============
 
-|pypi|_ |downloads|_ |ko-fi-brief|_
+|pypi|_ |downloads|_ |codacy|_ |ko-fi-brief|_
 
 .. _python-weather: https://pypi.org/project/python-weather/
 .. |pypi| image:: https://img.shields.io/pypi/v/python-weather.svg?style=flat-square
 .. _pypi: https://pypi.org/project/python-weather/
 .. |downloads| image:: https://img.shields.io/pypi/dm/python-weather?style=flat-square
 .. _downloads: https://pypi.org/project/python-weather/
+.. |codacy| image:: https://app.codacy.com/project/badge/Grade/0f7721b7e4314a748c75a04f0a7e0ce3
+.. _codacy: https://app.codacy.com/gh/null8626/python-weather/dashboard
 .. |ko-fi-brief| image:: https://img.shields.io/badge/donations-ko--fi-red?color=ff5e5b&style=flat-square
 .. _ko-fi-brief: https://ko-fi.com/null8626
 .. |ko-fi| image:: https://ko-fi.com/img/githubbutton_sm.svg
