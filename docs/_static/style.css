@@ -1,7 +1,7 @@
 body {
   --color-link-underline: rgba(0, 0, 0, 0%);
   --color-link-underline--hover: var(--color-link);
-  --color-inline-code-background: rgba(0, 0, 0, 0);
+  --color-inline-code-background: rgba(0, 0, 0, 0%);
   --color-api-background-hover: var(--color-background-primary);
   --color-highlight-on-target: var(--color-background-primary) !important;
   
