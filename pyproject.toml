@@ -37,8 +37,8 @@ classifiers = [
 requires-python = ">=3.8"
 
 [project.urls]
-Donations = "https://ko-fi.com/null8626"
-Changelog = "https://python-weather.readthedocs.io/en/latest/changelog.html"
-Homepage = "https://python-weather.readthedocs.io/en/latest/"
 Documentation = "https://python-weather.readthedocs.io/en/latest/"
 Repository = "https://github.com/null8626/python-weather"
+Changelog = "https://python-weather.readthedocs.io/en/latest/changelog.html"
+"Donate via GitHub Sponsors" = "https://github.com/sponsors/null8626"
+"Donate via Ko-fi" = "https://ko-fi.com/null8626"

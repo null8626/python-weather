@@ -25,7 +25,8 @@ intersphinx_mapping = {
 }
 
 redirects = {
-  'donate': 'https://ko-fi.com/null8626',
+  'github-donate': 'https://github.com/sponsors/null8626',
+  'ko-fi-donate': 'https://ko-fi.com/null8626',
   'repository': 'https://github.com/null8626/python-weather',
   'forecast/index': 'weather.html',
 }
