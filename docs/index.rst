@@ -81,4 +81,5 @@ If you want to support this project, consider donating! ❤
    forecast/index.rst
    changelog
    repository
-   donate
+   github-donate
+   ko-fi-donate
