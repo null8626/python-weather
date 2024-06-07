@@ -66,6 +66,14 @@ Example
     
     asyncio.run(getweather())
 
+Data source
+___________
+
+This library depends on `wttr.in`_, which uses data from the `World Weather Online API`_.
+
+.. _wttr.in: https://wttr.in
+.. _World Weather Online API: https://www.worldweatheronline.com/weather-api
+
 Donations
 ---------
 
