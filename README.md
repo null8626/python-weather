@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 ## Data source
 
-This library depends on the [`wttr.in`](https://github.com/chubin/wttr.in), which uses data from the [World Weather Online API](https://www.worldweatheronline.com/weather-api/).
+This library depends on [`wttr.in`](https://github.com/chubin/wttr.in), which uses data from the [World Weather Online API](https://www.worldweatheronline.com/weather-api/).
 
 ## Donations
 
