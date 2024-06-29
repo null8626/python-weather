@@ -49,6 +49,8 @@ async def getweather():
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
     test(await client.get('New York'))
 
+  async with python_weather.Client(unit=python_weather.METRIC) as client:
+    test(await client.get('New York'))
 
 if __name__ == '__main__':
   if os.name == 'nt':
