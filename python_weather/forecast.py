@@ -25,7 +25,7 @@ class HourlyForecast(BaseForecast):
 
   @property
   def dew_point(self) -> int:
-    """The dew point in either Celcius or Fahrenheit."""
+    """The dew point in either celcius or fahrenheit."""
 
     return int(
       self._BaseForecast__inner[f'DewPoint{self._CustomizableBase__unit.temperature}']
@@ -33,7 +33,7 @@ class HourlyForecast(BaseForecast):
 
   @property
   def heat_index(self) -> HeatIndex:
-    """The heat index in either Celcius or Fahrenheit."""
+    """The heat index in either celcius or fahrenheit."""
 
     celcius_index = int(self._BaseForecast__inner['HeatIndexC'])
 
@@ -48,7 +48,7 @@ class HourlyForecast(BaseForecast):
 
   @property
   def wind_chill(self) -> int:
-    """The wind chill value in either Celcius or Fahrenheit."""
+    """The wind chill value in either celcius or fahrenheit."""
 
     return int(
       self._BaseForecast__inner[f'WindChill{self._CustomizableBase__unit.temperature}']
@@ -56,7 +56,7 @@ class HourlyForecast(BaseForecast):
 
   @property
   def wind_gust(self) -> int:
-    """The wind gust value in either Kilometers per hour or Miles per hour."""
+    """The wind gust value in either kilometers/hour or miles/hour."""
 
     return int(
       self._BaseForecast__inner[f'WindGust{self._CustomizableBase__unit.velocity}']
@@ -209,19 +209,19 @@ class DailyForecast(CustomizableBase):
 
   @property
   def lowest_temperature(self) -> int:
-    """The lowest temperature in either Celcius or Fahrenheit."""
+    """The lowest temperature in either celcius or fahrenheit."""
 
     return int(self.__inner[f'mintemp{self._CustomizableBase__unit.temperature}'])
 
   @property
   def highest_temperature(self) -> int:
-    """The highest temperature in either Celcius or Fahrenheit."""
+    """The highest temperature in either celcius or fahrenheit."""
 
     return int(self.__inner[f'maxtemp{self._CustomizableBase__unit.temperature}'])
 
   @property
   def temperature(self) -> int:
-    """The average temperature in either Celcius or Fahrenheit."""
+    """The average temperature in either celcius or fahrenheit."""
 
     return int(self.__inner[f'avgtemp{self._CustomizableBase__unit.temperature}'])
 
@@ -233,7 +233,7 @@ class DailyForecast(CustomizableBase):
 
   @property
   def snowfall(self) -> float:
-    """Total snowfall in either Centimeters or Inches."""
+    """Total snowfall in either centimeters or inches."""
 
     return float(self.__inner['totalSnow_cm']) / self._CustomizableBase__unit.cm_divisor
 

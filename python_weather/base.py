@@ -70,7 +70,7 @@ class BaseForecast(CustomizableBase):
 
   @property
   def feels_like(self) -> int:
-    """What it felt like, in Celcius or Fahrenheit."""
+    """What it felt like, in celcius or fahrenheit."""
 
     return int(self.__inner[f'FeelsLike{self._CustomizableBase__unit.temperature}'])
 
@@ -82,31 +82,31 @@ class BaseForecast(CustomizableBase):
 
   @property
   def temperature(self) -> int:
-    """The temperature in either Celcius or Fahrenheit."""
+    """The temperature in either celcius or Fahrenheit."""
 
     return int(self.__inner[f'temp_{self._CustomizableBase__unit.temperature}'])
 
   @property
   def precipitation(self) -> float:
-    """The precipitation in either Millimeters or Inches."""
+    """The precipitation in either millimeters or inches."""
 
     return float(self.__inner[f'precip{self._CustomizableBase__unit.precipitation}'])
 
   @property
   def pressure(self) -> float:
-    """The pressure in either Pascal or Inches."""
+    """The pressure in either pascal or inches."""
 
     return float(self.__inner[f'pressure{self._CustomizableBase__unit.pressure}'])
 
   @property
   def visibility(self) -> int:
-    """The visibility distance in either Kilometers or Miles."""
+    """The visibility distance in either kilometers or miles."""
 
     return int(self.__inner[f'visibility{self._CustomizableBase__unit.visibility}'])
 
   @property
   def wind_speed(self) -> int:
-    """The wind speeds in either Kilometers per hour or Miles per hour."""
+    """The wind speeds in either kilometers/hour or miles/hour."""
 
     return int(self.__inner[f'windspeed{self._CustomizableBase__unit.velocity}'])
 
