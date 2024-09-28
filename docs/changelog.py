@@ -1,10 +1,10 @@
-from typing import List
+from typing import List, Tuple
 import yaml
 import os
 
 
 class Row:
-  __slots__ = ('header_name', 'rows', 'character_length')
+  __slots__: Tuple[str, ...] = ('header_name', 'rows', 'character_length')
 
   def __init__(self, header_name: str):
     self.header_name = header_name

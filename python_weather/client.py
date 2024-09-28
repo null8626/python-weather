@@ -24,7 +24,7 @@ SOFTWARE.
 
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
-from typing import Optional
+from typing import Optional, Tuple
 from asyncio import sleep
 from enum import auto
 
@@ -49,7 +49,7 @@ class Client(CustomizableBase):
   :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`Locale` enum.
   """
 
-  __slots__ = ('__session',)
+  __slots__: Tuple[str, ...] = ('__session',)
 
   def __init__(
     self,

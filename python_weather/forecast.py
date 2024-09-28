@@ -33,7 +33,7 @@ from .constants import _Unit, LATLON_REGEX
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast of a specific hour."""
 
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     # for inheritance purposes
@@ -164,7 +164,7 @@ class HourlyForecast(BaseForecast):
 
 
 class DailyForecast(CustomizableBase):
-  __slots__ = ('__inner', '__astronomy')
+  __slots__: Tuple[str, ...] = ('__inner', '__astronomy')
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__astronomy = json.pop('astronomy')[0]
@@ -272,7 +272,7 @@ class DailyForecast(CustomizableBase):
 class Forecast(BaseForecast):
   """Represents today's weather forecast, alongside daily and hourly weather forecasts."""
 
-  __slots__ = ('__inner', '__nearest')
+  __slots__: Tuple[str, ...] = ('__inner', '__nearest')
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     current = json['current_condition'][0]
