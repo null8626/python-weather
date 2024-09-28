@@ -23,6 +23,7 @@ SOFTWARE.
 """
 
 from enum import auto
+from typing import Tuple
 
 from .errors import Error
 from .enums import WindDirection, Kind, Locale, UltraViolet
@@ -30,7 +31,7 @@ from .constants import _Unit
 
 
 class CustomizableBase:
-  __slots__ = ('__unit', '__locale')
+  __slots__: Tuple[str, ...] = ('__unit', '__locale')
 
   def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
@@ -79,7 +80,7 @@ class CustomizableBase:
 
 
 class BaseForecast(CustomizableBase):
-  __slots__ = ('__inner',)
+  __slots__: Tuple[str, ...] = ('__inner',)
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     self.__inner = json

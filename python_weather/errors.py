@@ -22,7 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from typing import Tuple
+
+
 class Error(Exception):
   """Represents a ``python_weather`` error class. Extends :py:class:`Exception`."""
 
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()

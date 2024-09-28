@@ -23,13 +23,13 @@ SOFTWARE.
 """
 
 from enum import Enum
-from typing import Union
+from typing import Union, Tuple
 
 from .constants import WIND_DIRECTION_EMOJIS
 
 
 class BasicEnum(Enum):
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()
 
   def __repr__(self) -> str:
     return f'{self.__class__.__name__}.{self.name}'
@@ -39,7 +39,7 @@ class BasicEnum(Enum):
 
 
 class IndexedEnum(Enum):
-  __slots__ = ('__index',)
+  __slots__: Tuple[str, ...] = ('__index',)
 
   def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
     return self.__index < getattr(other, 'index', other)
@@ -70,6 +70,8 @@ class IndexedEnum(Enum):
 class HeatIndex(IndexedEnum):
   """Represents a heat index."""
 
+  __slots__: Tuple[str, ...] = ()
+
   CAUTION = None
   EXTREME_CAUTION = None
   DANGER = None
@@ -95,6 +97,8 @@ class HeatIndex(IndexedEnum):
 
 class UltraViolet(BasicEnum, IndexedEnum):
   """Represents ultra-violet (UV) index."""
+
+  __slots__: Tuple[str, ...] = ()
 
   LOW = None
   MODERATE = None
@@ -125,7 +129,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
 class WindDirection(BasicEnum):
   """Represents a wind direction."""
 
-  __slots__ = ('__degrees',)
+  __slots__: Tuple[str, ...] = ('__degrees',)
 
   NORTH = 'N'
   NORTH_NORTHEAST = 'NNE'
@@ -205,7 +209,7 @@ class WindDirection(BasicEnum):
 class Locale(Enum):
   """Represents the list of supported locales/languages by this library."""
 
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()
 
   AFRIKAANS = 'af'
   AMHARIC = 'am'
@@ -291,7 +295,7 @@ class Locale(Enum):
 class Kind(BasicEnum):
   """Represents a weather forecast kind."""
 
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()
 
   SUNNY = 113
   PARTLY_CLOUDY = 116
@@ -395,7 +399,7 @@ class Kind(BasicEnum):
 class Phase(BasicEnum):
   """Represents a moon phase."""
 
-  __slots__ = ()
+  __slots__: Tuple[str, ...] = ()
 
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
