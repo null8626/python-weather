@@ -21,7 +21,7 @@ class HourlyForecast(BaseForecast):
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
+    return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
 
   @property
   def dew_point(self) -> int:
@@ -150,7 +150,7 @@ class DailyForecast(CustomizableBase):
 
   def __repr__(self) -> str:
     return (
-      f'<{self.__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
+      f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
     )
 
   @property
@@ -260,7 +260,7 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
+    return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
 
   @property
   def local_population(self) -> int:

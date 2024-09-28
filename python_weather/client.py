@@ -43,7 +43,7 @@ class Client(CustomizableBase):
     )
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} {self.__session!r}>'
+    return f'<{__class__.__name__} {self.__session!r}>'
 
   async def get(
     self,

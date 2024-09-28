@@ -267,7 +267,7 @@ class Locale(Enum):
   ZULU = 'zu'
 
   def __repr__(self) -> str:
-    return f'{self.__class__.__name__}.{self.name}'
+    return f'{__class__.__name__}.{self.name}'
 
   def __str__(self) -> str:
     arr = self.name.title().split('_')
