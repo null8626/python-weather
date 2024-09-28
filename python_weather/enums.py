@@ -18,22 +18,13 @@ class IndexedEnum(Enum):
   __slots__ = ('__index',)
 
   def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index < other.index
-    else:
-      return self.__index < other
+    return self.__index < getattr(other, 'index', other)
 
   def __eq__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index == other.index
-    else:
-      return self.__index == other
+    return self.__index == getattr(other, 'index', other)
 
   def __gt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    if isinstance(other, self.__class__):
-      return self.__index > other.index
-    else:
-      return self.__index > other
+    return self.__index > getattr(other, 'index', other)
 
   def __hash__(self) -> int:
     return self.__index
@@ -136,8 +127,7 @@ class WindDirection(BasicEnum):
     return enum
 
   def __contains__(self, other: Union['WindDirection', float, int]) -> bool:
-    if isinstance(other, self.__class__):
-      other = other.degrees
+    other = getattr(other, 'degrees', other)
 
     if self is self.NORTH:
       return other > 348.75 or other <= 11.25
@@ -267,7 +257,7 @@ class Locale(Enum):
   ZULU = 'zu'
 
   def __repr__(self) -> str:
-    return f'{self.__class__.__name__}.{self.name}'
+    return f'{__class__.__name__}.{self.name}'
 
   def __str__(self) -> str:
     arr = self.name.title().split('_')

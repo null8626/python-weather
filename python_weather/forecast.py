@@ -21,7 +21,7 @@ class HourlyForecast(BaseForecast):
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
+    return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
 
   @property
   def dew_point(self) -> int:
@@ -149,9 +149,7 @@ class DailyForecast(CustomizableBase):
     super().__init__(unit, locale)
 
   def __repr__(self) -> str:
-    return (
-      f'<{self.__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
-    )
+    return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
 
   @property
   def moon_illumination(self) -> int:
@@ -260,7 +258,7 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
+    return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
 
   @property
   def local_population(self) -> int:
@@ -312,5 +310,5 @@ class Forecast(BaseForecast):
       match = LATLON_REGEX.match(req['query'])
 
       return float(match[1]), float(match[2])
-    except Exception:
+    except:
       return float(self.__nearest['latitude']), float(self.__nearest['longitude'])
