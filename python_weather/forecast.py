@@ -149,9 +149,7 @@ class DailyForecast(CustomizableBase):
     super().__init__(unit, locale)
 
   def __repr__(self) -> str:
-    return (
-      f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
-    )
+    return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
 
   @property
   def moon_illumination(self) -> int:
