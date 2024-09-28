@@ -39,7 +39,7 @@ def render_lines(rows: List[Row], character: str = '-'):
 
 
 def render_contents(rows: List[Row], idx: int):
-  max_row_lines = max(*map(lambda row: len(row.rows[idx].splitlines()), rows))
+  max_row_lines = max(map(lambda row: len(row.rows[idx].splitlines()), rows))
   output = ''
 
   for current_idx in range(0, max_row_lines):
