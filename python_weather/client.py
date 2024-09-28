@@ -37,12 +37,13 @@ class Client(CustomizableBase):
     super().__init__(unit, locale)
 
     self.__session = session or ClientSession(
+      raise_for_status=True,
       timeout=ClientTimeout(total=5000.0),
       connector=TCPConnector(verify_ssl=False),
     )
 
   def __repr__(self) -> str:
-    return f'<{self.__class__.__name__} {self.__session!r}>'
+    return f'<{__class__.__name__} {self.__session!r}>'
 
   async def get(
     self,
