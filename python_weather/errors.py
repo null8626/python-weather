@@ -29,3 +29,20 @@ class Error(Exception):
   """Represents a ``python_weather`` error class. Extends :py:class:`Exception`."""
 
   __slots__: Tuple[str, ...] = ()
+
+
+class RequestError(Error):
+  """Thrown upon HTTP request failure. Extends :class:`Error`."""
+
+  __slots__: Tuple[str, ...] = ('__source',)
+
+  def __init__(self, source: Exception):
+    self.__source = source
+
+    super().__init__()
+
+  @property
+  def source(self) -> Exception:
+    """Returns the :class:`Exception` instance causing this exception. This source can be from any exception type. This property is read-only."""
+
+    return self.__source
