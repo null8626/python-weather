@@ -24,8 +24,8 @@ SOFTWARE.
 
 from .enums import HeatIndex, Kind, Locale, Phase, UltraViolet, WindDirection
 from .constants import METRIC, IMPERIAL
+from .errors import Error, RequestError
 from .client import Client
-from .errors import Error
 
 __title__ = 'python-weather'
 __author__ = 'null8626'
@@ -37,6 +37,7 @@ __all__ = (
   'IMPERIAL',
   'Client',
   'Error',
+  'RequestError',
   'HeatIndex',
   'Kind',
   'Locale',

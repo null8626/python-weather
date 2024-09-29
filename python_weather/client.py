@@ -28,10 +28,10 @@ from typing import Optional, Tuple
 from asyncio import sleep
 from enum import auto
 
+from .errors import Error, RequestError
 from .constants import _Unit, METRIC
 from .base import CustomizableBase
 from .forecast import Forecast
-from .errors import Error
 from .enums import Locale
 
 
@@ -49,7 +49,7 @@ class Client(CustomizableBase):
   :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`Locale` enum.
   """
 
-  __slots__: Tuple[str, ...] = ('__session',)
+  __slots__: Tuple[str, ...] = ('__own_session', '__session')
 
   def __init__(
     self,
@@ -60,6 +60,7 @@ class Client(CustomizableBase):
   ):
     super().__init__(unit, locale)
 
+    self.__own_session = session is None
     self.__session = session or ClientSession(
       raise_for_status=True,
       timeout=ClientTimeout(total=5000.0),
@@ -112,17 +113,17 @@ class Client(CustomizableBase):
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
         ) as resp:
           return Forecast(await resp.json(), unit, locale)
-      except:
+      except Exception as err:
         if delay == 4:
-          raise
+          raise RequestError(err)
 
         await sleep(delay)
         delay *= 2
 
   async def close(self):
-    """Closes the :class:`Client` object. Nothing will happen if it's already closed."""
+    """Closes the :class:`Client` object. Nothing will happen if the client uses a pre-existing :class:`aiohttp.ClientSession` or if the session is already closed."""
 
-    if not self.__session.closed:
+    if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
   async def __aenter__(self):
