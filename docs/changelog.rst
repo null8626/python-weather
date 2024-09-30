@@ -115,7 +115,7 @@ Changelog
 | 2.0.4   | 30 September 2024 | - 🟦 The ``Client.close`` method now no longer closes the ``ClientSession`` if an existing ``ClientSession`` was provided in the constructor.                  |
 |         |                   | - 🟩 HTTP exceptions are now wrapped under :class:`RequestError`.                                                                                              |
 |         |                   | - 🟩 Add ``__iter__`` and ``__list__`` helper implementations for the forecast classes.                                                                        |
-|         |                   | - 🟦 Bumped the ``aiohttp`` dependency to be at least version ``3.10.8``.                                                                                      |
+|         |                   | - 🟦 Bump the ``aiohttp`` dependency to be at least version ``3.10.8``.                                                                                        |
 |         |                   | - 🟩 Add an additional ``raise_for_status`` argument to the default ``ClientSession``.                                                                         |
 |         |                   | - 🟦 Refactor the regex retrieval for the ``Forecast.local_population`` property.                                                                              |
 +---------+-------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
