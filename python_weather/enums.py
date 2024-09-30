@@ -39,32 +39,25 @@ class BasicEnum(Enum):
 
 
 class IndexedEnum(Enum):
-  __slots__: Tuple[str, ...] = ('__index',)
+  __slots__: Tuple[str, ...] = ('index',)
+
+  index: int
+  """The index value."""
 
   def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.__index < getattr(other, 'index', other)
+    return self.index < getattr(other, 'index', other)
 
   def __eq__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.__index == getattr(other, 'index', other)
+    return self.index == getattr(other, 'index', other)
 
   def __gt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.__index > getattr(other, 'index', other)
+    return self.index > getattr(other, 'index', other)
 
   def __hash__(self) -> int:
-    return self.__index
+    return self.index
 
   def __int__(self) -> int:
-    return self.__index
-
-  @property
-  def index(self) -> int:
-    """The index value."""
-
-    return self.__index
-
-  @index.setter
-  def index(self, new_index: int) -> int:
-    self.__index = new_index
+    return self.index
 
 
 class HeatIndex(IndexedEnum):
