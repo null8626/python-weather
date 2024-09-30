@@ -11,21 +11,21 @@ class Row:
     self.character_length = len(header_name)
     self.rows = []
 
-  def append(self, row_contents: str):
+  def append(self, row_contents: str) -> None:
     self.character_length = max(
       self.character_length,
       max(map(lambda content: len(list(content)), row_contents.splitlines())),
     )
     self.rows.append(row_contents)
 
-  def render(self, text: str):
+  def render(self, text: str) -> str:
     return f'{text}{" " * (self.character_length - len(text))}'
 
 
 CHANGE_EMOJIS = {'add': chr(129001), 'fix': chr(128998), 'rem': chr(128997)}
 
 
-def render_lines(rows: List[Row], character: str = '-'):
+def render_lines(rows: List[Row], character: str = '-') -> str:
   output = f'+{character}'
   last_idx = len(rows) - 1
 
@@ -38,7 +38,7 @@ def render_lines(rows: List[Row], character: str = '-'):
   return output
 
 
-def render_contents(rows: List[Row], idx: int):
+def render_contents(rows: List[Row], idx: int) -> str:
   max_row_lines = max(map(lambda row: len(row.rows[idx].splitlines()), rows))
   output = ''
 
@@ -57,7 +57,7 @@ def render_contents(rows: List[Row], idx: int):
   return output[:-1]
 
 
-def render(rows: List[Row]):
+def render(rows: List[Row]) -> str:
   output = f'{render_lines(rows)}\n'
 
   for row in rows:
