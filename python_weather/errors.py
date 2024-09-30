@@ -34,15 +34,12 @@ class Error(Exception):
 class RequestError(Error):
   """Thrown upon HTTP request failure. Extends :class:`Error`."""
 
-  __slots__: Tuple[str, ...] = ('__source',)
+  __slots__: Tuple[str, ...] = ('source',)
+
+  source: Exception
+  """The :class:`Exception` instance causing this exception."""
 
   def __init__(self, source: Exception):
-    self.__source = source
+    self.source = source
 
     super().__init__()
-
-  @property
-  def source(self) -> Exception:
-    """Returns the :class:`Exception` instance causing this exception. This source can be from any exception type. This property is read-only."""
-
-    return self.__source
