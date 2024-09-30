@@ -38,12 +38,12 @@ async def getweather():
     print(weather.temperature)
     
     # get the weather forecast for a few days
-    for daily in weather.daily_forecasts:
-      print(daily)
+    for daily_forecast in weather:
+      print(daily_forecast)
       
       # hourly forecasts
-      for hourly in daily.hourly_forecasts:
-        print(f' --> {hourly!r}')
+      for hourly_forecast in daily_forecast:
+        print(f' --> {hourly_forecast!r}')
 
 if __name__ == '__main__':
   # see https://stackoverflow.com/questions/45600579/asyncio-event-loop-is-closed-when-getting-loop
