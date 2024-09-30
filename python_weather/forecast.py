@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Iterable, Optional, Tuple
+from typing import Iterable, Optional, Tuple, List
 from datetime import datetime, date, time
 
 from .base import BaseForecast, CustomizableBase
@@ -175,6 +175,12 @@ class DailyForecast(CustomizableBase):
   def __repr__(self) -> str:
     return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
 
+  def __iter__(self) -> Iterable[HourlyForecast]:
+    return self.hourly_forecasts
+
+  def __list__(self) -> List[HourlyForecast]:
+    return list(iter(self))
+
   @property
   def moon_illumination(self) -> int:
     """The percentage of the moon illuminated."""
@@ -283,6 +289,12 @@ class Forecast(BaseForecast):
 
   def __repr__(self) -> str:
     return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
+
+  def __iter__(self) -> Iterable[DailyForecast]:
+    return self.daily_forecasts
+
+  def __list__(self) -> List[DailyForecast]:
+    return list(iter(self))
 
   @property
   def local_population(self) -> int:
