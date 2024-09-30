@@ -11,3 +11,6 @@ Client reference
    :inherited-members:
 
 .. autoclass:: python_weather.errors.Error()
+
+.. autoclass:: python_weather.errors.RequestError()
+   :members:
