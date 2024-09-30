@@ -7,11 +7,11 @@ import os
 INDENTATION = 2
 
 
-def is_local(data):
+def is_local(data: object) -> bool:
   return getattr(data, '__module__', '').startswith('python_weather')
 
 
-def _test(obj, indent_level):
+def _test(obj: object, indent_level: int) -> None:
   for name in dir(obj.__class__):
     attr = getattr(obj.__class__, name)
 
@@ -40,12 +40,12 @@ def _test(obj, indent_level):
         _test(data, indent_level + INDENTATION)
 
 
-def test(obj):
+def test(obj: object) -> None:
   print(f'{obj!r} -> ')
   _test(obj, INDENTATION)
 
 
-async def getweather():
+async def getweather() -> None:
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
     test(await client.get('New York'))
 

@@ -44,7 +44,7 @@ class CustomizableBase:
     return self.__unit
 
   @unit.setter
-  def unit(self, to: _Unit):
+  def unit(self, to: _Unit) -> None:
     """
     Sets the default measuring unit used to display information in this object.
 
@@ -64,7 +64,7 @@ class CustomizableBase:
     return self.__locale
 
   @locale.setter
-  def locale(self, to: Locale):
+  def locale(self, to: Locale) -> None:
     """
     Sets the default localization used to display information in this object.
 

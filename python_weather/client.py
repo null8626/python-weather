@@ -120,13 +120,13 @@ class Client(CustomizableBase):
         await sleep(delay)
         delay *= 2
 
-  async def close(self):
+  async def close(self) -> None:
     """Closes the :class:`Client` object. Nothing will happen if the client uses a pre-existing :class:`aiohttp.ClientSession` or if the session is already closed."""
 
     if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
-  async def __aenter__(self):
+  async def __aenter__(self) -> 'Client':
     return self
 
   async def __aexit__(self, *_, **__):
