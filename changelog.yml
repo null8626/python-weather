@@ -156,7 +156,7 @@ changelog:
       - fix: Refactors on the request delay calculation.
       - fix: Fix broken donations redirect in the documentation page.
   - version: 2.0.4
-    release-date: 30 September 2024
+    release-date: 2 October 2024
     changes:
       - fix: The ``Client.close`` method now no longer closes the ``ClientSession`` if an existing ``ClientSession`` was provided in the constructor.
       - add: HTTP exceptions are now wrapped under :class:`RequestError`.
