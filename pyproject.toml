@@ -12,12 +12,11 @@ keywords = ["weather", "forecast", "weather-api", "weather-forecast"]
 dependencies = ["aiohttp>=3.10.9"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
-  "Framework :: aiohttp",
-  "Framework :: AsyncIO",
   "Intended Audience :: Education",
   "Intended Audience :: Developers",
   "Intended Audience :: Information Technology",
   "Natural Language :: English",
+  "Operating System :: OS Independent",
   "Topic :: Education",
   "Topic :: Internet",
   "Topic :: Scientific/Engineering",
