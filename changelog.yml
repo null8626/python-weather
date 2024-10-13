@@ -164,3 +164,12 @@ changelog:
       - fix: Bump the ``aiohttp`` dependency to be at least version ``3.10.8``.
       - add: Add an additional ``raise_for_status`` argument to the default ``ClientSession``.
       - fix: Refactor the regex retrieval for the ``Forecast.local_population`` property.
+  - version: 2.0.5
+    release-date: 13 October 2024
+    changes:
+      - fix: Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the Forecast object.
+      - fix: Fix infinite loop while calling the ``__iter__`` or ``__list__`` helper implementations of the :class:`Forecast` objects.
+      - fix: Fix no status code error checking on clients using pre-existing ``ClientSession`` objects.
+      - fix: The test workflow now also tests the example code in the README.
+      - add: Add ``__len__`` helper implementations for the forecast classes.
+      - fix: Bump the ``aiohttp`` dependency to be at least version ``3.10.10``.
