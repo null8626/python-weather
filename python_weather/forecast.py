@@ -121,6 +121,7 @@ class HourlyForecast(BaseForecast):
     self.chances_of_thunder = int(json['chanceofthunder'])
     self.chances_of_windy = int(json['chanceofwindy'])
     self.cloud_cover = int(json['cloudcover'])
+    self.time = time() if len(t) < 3 else datetime.strptime(t, '%H%M').time()
     self.dew_point = int(json[f'DewPoint{unit.temperature}'])
     self.heat_index = HeatIndex._new(
       celcius_index,
@@ -128,7 +129,6 @@ class HourlyForecast(BaseForecast):
     )
     self.wind_chill = int(json[f'WindChill{unit.temperature}'])
     self.wind_gust = int(json[f'WindGust{unit.velocity}'])
-    self.time = time() if len(t) < 3 else datetime.strptime(t, '%H%M').time()
 
     super().__init__(json, unit, locale)
 
