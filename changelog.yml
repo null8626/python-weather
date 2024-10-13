@@ -167,8 +167,8 @@ changelog:
   - version: 2.0.5
     release-date: 13 October 2024
     changes:
-      - fix: Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the Forecast object.
-      - fix: Fix infinite loop while calling the ``__iter__`` or ``__list__`` helper implementations of the :class:`Forecast` objects.
+      - fix: Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the :class:`Forecast` object.
+      - fix: Fix infinite loop while calling the ``__iter__`` or ``__list__`` helper implementations of the forecast objects.
       - fix: Fix no status code error checking on clients using pre-existing ``ClientSession`` objects.
       - fix: The test workflow now also tests the example code in the README.
       - add: Add ``__len__`` helper implementations for the forecast classes.
