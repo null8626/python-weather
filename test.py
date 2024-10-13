@@ -10,7 +10,7 @@ def is_local(data: object) -> bool:
   return getattr(data, '__module__', '').startswith('python_weather')
 
 
-def _test(obj: object, indent_level: int) -> None:
+def _test_attributes(obj: object, indent_level: int) -> None:
   for name in obj.__class__.__slots__:
     stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}')
     data = getattr(obj, name)
@@ -23,27 +23,46 @@ def _test(obj: object, indent_level: int) -> None:
           stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}[{i}] -> ')
 
         print(repr(each))
-        _test(each, indent_level + INDENTATION)
+        _test_attributes(each, indent_level + INDENTATION)
 
       continue
 
     print(f' -> {data!r}')
 
     if is_local(data):
-      _test(data, indent_level + INDENTATION)
+      _test_attributes(data, indent_level + INDENTATION)
 
 
-def test(obj: object) -> None:
-  print(f'{obj!r} -> ')
-  _test(obj, INDENTATION)
+def test_attributes(weather: python_weather.forecast.Forecast) -> None:
+  print(f'{weather!r} -> ')
+  _test_attributes(weather, INDENTATION)
+
+
+def example_code(weather: python_weather.forecast.Forecast) -> None:
+  print(weather.temperature)
+
+  # get the weather forecast for a few days
+  for daily in weather:
+    print(daily)
+
+    # hourly forecasts
+    for hourly in daily:
+      print(f' --> {hourly!r}')
+
+
+async def test(client: python_weather.Client) -> None:
+  weather = await client.get('New York')
+
+  example_code(weather)
+  test_attributes(weather)
 
 
 async def getweather() -> None:
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
-    test(await client.get('New York'))
+    await test(client)
 
   async with python_weather.Client(unit=python_weather.METRIC) as client:
-    test(await client.get('New York'))
+    await test(client)
 
 
 if __name__ == '__main__':
