@@ -112,6 +112,9 @@ class Client(CustomizableBase):
         async with self.__session.get(
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
         ) as resp:
+          if not self.__session.raise_for_status:
+            resp.raise_for_status()
+
           return Forecast(await resp.json(), unit, locale)
       except Exception as err:
         if delay == 4:
