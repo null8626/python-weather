@@ -1,4 +1,3 @@
-from inspect import isgenerator
 from sys import stdout
 import python_weather
 import asyncio
@@ -12,32 +11,26 @@ def is_local(data: object) -> bool:
 
 
 def _test(obj: object, indent_level: int) -> None:
-  for name in dir(obj.__class__):
-    attr = getattr(obj.__class__, name)
+  for name in obj.__class__.__slots__:
+    stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}')
+    data = getattr(obj, name)
 
-    if isinstance(attr, property) and attr.fget:
-      stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}')
+    if isinstance(data, list):
+      stdout.write('[0] -> ')
 
-      data = getattr(obj, name)
+      for i, each in enumerate(data):
+        if i > 0:
+          stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}[{i}] -> ')
 
-      if isgenerator(data):
-        stdout.write('[0] -> ')
+        print(repr(each))
+        _test(each, indent_level + INDENTATION)
 
-        for i, each in enumerate(data):
-          if i > 0:
-            stdout.write(
-              f'{" " * indent_level}{obj.__class__.__name__}.{name}[{i}] -> '
-            )
+      continue
 
-          print(repr(each))
-          _test(each, indent_level + INDENTATION)
+    print(f' -> {data!r}')
 
-        continue
-
-      print(f' -> {data!r}')
-
-      if is_local(data):
-        _test(data, indent_level + INDENTATION)
+    if is_local(data):
+      _test(data, indent_level + INDENTATION)
 
 
 def test(obj: object) -> None:
