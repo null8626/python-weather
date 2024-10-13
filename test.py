@@ -41,11 +41,9 @@ def test_attributes(weather: python_weather.forecast.Forecast) -> None:
 def example_code(weather: python_weather.forecast.Forecast) -> None:
   print(weather.temperature)
 
-  # get the weather forecast for a few days
   for daily in weather:
     print(daily)
 
-    # hourly forecasts
     for hourly in daily:
       print(f' --> {hourly!r}')
 
