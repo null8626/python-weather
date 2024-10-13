@@ -122,7 +122,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
 class WindDirection(BasicEnum):
   """Represents a wind direction."""
 
-  __slots__: Tuple[str, ...] = ('__degrees',)
+  __slots__: Tuple[str, ...] = ('degrees',)
 
   NORTH = 'N'
   NORTH_NORTHEAST = 'NNE'
@@ -141,9 +141,12 @@ class WindDirection(BasicEnum):
   NORTHWEST = 'NW'
   NORTH_NORTHWEST = 'NNW'
 
+  degrees: float
+  """The wind direction's value in degrees."""
+
   def _new(value: str, degrees: float) -> 'WindDirection':
     enum = WindDirection(value)
-    enum.__degrees = degrees
+    enum.degrees = degrees
 
     return enum
 
@@ -184,12 +187,6 @@ class WindDirection(BasicEnum):
       return 326.25 < other <= 348.75
 
   def __float__(self) -> float:
-    return self.__degrees
-
-  @property
-  def degrees(self) -> int:
-    """The wind direction's value in degrees."""
-
     return self.__degrees
 
   @property

@@ -25,7 +25,7 @@ SOFTWARE.
 from typing import Iterable, Optional, Tuple, List
 from datetime import datetime, date, time
 
-from .base import BaseForecast, CustomizableBase
+from .base import BaseForecast
 from .enums import Phase, Locale, HeatIndex
 from .constants import _Unit, LATLON_REGEX
 
@@ -33,7 +33,72 @@ from .constants import _Unit, LATLON_REGEX
 class HourlyForecast(BaseForecast):
   """Represents a weather forecast of a specific hour."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: Tuple[str, ...] = (
+    'chances_of_fog',
+    'chances_of_frost',
+    'chances_of_high_temperature',
+    'chances_of_overcast',
+    'chances_of_rain',
+    'chances_of_remaining_dry',
+    'chances_of_snow',
+    'chances_of_sunshine',
+    'chances_of_thunder',
+    'chances_of_windy',
+    'cloud_cover',
+    'time',
+    'dew_point',
+    'heat_index',
+    'wind_chill',
+    'wind_gust',
+  )
+
+  chances_of_fog: int
+  """Chances of a fog in percent."""
+
+  chances_of_frost: int
+  """Chances of a frost in percent."""
+
+  chances_of_high_temperature: int
+  """Chances of a high temperature in percent."""
+
+  chances_of_overcast: int
+  """Chances of an overcast in percent."""
+
+  chances_of_rain: int
+  """Chances of a rain in percent."""
+
+  chances_of_remaining_dry: int
+  """Chances of remaining dry in percent."""
+
+  chances_of_snow: int
+  """Chances of a snow in percent."""
+
+  chances_of_sunshine: int
+  """Chances of a sunshine in percent."""
+
+  chances_of_thunder: int
+  """Chances of a thunder in percent."""
+
+  chances_of_windy: int
+  """Chances of windy in percent."""
+
+  cloud_cover: int
+  """The cloud cover value in percent."""
+
+  time: 'time'
+  """The local time in hours and minutes."""
+
+  dew_point: int
+  """The dew point in either celcius or fahrenheit."""
+
+  heat_index: HeatIndex
+  """The heat index in either celcius or fahrenheit."""
+
+  wind_chill: int
+  """The wind chill value in either celcius or fahrenheit."""
+
+  wind_gust: int
+  """The wind gust value in either kilometers/hour or miles/hour."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     # for inheritance purposes
@@ -42,309 +107,190 @@ class HourlyForecast(BaseForecast):
     if 'temp_F' not in json:
       json['temp_F'] = json.pop('tempF')
 
+    celcius_index = int(json['HeatIndexC'])
+    t = json['time']
+
+    self.chances_of_fog = int(json['chanceoffog'])
+    self.chances_of_frost = int(json['chanceoffrost'])
+    self.chances_of_high_temperature = int(json['chanceofhightemp'])
+    self.chances_of_overcast = int(json['chanceofovercast'])
+    self.chances_of_rain = int(json['chanceofrain'])
+    self.chances_of_remaining_dry = int(json['chanceofremdry'])
+    self.chances_of_snow = int(json['chanceofsnow'])
+    self.chances_of_sunshine = int(json['chanceofsunshine'])
+    self.chances_of_thunder = int(json['chanceofthunder'])
+    self.chances_of_windy = int(json['chanceofwindy'])
+    self.cloud_cover = int(json['cloudcover'])
+    self.dew_point = int(json[f'DewPoint{unit.temperature}'])
+    self.heat_index = HeatIndex._new(
+      celcius_index,
+      int(json[f'HeatIndex{unit.temperature}']),
+    )
+    self.wind_chill = int(json[f'WindChill{unit.temperature}'])
+    self.wind_gust = int(json[f'WindGust{unit.velocity}'])
+    self.time = time() if len(t) < 3 else datetime.strptime(t, '%H%M').time()
+
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
     return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
 
-  @property
-  def dew_point(self) -> int:
-    """The dew point in either celcius or fahrenheit."""
 
-    return int(
-      self._BaseForecast__inner[f'DewPoint{self._CustomizableBase__unit.temperature}']
-    )
+class DailyForecast:
+  __slots__: Tuple[str, ...] = (
+    'moon_illumination',
+    'moon_phase',
+    'moonrise',
+    'moonset',
+    'sunrise',
+    'sunset',
+    'date',
+    'sunlight',
+    'lowest_temperature',
+    'highest_temperature',
+    'temperature',
+    'snowfall',
+    'hourly_forecasts',
+  )
 
-  @property
-  def heat_index(self) -> HeatIndex:
-    """The heat index in either celcius or fahrenheit."""
+  moon_illumination: int
+  """The percentage of the moon illuminated."""
 
-    celcius_index = int(self._BaseForecast__inner['HeatIndexC'])
+  moon_phase: Phase
+  """The moon's phase."""
 
-    return HeatIndex._new(
-      celcius_index,
-      int(
-        self._BaseForecast__inner[
-          f'HeatIndex{self._CustomizableBase__unit.temperature}'
-        ]
-      ),
-    )
+  moonrise: Optional[time]
+  """The local time when the moon rises. This can be ``None``."""
 
-  @property
-  def wind_chill(self) -> int:
-    """The wind chill value in either celcius or fahrenheit."""
+  moonset: Optional[time]
+  """The local time when the moon sets. This can be ``None``."""
 
-    return int(
-      self._BaseForecast__inner[f'WindChill{self._CustomizableBase__unit.temperature}']
-    )
+  sunrise: Optional[time]
+  """The local time when the sun rises. This can be ``None``."""
 
-  @property
-  def wind_gust(self) -> int:
-    """The wind gust value in either kilometers/hour or miles/hour."""
+  sunset: Optional[time]
+  """The local time when the sun sets. This can be ``None``."""
 
-    return int(
-      self._BaseForecast__inner[f'WindGust{self._CustomizableBase__unit.velocity}']
-    )
+  date: 'date'
+  """The local date of this forecast."""
 
-  @property
-  def chances_of_fog(self) -> int:
-    """Chances of a fog in percent."""
+  sunlight: float
+  """Hours of sunlight."""
 
-    return int(self._BaseForecast__inner['chanceoffog'])
+  lowest_temperature: int
+  """The lowest temperature in either celcius or fahrenheit."""
 
-  @property
-  def chances_of_frost(self) -> int:
-    """Chances of a frost in percent."""
+  highest_temperature: int
+  """The highest temperature in either celcius or fahrenheit."""
 
-    return int(self._BaseForecast__inner['chanceoffrost'])
+  temperature: int
+  """The average temperature in either celcius or fahrenheit."""
 
-  @property
-  def chances_of_high_temperature(self) -> int:
-    """Chances of a high temperature in percent."""
+  snowfall: float
+  """Total snowfall in either centimeters or inches."""
 
-    return int(self._BaseForecast__inner['chanceofhightemp'])
-
-  @property
-  def chances_of_overcast(self) -> int:
-    """Chances of an overcast in percent."""
-
-    return int(self._BaseForecast__inner['chanceofovercast'])
-
-  @property
-  def chances_of_rain(self) -> int:
-    """Chances of a rain in percent."""
-
-    return int(self._BaseForecast__inner['chanceofrain'])
-
-  @property
-  def chances_of_remaining_dry(self) -> int:
-    """Chances of remaining dry in percent."""
-
-    return int(self._BaseForecast__inner['chanceofremdry'])
-
-  @property
-  def chances_of_snow(self) -> int:
-    """Chances of a snow in percent."""
-
-    return int(self._BaseForecast__inner['chanceofsnow'])
-
-  @property
-  def chances_of_sunshine(self) -> int:
-    """Chances of a sunshine in percent."""
-
-    return int(self._BaseForecast__inner['chanceofsunshine'])
-
-  @property
-  def chances_of_thunder(self) -> int:
-    """Chances of a thunder in percent."""
-
-    return int(self._BaseForecast__inner['chanceofthunder'])
-
-  @property
-  def chances_of_windy(self) -> int:
-    """Chances of windy in percent."""
-
-    return int(self._BaseForecast__inner['chanceofwindy'])
-
-  @property
-  def cloud_cover(self) -> int:
-    """The cloud cover value in percent."""
-
-    return int(self._BaseForecast__inner['cloudcover'])
-
-  @property
-  def time(self) -> time:
-    """The local time in hours and minutes."""
-
-    return (
-      time()
-      if len(self._BaseForecast__inner['time']) < 3
-      else datetime.strptime(self._BaseForecast__inner['time'], '%H%M').time()
-    )
-
-
-class DailyForecast(CustomizableBase):
-  __slots__: Tuple[str, ...] = ('__inner', '__astronomy')
+  hourly_forecasts: List[HourlyForecast]
+  """The hourly forecasts of this day."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
-    self.__astronomy = json.pop('astronomy')[0]
-    self.__inner = json
+    astronomy = json['astronomy'][0]
 
-    super().__init__(unit, locale)
+    self.moon_illumination = int(astronomy['moon_illumination'])
+    self.moon_phase = Phase(astronomy['moon_phase'])
+    self.moonrise = __class__.__parse_time(astronomy['moonrise'])
+    self.moonset = __class__.__parse_time(astronomy['moonset'])
+    self.sunrise = __class__.__parse_time(astronomy['sunrise'])
+    self.sunset = __class__.__parse_time(astronomy['sunset'])
+    self.date = datetime.strptime(json['date'], '%Y-%m-%d').date()
+    self.sunlight = float(json['sunHour'])
+    self.lowest_temperature = int(json[f'mintemp{unit.temperature}'])
+    self.highest_temperature = int(json[f'maxtemp{unit.temperature}'])
+    self.temperature = int(json[f'avgtemp{unit.temperature}'])
+    self.snowfall = float(json['totalSnow_cm']) / unit.cm_divisor
+    self.hourly_forecasts = [
+      HourlyForecast(elem, unit, locale) for elem in json['hourly']
+    ]
+
+  @staticmethod
+  def __parse_time(timestamp: str) -> Optional[time]:
+    try:
+      return datetime.strptime(timestamp, '%I:%M %p').time()
+    except ValueError:
+      ...
 
   def __repr__(self) -> str:
     return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
 
+  def __len__(self) -> int:
+    return len(self.hourly_forecasts)
+
   def __iter__(self) -> Iterable[HourlyForecast]:
-    return self.hourly_forecasts
-
-  def __list__(self) -> List[HourlyForecast]:
-    return list(iter(self))
-
-  @property
-  def moon_illumination(self) -> int:
-    """The percentage of the moon illuminated."""
-
-    return int(self.__astronomy['moon_illumination'])
-
-  @property
-  def moon_phase(self) -> Phase:
-    """The moon's phase."""
-
-    return Phase(self.__astronomy['moon_phase'])
-
-  @property
-  def moonrise(self) -> Optional[time]:
-    """The local time when the moon rises. This can be ``None``."""
-
-    try:
-      return datetime.strptime(self.__astronomy['moonrise'], '%I:%M %p').time()
-    except ValueError:
-      ...
-
-  @property
-  def moonset(self) -> Optional[time]:
-    """The local time when the moon sets. This can be ``None``."""
-
-    try:
-      return datetime.strptime(self.__astronomy['moonset'], '%I:%M %p').time()
-    except ValueError:
-      ...
-
-  @property
-  def sunrise(self) -> Optional[time]:
-    """The local time when the sun rises. This can be ``None``."""
-
-    try:
-      return datetime.strptime(self.__astronomy['sunrise'], '%I:%M %p').time()
-    except ValueError:
-      ...
-
-  @property
-  def sunset(self) -> Optional[time]:
-    """The local time when the sun sets. This can be ``None``."""
-
-    try:
-      return datetime.strptime(self.__astronomy['sunset'], '%I:%M %p').time()
-    except ValueError:
-      ...
-
-  @property
-  def date(self) -> date:
-    """The local date of this forecast."""
-
-    return datetime.strptime(self.__inner['date'], '%Y-%m-%d').date()
-
-  @property
-  def lowest_temperature(self) -> int:
-    """The lowest temperature in either celcius or fahrenheit."""
-
-    return int(self.__inner[f'mintemp{self._CustomizableBase__unit.temperature}'])
-
-  @property
-  def highest_temperature(self) -> int:
-    """The highest temperature in either celcius or fahrenheit."""
-
-    return int(self.__inner[f'maxtemp{self._CustomizableBase__unit.temperature}'])
-
-  @property
-  def temperature(self) -> int:
-    """The average temperature in either celcius or fahrenheit."""
-
-    return int(self.__inner[f'avgtemp{self._CustomizableBase__unit.temperature}'])
-
-  @property
-  def sunlight(self) -> float:
-    """Hours of sunlight."""
-
-    return float(self.__inner['sunHour'])
-
-  @property
-  def snowfall(self) -> float:
-    """Total snowfall in either centimeters or inches."""
-
-    return float(self.__inner['totalSnow_cm']) / self._CustomizableBase__unit.cm_divisor
-
-  @property
-  def hourly_forecasts(self) -> Iterable[HourlyForecast]:
-    """The hourly forecasts of this day."""
-
-    return (
-      HourlyForecast(elem, self._CustomizableBase__unit, self._CustomizableBase__locale)
-      for elem in self.__inner['hourly']
-    )
+    return iter(self.hourly_forecasts)
 
 
 class Forecast(BaseForecast):
   """Represents today's weather forecast, alongside daily and hourly weather forecasts."""
 
-  __slots__: Tuple[str, ...] = ('__inner', '__nearest')
+  __slots__: Tuple[str, ...] = (
+    'local_population',
+    'region',
+    'location',
+    'country',
+    'datetime',
+    'coordinates',
+    'daily_forecasts',
+  )
+
+  local_population: int
+  """The local population count."""
+
+  region: str
+  """The local region's name."""
+
+  location: str
+  """The location's name."""
+
+  country: str
+  """The local country's name."""
+
+  datetime: 'datetime'
+  """The local date and time of this weather forecast."""
+
+  coordinates: Tuple[float, float]
+  """A tuple of this forecast's latitude and longitude."""
+
+  daily_forecasts: List[DailyForecast]
+  """Daily weather forecasts in this location."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     current = json['current_condition'][0]
-    self.__nearest = json.pop('nearest_area')[0]
-    self.__inner = json
+    nearest = json['nearest_area'][0]
+
+    self.local_population = int(nearest['population'])
+    self.region = nearest['region'][0]['value']
+    self.location = nearest['areaName'][0]['value']
+    self.country = nearest['country'][0]['value']
+    self.datetime = datetime.strptime(current['localObsDateTime'], '%Y-%m-%d %I:%M %p')
+
+    try:
+      req = next(filter(lambda x: x['type'] == 'LatLon', json['request']))
+      match = LATLON_REGEX.match(req['query'])
+
+      self.coordinates = (float(match[1]), float(match[2]))
+    except:
+      self.coordinates = (float(nearest['latitude']), float(nearest['longitude']))
+
+    self.daily_forecasts = [
+      DailyForecast(elem, unit, locale) for elem in json['weather']
+    ]
 
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
     return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
 
+  def __len__(self) -> int:
+    return len(self.daily_forecasts)
+
   def __iter__(self) -> Iterable[DailyForecast]:
-    return self.daily_forecasts
-
-  def __list__(self) -> List[DailyForecast]:
-    return list(iter(self))
-
-  @property
-  def local_population(self) -> int:
-    """The local population count."""
-
-    return int(self.__nearest['population'])
-
-  @property
-  def region(self) -> str:
-    """The local region's name."""
-
-    return self.__nearest['region'][0]['value']
-
-  @property
-  def location(self) -> str:
-    """The location's name."""
-
-    return self.__nearest['areaName'][0]['value']
-
-  @property
-  def country(self) -> str:
-    """The local country's name."""
-
-    return self.__nearest['country'][0]['value']
-
-  @property
-  def datetime(self) -> datetime:
-    """The local date and time of this weather forecast."""
-
-    return datetime.strptime(
-      self._BaseForecast__inner['localObsDateTime'], '%Y-%m-%d %I:%M %p'
-    )
-
-  @property
-  def daily_forecasts(self) -> Iterable[DailyForecast]:
-    """Daily weather forecasts in this location."""
-
-    return (
-      DailyForecast(elem, self._CustomizableBase__unit, self._CustomizableBase__locale)
-      for elem in self.__inner['weather']
-    )
-
-  @property
-  def coordinates(self) -> Tuple[float, float]:
-    """A tuple of this forecast's latitude and longitude."""
-
-    try:
-      req = next(filter(lambda x: x['type'] == 'LatLon', self.__inner['request']))
-      match = LATLON_REGEX.match(req['query'])
-
-      return float(match[1]), float(match[2])
-    except:
-      return float(self.__nearest['latitude']), float(self.__nearest['longitude'])
+    return iter(self.daily_forecasts)
