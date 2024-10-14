@@ -85,9 +85,9 @@ class Client(CustomizableBase):
     :param location: The requested location name for said weather forecast.
     :type location: str
     :param unit: Overrides the unit used by this object. Defaults to the one used by this object.
-    :type unit: Optional[:py:class:`enum.auto`]
+    :type unit: Optional[``_Unit``]
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
-    :type locale: Optional[Locale]
+    :type locale: Optional[:class:`~python_weather.enums.Locale`]
 
     :exception Error: If the aiohttp client session used by the :class:`~python_weather.client.Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`~python_weather.enums.Locale` enum.
     :exception RequestError: If the :class:`~python_weather.client.Client` can't send a web request to the web server.
