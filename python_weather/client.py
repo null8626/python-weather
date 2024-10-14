@@ -23,8 +23,8 @@ SOFTWARE.
 """
 
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
+from typing import Optional, Tuple, Self
 from urllib.parse import quote_plus
-from typing import Optional, Tuple
 from asyncio import sleep
 
 from .errors import Error, RequestError
@@ -133,7 +133,7 @@ class Client(CustomizableBase):
     if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
-  async def __aenter__(self) -> 'Client':
+  async def __aenter__(self) -> Self:
     return self
 
   async def __aexit__(self, *_, **__) -> None:

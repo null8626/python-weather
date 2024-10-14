@@ -106,14 +106,14 @@ changelog:
   - version: 1.1.0
     release-date: 23 November 2023
     changes:
-      - add: Add support for Python 3.12 by upgrading the ``aiohttp`` dependency to 3.9.0.
+      - add: Add support for Python 3.12 by upgrading the ``aiohttp`` dependency to ``3.9.0``.
       - rem: The library no longer supports Python 3.7, which was discontinued in June 2023.
       - fix: Removed several instances of copy-pasted code.
   - version: 1.1.1
     release-date: 20 February 2024
     changes:
       - rem: Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.
-      - fix: Bump ``aiohttp`` dependency to 3.9.3.
+      - fix: Bump ``aiohttp`` dependency to ``3.9.3``.
   - version: 1.1.2
     release-date: 25 February 2024
     changes:
@@ -180,4 +180,5 @@ changelog:
       - add: Add ``__int__`` helper implementation for the :class:`~python_weather.enums.WindDirection` enum.
       - add: Add optional ``max_retries`` keyword argument to the :class:`~python_weather.client.Client` constructor.
       - fix: Refactor the :class:`~python_weather.enums.Kind` enum to make its code more readable.
+      - fix: Remove backwards-compatiblity for Python 3.7 users by adding the ``Self`` typing back.
       - fix: Documentation tweaks.
