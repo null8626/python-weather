@@ -187,16 +187,16 @@ class WindDirection(BasicEnum):
       return 326.25 < other <= 348.75
 
   def __int__(self) -> int:
-    return int(self.__degrees)
+    return int(self.degrees)
 
   def __float__(self) -> float:
-    return self.__degrees
+    return self.degrees
 
   @property
   def emoji(self) -> str:
     """The emoji representing this enum."""
 
-    return WIND_DIRECTION_EMOJIS[int(((self.__degrees + 22.5) % 360) / 45.0)]
+    return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) / 45.0)]
 
 
 class Locale(Enum):
