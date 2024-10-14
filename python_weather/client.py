@@ -47,7 +47,7 @@ class Client(CustomizableBase):
   :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`~.errors.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to ``None`` (or 3 retries).
   :type max_retries: Optional[:class:`int`]
 
-  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`~.enums.Locale` enum.
+  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not a part of the :class:`~.enums.Locale` enum.
   """
 
   __slots__: Tuple[str, ...] = ('__own_session', '__session', '__max_retries')
@@ -89,7 +89,7 @@ class Client(CustomizableBase):
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
     :type locale: Optional[:class:`~.enums.Locale`]
 
-    :exception Error: If the aiohttp client session used by the :class:`~.client.Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`~.enums.Locale` enum.
+    :exception Error: If the aiohttp client session used by the :class:`~.client.Client` object is already closed.
     :exception RequestError: If the :class:`~.client.Client` can't send a web request to the web server.
 
     :returns: The requested weather forecast.
