@@ -70,14 +70,14 @@ class HeatIndex(IndexedEnum):
   DANGER = None
   EXTREME_DANGER = None
 
-  def _new(celcius_index: int, true_index: int) -> Self:
+  def _new(celcius_index: int, true_index: int) -> 'HeatIndex':
     enum = HeatIndex(celcius_index)
     enum.index = true_index
 
     return enum
 
   @classmethod
-  def _missing_(self, celcius_index: int) -> Self:
+  def _missing_(self, celcius_index: int) -> 'HeatIndex':
     if celcius_index <= 32:
       return self.CAUTION
     elif celcius_index <= 39:
@@ -99,14 +99,14 @@ class UltraViolet(BasicEnum, IndexedEnum):
   VERY_HIGH = None
   EXTREME = None
 
-  def _new(index: int) -> Self:
+  def _new(index: int) -> 'UltraViolet':
     enum = UltraViolet(index)
     enum.index = index
 
     return enum
 
   @classmethod
-  def _missing_(self, index: int) -> Self:
+  def _missing_(self, index: int) -> 'UltraViolet':
     if index <= 2:
       return self.LOW
     elif index <= 5:
@@ -144,7 +144,7 @@ class WindDirection(BasicEnum):
   degrees: float
   """The wind direction's value in degrees."""
 
-  def _new(value: str, degrees: float) -> Self:
+  def _new(value: str, degrees: float) -> 'WindDirection':
     enum = WindDirection(value)
     enum.degrees = degrees
 
@@ -310,7 +310,7 @@ class Kind(BasicEnum):
   THUNDERY_SNOW_SHOWERS = 392
 
   @classmethod
-  def _missing_(self, value: int) -> Self:
+  def _missing_(self, value: int) -> 'Kind':
     if value in (248, 260):
       return self.FOG
     elif value in (263, 353):

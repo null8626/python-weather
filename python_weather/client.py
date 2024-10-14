@@ -133,7 +133,7 @@ class Client(CustomizableBase):
     if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
-  async def __aenter__(self) -> Self:
+  async def __aenter__(self) -> 'Client':
     return self
 
   async def __aexit__(self, *_, **__) -> None:

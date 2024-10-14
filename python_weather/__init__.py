@@ -31,7 +31,7 @@ __title__ = 'python-weather'
 __author__ = 'null8626'
 __license__ = 'MIT'
 __copyright__ = 'Copyright (c) 2021-2024 null8626'
-__version__ = '2.0.6'
+__version__ = '2.0.7'
 __all__ = (
   'METRIC',
   'IMPERIAL',
