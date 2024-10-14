@@ -23,8 +23,8 @@ SOFTWARE.
 """
 
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
-from typing import Optional, Tuple, Self
 from urllib.parse import quote_plus
+from typing import Optional, Tuple
 from asyncio import sleep
 
 from .errors import Error, RequestError

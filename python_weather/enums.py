@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 from enum import Enum
-from typing import Union, Tuple, Self
+from typing import Union, Tuple
 
 from .constants import WIND_DIRECTION_EMOJIS
 
