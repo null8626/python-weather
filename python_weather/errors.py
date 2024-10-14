@@ -32,12 +32,12 @@ class Error(Exception):
 
 
 class RequestError(Error):
-  """Thrown upon HTTP request failure. Extends :class:`Error`."""
+  """Thrown upon HTTP request failure. Extends :class:`~python_weather.errors.Error`."""
 
   __slots__: Tuple[str, ...] = ('source',)
 
   source: Exception
-  """The :class:`Exception` instance causing this exception."""
+  """The :py:class:`Exception` instance causing this exception."""
 
   def __init__(self, source: Exception):
     self.source = source
