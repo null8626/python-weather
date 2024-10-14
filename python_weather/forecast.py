@@ -160,16 +160,16 @@ class DailyForecast:
   """The moon's phase."""
 
   moonrise: Optional[time]
-  """The local time when the moon rises. This can be ``None``."""
+  """The local time when the moon rises. This can be :py:obj:`None`."""
 
   moonset: Optional[time]
-  """The local time when the moon sets. This can be ``None``."""
+  """The local time when the moon sets. This can be :py:obj:`None`."""
 
   sunrise: Optional[time]
-  """The local time when the sun rises. This can be ``None``."""
+  """The local time when the sun rises. This can be :py:obj:`None`."""
 
   sunset: Optional[time]
-  """The local time when the sun sets. This can be ``None``."""
+  """The local time when the sun sets. This can be :py:obj:`None`."""
 
   date: 'date'
   """The local date of this forecast."""

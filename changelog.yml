@@ -19,7 +19,7 @@ changelog:
       - add: Add ``example.py`` in the project root directory.
       - fix: Use python's walrus operator to clean up repetitive code.
       - fix: Implement Python's inheritance rather than keeping everything in one class.
-      - fix: Separate :class:`~python_weather.client.Client` from ``HTTPClient``.
+      - fix: Separate :class:`.Client` from ``HTTPClient``.
       - fix: Improve the example in README.
   - version: 0.3.3
     release-date: 18 June 2021
@@ -70,16 +70,16 @@ changelog:
   - version: 0.4.2
     release-date: 9 September 2022
     changes:
-      - rem: Rename ``DailyForecast.average_temperature`` to ``DailyForecast.temperature``.
+      - rem: Rename ``DailyForecast.average_temperature`` to :attr:`.DailyForecast.temperature`.
       - fix: Printing the forecast result should no longer raise an :py:class:`AttributeError`.
-      - fix: '``Weather.location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)'
+      - fix: '``Weather.location`` should not return :py:obj:`None` now, and should return floats insead of ints. (making it consistent to the type-hint)'
       - add: Add ``Mist`` property to the ``WeatherType`` enum.
       - add: Add an additional :class:`~aiohttp.TCPConnector` argument to the default :class:`~aiohttp.ClientSession`.
       - rem: Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.
   - version: 0.4.3
     release-date: 23 October 2022
     changes:
-      - fix: The ``HourlyForecast.time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.
+      - fix: The :attr:`.HourlyForecast.time` property should return a :py:class:`datetime.time` object instead of a raw API :py:class:`int`.
   - version: 1.0.0
     release-date: 28 April 2023
     changes:
@@ -96,11 +96,11 @@ changelog:
     release-date: 18 May 2023
     changes:
       - fix: Fix ``tempC`` and ``tempF`` :py:class:`KeyError`.
-      - fix: Fix :class:`~python_weather.enums.UltraViolet` enum returning incorrect values.
+      - fix: Fix :class:`.UltraViolet` enum returning incorrect values.
   - version: 1.0.3
     release-date: 20 June 2023
     changes:
-      - add: Add missing ``index`` property in the :class:`~python_weather.enums.UltraViolet` enum.
+      - add: Add missing ``index`` property in the :class:`.UltraViolet` enum.
       - add: Add more helper methods.
       - fix: Improve docstrings of several properties.
   - version: 1.1.0
@@ -112,7 +112,7 @@ changelog:
   - version: 1.1.1
     release-date: 20 February 2024
     changes:
-      - rem: Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.
+      - rem: Rename ``chances_of_remdry`` to :attr:`~.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.
       - fix: Bump ``aiohttp`` dependency to ``3.9.3``.
   - version: 1.1.2
     release-date: 25 February 2024
@@ -121,22 +121,22 @@ changelog:
   - version: 2.0.0
     release-date: 18 March 2024
     changes:
-      - rem: Rename the main forecast's class name from ``Weather`` to :class:`~python_weather.forecast.Forecast`.
-      - rem: Merge ``CurrentForecast`` class' properties with :class:`~python_weather.forecast.Forecast`'s. Therefore the ``current`` property is removed.
-      - rem: Merge ``Area`` class' properties with :class:`~python_weather.forecast.Forecast`.
-      - rem: Rename ``Weather.forecasts`` to ``Forecast.daily_forecasts``.
-      - rem: Rename ``Weather.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name and the latter is no longer an optional type.
+      - rem: Rename the main forecast's class name from ``Weather`` to :class:`.Forecast`.
+      - rem: Merge ``CurrentForecast`` class' properties with :class:`.Forecast`'s. Therefore the ``current`` property is removed.
+      - rem: Merge ``Area`` class' properties with :class:`.Forecast`.
+      - rem: Rename ``Weather.forecasts`` to :attr:`.Forecast.daily_forecasts`.
+      - rem: Rename ``Weather.location`` to :attr:`.Forecast.coordinates`. The former now returns the forecast location's name and the latter is no longer an optional type.
       - rem: Rename ``CurrentForecast.chances_of_hightemp`` to ``Forecast.chances_of_high_temperature``.
       - rem: Rename ``CurrentForecast.chances_of_remdry`` to ``Forecast.chances_of_remaining_dry``.
-      - rem: Rename ``CurrentForecast.date`` to ``Forecast.datetime``.
-      - rem: Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.
-      - rem: Rename ``Ultraviolet`` to :class:`~python_weather.enums.UltraViolet`.
-      - add: '``HourlyForecast.heat_index`` now returns a convenience enum called :class:`~python_weather.enums.HeatIndex`.'
-      - rem: Merge ``Astronomy`` class' properties with :class:`~python_weather.forecast.DailyForecast`.
-      - rem: Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.
-      - rem: Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.
-      - rem: Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.
-      - rem: Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.
+      - rem: Rename ``CurrentForecast.date`` to :attr:`.Forecast.datetime`.
+      - rem: Rename ``DailyForecast.hourly`` to :attr:`.DailyForecast.hourly_forecasts`.
+      - rem: Rename ``Ultraviolet`` to :class:`.UltraViolet`.
+      - add: ':attr:`.HourlyForecast.heat_index` now returns a convenience enum called :class:`.HeatIndex`.'
+      - rem: Merge ``Astronomy`` class' properties with :class:`.DailyForecast`.
+      - rem: Rename ``Astronomy.sun_rise`` to :attr:`.DailyForecast.sunrise`.
+      - rem: Rename ``Astronomy.sun_set`` to :attr:`.DailyForecast.sunset`.
+      - rem: Rename ``Astronomy.moon_rise`` to :attr:`.DailyForecast.moonrise`.
+      - rem: Rename ``Astronomy.moon_set`` to :attr:`.DailyForecast.moonset`.
   - version: 2.0.1
     release-date: 25 March 2024
     changes:
@@ -152,22 +152,22 @@ changelog:
   - version: 2.0.3
     release-date: 5 May 2024
     changes:
-      - fix: Fix potential :py:class:`NameError` while accessing the ``Phase.emoji`` property.
+      - fix: Fix potential :py:class:`NameError` while accessing the :attr:`.Phase.emoji` property.
       - fix: Refactors on the request delay calculation.
       - fix: Fix broken donations redirect in the documentation page.
   - version: 2.0.4
     release-date: 2 October 2024
     changes:
-      - fix: The ``Client.close`` method now no longer closes the :class:`~aiohttp.ClientSession` if an existing :class:`~aiohttp.ClientSession` was provided in the constructor.
-      - add: HTTP exceptions are now wrapped under :class:`~python_weather.errors.RequestError`.
+      - fix: The :meth:`.Client.close` method now no longer closes the :class:`~aiohttp.ClientSession` if an existing :class:`~aiohttp.ClientSession` was provided in the constructor.
+      - add: HTTP exceptions are now wrapped under :class:`.RequestError`.
       - add: Add ``__iter__`` and ``__list__`` helper implementations for the forecast classes.
       - fix: Bump the ``aiohttp`` dependency to be at least version ``3.10.8``.
       - add: Add an additional ``raise_for_status`` argument to the default :class:`~aiohttp.ClientSession`.
-      - fix: Refactor the regex retrieval for the ``Forecast.local_population`` property.
+      - fix: Refactor the regex retrieval for the :attr:`.Forecast.local_population` property.
   - version: 2.0.5
     release-date: 13 October 2024
     changes:
-      - fix: Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the :class:`~python_weather.forecast.Forecast` object.
+      - fix: Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the :class:`.Forecast` object.
       - fix: Fix infinite loop while calling the ``__iter__`` or ``__list__`` helper implementations of the forecast objects.
       - fix: Fix no status code error checking on clients using pre-existing :class:`~aiohttp.ClientSession` objects.
       - fix: The test workflow now also tests the example code in the README.
@@ -176,8 +176,8 @@ changelog:
   - version: 2.0.7
     release-date: 14 October 2024
     changes:
-      - fix: Fix :py:class:`AttributeError` upon calling :class:`~python_weather.enums.WindDirection` helper functions.
-      - add: Add ``__int__`` helper implementation for the :class:`~python_weather.enums.WindDirection` enum.
-      - add: Add optional ``max_retries`` keyword argument to the :class:`~python_weather.client.Client` constructor.
-      - fix: Refactor the :class:`~python_weather.enums.Kind` enum to make its code more readable.
+      - fix: Fix :py:class:`AttributeError` upon calling :class:`.WindDirection` helper functions.
+      - add: Add ``__int__`` helper implementation for the :class:`.WindDirection` enum.
+      - add: Add optional ``max_retries`` keyword argument to the :class:`.Client` constructor.
+      - fix: Refactor the :class:`.Kind` enum to make its code more readable.
       - fix: Documentation fixes.

@@ -7,9 +7,9 @@ sys.path.insert(0, os.path.abspath('..'))
 project = 'python-weather'
 author = 'null8626'
 
-copyright = author
+copyright = ''
 with open('../LICENSE', 'r') as f:
-  copyright = f'{re.search(r"\d{4}\-\d{4}", f.read()).group()} {copyright}'
+  copyright = re.search(r'\d{4}\-\d{4} null8626', f.read()).group()
 
 version = ''
 with open('../python_weather/__init__.py', 'r') as f:
