@@ -126,10 +126,9 @@ Changelog
 |         |                  | - 🟩 Add ``__len__`` helper implementations for the forecast classes.                                                                                                    |
 |         |                  | - 🟦 Bump the ``aiohttp`` dependency to be at least version ``3.10.10``.                                                                                                 |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.6   | 14 October 2024  | - 🟦 Fix :py:class:`AttributeError` upon calling :class:`~python_weather.enums.WindDirection` helper functions.                                                          |
+| 2.0.7   | 14 October 2024  | - 🟦 Fix :py:class:`AttributeError` upon calling :class:`~python_weather.enums.WindDirection` helper functions.                                                          |
 |         |                  | - 🟩 Add ``__int__`` helper implementation for the :class:`~python_weather.enums.WindDirection` enum.                                                                    |
 |         |                  | - 🟩 Add optional ``max_retries`` keyword argument to the :class:`~python_weather.client.Client` constructor.                                                            |
 |         |                  | - 🟦 Refactor the :class:`~python_weather.enums.Kind` enum to make its code more readable.                                                                               |
-|         |                  | - 🟦 Remove backwards-compatiblity for Python 3.7 users by adding the ``Self`` typing back.                                                                              |
 |         |                  | - 🟦 Documentation tweaks.                                                                                                                                               |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
