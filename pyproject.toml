@@ -3,7 +3,7 @@ requires = ["setuptools"]
 
 [project]
 name = "python-weather"
-version = "2.0.5"
+version = "2.0.6"
 description = "A free and asynchronous weather API wrapper made in Python, for Python."
 readme = "README.md"
 license = { text = "MIT" }

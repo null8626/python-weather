@@ -26,7 +26,6 @@ from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
 from typing import Optional, Tuple
 from asyncio import sleep
-from enum import auto
 
 from .errors import Error, RequestError
 from .constants import _Unit, METRIC
@@ -40,23 +39,26 @@ class Client(CustomizableBase):
   The class that lets you interact with the API.
 
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
-  :type unit: Optional[:py:class:`enum.auto`]
+  :type unit: _Unit
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to ``Locale.ENGLISH``.
-  :type locale: Optional[Locale]
-  :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead)
-  :type session: Optional[:class:`aiohttp.ClientSession`]
+  :type locale: Locale
+  :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead).
+  :type session: Optional[:class:`~aiohttp.ClientSession`]
+  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`~python_weather.errors.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to ``None`` (or 3 retries).
+  :type max_retries: Optional[:class:`int`]
 
-  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`Locale` enum.
+  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not ``None`` and not a part of the :class:`~python_weather.enums.Locale` enum.
   """
 
-  __slots__: Tuple[str, ...] = ('__own_session', '__session')
+  __slots__: Tuple[str, ...] = ('__own_session', '__session', '__max_retries')
 
   def __init__(
     self,
     *,
-    unit: Optional[auto] = METRIC,
-    locale: Optional[Locale] = Locale.ENGLISH,
+    unit: _Unit = METRIC,
+    locale: Locale = Locale.ENGLISH,
     session: Optional[ClientSession] = None,
+    max_retries: Optional[int] = None,
   ):
     super().__init__(unit, locale)
 
@@ -65,6 +67,7 @@ class Client(CustomizableBase):
       timeout=ClientTimeout(total=5000.0),
       connector=TCPConnector(verify_ssl=False),
     )
+    self.__max_retries = max_retries or 3
 
   def __repr__(self) -> str:
     return f'<{__class__.__name__} {self.__session!r}>'
@@ -73,7 +76,7 @@ class Client(CustomizableBase):
     self,
     location: str,
     *,
-    unit: Optional[auto] = None,
+    unit: Optional[_Unit] = None,
     locale: Optional[Locale] = None,
   ) -> Forecast:
     """
@@ -86,7 +89,8 @@ class Client(CustomizableBase):
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
     :type locale: Optional[Locale]
 
-    :exception Error: If the aiohttp client session used by the :class:`Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`Locale` enum, or if the :class:`Client` cannot send a web request to the web server.
+    :exception Error: If the aiohttp client session used by the :class:`~python_weather.client.Client` object is already closed, if the ``unit`` argument is not ``None`` and it's also not ``METRIC`` or ``IMPERIAL``, if the ``locale`` argument is not ``None`` and it's also not a part of the :class:`~python_weather.enums.Locale` enum.
+    :exception RequestError: If the :class:`~python_weather.client.Client` can't send a web request to the web server.
 
     :returns: The requested weather forecast.
     :rtype: Forecast
@@ -105,6 +109,7 @@ class Client(CustomizableBase):
 
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
     delay = 0.5
+    attempts = 0
 
     while True:
       try:
@@ -115,14 +120,15 @@ class Client(CustomizableBase):
 
           return Forecast(await resp.json(), unit, locale)
       except Exception as err:
-        if delay == 4:
+        if attempts == self.__max_retries:
           raise RequestError(err)
 
         await sleep(delay)
+        attempts += 1
         delay *= 2
 
   async def close(self) -> None:
-    """Closes the :class:`Client` object. Nothing will happen if the client uses a pre-existing :class:`aiohttp.ClientSession` or if the session is already closed."""
+    """Closes the :class:`~python_weather.client.Client` object. Nothing will happen if the client uses a pre-existing :class:`~aiohttp.ClientSession` or if the session is already closed."""
 
     if self.__own_session and not self.__session.closed:
       await self.__session.close()

@@ -68,9 +68,9 @@ class CustomizableBase:
     """
     Sets the default localization used to display information in this object.
 
-    :param to: The new :class:`Locale` to be used to display information in this object.
+    :param to: The new :class:`~python_weather.enums.Locale` to be used to display information in this object.
     :type to: Locale
-    :exception Error: If the ``to`` argument is not a part of the :class:`Locale` enum.
+    :exception Error: If the ``to`` argument is not a part of the :class:`~python_weather.enums.Locale` enum.
     """
 
     if not isinstance(to, Locale):
