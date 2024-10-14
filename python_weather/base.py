@@ -77,7 +77,6 @@ class CustomizableBase:
 
     self.__locale = to
 
-
 class BaseForecast:
   __slots__: Tuple[str, ...] = (
     'ultraviolet',
