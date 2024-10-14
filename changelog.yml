@@ -180,4 +180,4 @@ changelog:
       - add: Add ``__int__`` helper implementation for the :class:`~python_weather.enums.WindDirection` enum.
       - add: Add optional ``max_retries`` keyword argument to the :class:`~python_weather.client.Client` constructor.
       - fix: Refactor the :class:`~python_weather.enums.Kind` enum to make its code more readable.
-      - fix: Documentation tweaks.
+      - fix: Documentation fixes.
