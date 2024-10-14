@@ -130,5 +130,5 @@ class Client(CustomizableBase):
   async def __aenter__(self) -> 'Client':
     return self
 
-  async def __aexit__(self, *_, **__):
+  async def __aexit__(self, *_, **__) -> None:
     await self.close()

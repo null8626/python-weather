@@ -186,6 +186,9 @@ class WindDirection(BasicEnum):
     else:
       return 326.25 < other <= 348.75
 
+  def __int__(self) -> int:
+    return int(self.__degrees)
+
   def __float__(self) -> float:
     return self.__degrees
 
