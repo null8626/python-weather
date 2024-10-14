@@ -308,38 +308,29 @@ class Kind(BasicEnum):
 
   @classmethod
   def _missing_(self, value: int) -> 'Kind':
-    if value == 248 or value == 260:
+    if value in (248, 260):
       return self.FOG
-    elif value == 263 or value == 353:
+    elif value in (263, 353):
       return self.LIGHT_SHOWERS
-    elif value == 362 or value == 365 or value == 374:
+    elif value in (362, 365, 374):
       return self.LIGHT_SLEET_SHOWERS
-    elif (
-      value == 185
-      or value == 281
-      or value == 284
-      or value == 311
-      or value == 314
-      or value == 317
-      or value == 350
-      or value == 377
-    ):
+    elif value in (185, 281, 284, 311, 314, 317, 350, 377):
       return self.LIGHT_SLEET
     elif value == 386:
       return self.THUNDERY_SHOWERS
     elif value == 320:
       return self.LIGHT_SNOW
-    elif value == 329 or value == 332 or value == 338:
+    elif value in (329, 332, 338):
       return self.HEAVY_SNOW
-    elif value == 293 or value == 296:
+    elif value in (293, 296):
       return self.LIGHT_RAIN
-    elif value == 305 or value == 356:
+    elif value in (305, 356):
       return self.HEAVY_SHOWERS
-    elif value == 308 or value == 359:
+    elif value in (308, 359):
       return self.HEAVY_RAIN
-    elif value == 326 or value == 368:
+    elif value in (326, 368):
       return self.LIGHT_SNOW_SHOWERS
-    elif value == 371 or value == 395:
+    elif value in (371, 395):
       return self.HEAVY_SNOW_SHOWERS
 
   @property
