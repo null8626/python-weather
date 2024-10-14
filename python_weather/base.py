@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from enum import auto
 from typing import Tuple
 
 from .errors import Error
@@ -38,7 +37,7 @@ class CustomizableBase:
     self.locale = locale
 
   @property
-  def unit(self) -> auto:
+  def unit(self) -> _Unit:
     """The measuring unit used to display information in this object."""
 
     return self.__unit
