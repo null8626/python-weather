@@ -17,7 +17,7 @@ Changelog
 |         |                  | - 🟩 Add ``example.py`` in the project root directory.                                                                                                                   |
 |         |                  | - 🟦 Use python's walrus operator to clean up repetitive code.                                                                                                           |
 |         |                  | - 🟦 Implement Python's inheritance rather than keeping everything in one class.                                                                                         |
-|         |                  | - 🟦 Separate :class:`~.client.Client` from ``HTTPClient``.                                                                                                              |
+|         |                  | - 🟦 Separate :class:`.Client` from ``HTTPClient``.                                                                                                                      |
 |         |                  | - 🟦 Improve the example in README.                                                                                                                                      |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.3.3   | 18 June 2021     | - 🟩 Add a bundled-in CLI.                                                                                                                                               |
@@ -50,7 +50,7 @@ Changelog
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.4.1   | 8 August 2022    | - 🟦 Fix bug when retrieving ``CurrentForecast.local_time``.                                                                                                             |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.4.2   | 9 September 2022 | - 🟥 Rename ``DailyForecast.average_temperature`` to ``DailyForecast.temperature``.                                                                                      |
+| 0.4.2   | 9 September 2022 | - 🟥 Rename ``DailyForecast.average_temperature`` to :attr:`.DailyForecast.temperature`.                                                                                 |
 |         |                  | - 🟦 Printing the forecast result should no longer raise an :py:class:`AttributeError`.                                                                                  |
 |         |                  | - 🟦 ``Weather.location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)                               |
 |         |                  | - 🟩 Add ``Mist`` property to the ``WeatherType`` enum.                                                                                                                  |
@@ -68,9 +68,9 @@ Changelog
 | 1.0.1   | 29 April 2023    | - 🟦 Fix backwards-compatibility for Python 3.7 users by removing the ``Self`` typing.                                                                                   |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 1.0.2   | 18 May 2023      | - 🟦 Fix ``tempC`` and ``tempF`` :py:class:`KeyError`.                                                                                                                   |
-|         |                  | - 🟦 Fix :class:`~.enums.UltraViolet` enum returning incorrect values.                                                                                                   |
+|         |                  | - 🟦 Fix :class:`.UltraViolet` enum returning incorrect values.                                                                                                          |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 1.0.3   | 20 June 2023     | - 🟩 Add missing ``index`` property in the :class:`~.enums.UltraViolet` enum.                                                                                            |
+| 1.0.3   | 20 June 2023     | - 🟩 Add missing ``index`` property in the :class:`.UltraViolet` enum.                                                                                                   |
 |         |                  | - 🟩 Add more helper methods.                                                                                                                                            |
 |         |                  | - 🟦 Improve docstrings of several properties.                                                                                                                           |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -83,22 +83,22 @@ Changelog
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 1.1.2   | 25 February 2024 | - 🟩 Add official project documentation in https://python-weather.readthedocs.io/en/latest/.                                                                             |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.0   | 18 March 2024    | - 🟥 Rename the main forecast's class name from ``Weather`` to :class:`~.forecast.Forecast`.                                                                             |
-|         |                  | - 🟥 Merge ``CurrentForecast`` class' properties with :class:`~.forecast.Forecast`'s. Therefore the ``current`` property is removed.                                     |
-|         |                  | - 🟥 Merge ``Area`` class' properties with :class:`~.forecast.Forecast`.                                                                                                 |
-|         |                  | - 🟥 Rename ``Weather.forecasts`` to ``Forecast.daily_forecasts``.                                                                                                       |
-|         |                  | - 🟥 Rename ``Weather.location`` to ``Forecast.coordinates``. The former now returns the forecast location's name and the latter is no longer an optional type.          |
+| 2.0.0   | 18 March 2024    | - 🟥 Rename the main forecast's class name from ``Weather`` to :class:`.Forecast`.                                                                                       |
+|         |                  | - 🟥 Merge ``CurrentForecast`` class' properties with :class:`.Forecast`'s. Therefore the ``current`` property is removed.                                               |
+|         |                  | - 🟥 Merge ``Area`` class' properties with :class:`.Forecast`.                                                                                                           |
+|         |                  | - 🟥 Rename ``Weather.forecasts`` to :attr:`.Forecast.daily_forecasts`.                                                                                                  |
+|         |                  | - 🟥 Rename ``Weather.location`` to :attr:`.Forecast.coordinates`. The former now returns the forecast location's name and the latter is no longer an optional type.     |
 |         |                  | - 🟥 Rename ``CurrentForecast.chances_of_hightemp`` to ``Forecast.chances_of_high_temperature``.                                                                         |
 |         |                  | - 🟥 Rename ``CurrentForecast.chances_of_remdry`` to ``Forecast.chances_of_remaining_dry``.                                                                              |
-|         |                  | - 🟥 Rename ``CurrentForecast.date`` to ``Forecast.datetime``.                                                                                                           |
-|         |                  | - 🟥 Rename ``DailyForecast.hourly`` to ``DailyForecast.hourly_forecasts``.                                                                                              |
-|         |                  | - 🟥 Rename ``Ultraviolet`` to :class:`~.enums.UltraViolet`.                                                                                                             |
-|         |                  | - 🟩 ``HourlyForecast.heat_index`` now returns a convenience enum called :class:`~.enums.HeatIndex`.                                                                     |
-|         |                  | - 🟥 Merge ``Astronomy`` class' properties with :class:`~.forecast.DailyForecast`.                                                                                       |
-|         |                  | - 🟥 Rename ``Astronomy.sun_rise`` to ``DailyForecast.sunrise``.                                                                                                         |
-|         |                  | - 🟥 Rename ``Astronomy.sun_set`` to ``DailyForecast.sunset``.                                                                                                           |
-|         |                  | - 🟥 Rename ``Astronomy.moon_rise`` to ``DailyForecast.moonrise``.                                                                                                       |
-|         |                  | - 🟥 Rename ``Astronomy.moon_set`` to ``DailyForecast.moonset``.                                                                                                         |
+|         |                  | - 🟥 Rename ``CurrentForecast.date`` to :attr:`.Forecast.datetime`.                                                                                                      |
+|         |                  | - 🟥 Rename ``DailyForecast.hourly`` to :attr:`.DailyForecast.hourly_forecasts`.                                                                                         |
+|         |                  | - 🟥 Rename ``Ultraviolet`` to :class:`.UltraViolet`.                                                                                                                    |
+|         |                  | - 🟩 :attr:`.HourlyForecast.heat_index` now returns a convenience enum called :class:`.HeatIndex`.                                                                       |
+|         |                  | - 🟥 Merge ``Astronomy`` class' properties with :class:`.DailyForecast`.                                                                                                 |
+|         |                  | - 🟥 Rename ``Astronomy.sun_rise`` to :attr:`.DailyForecast.sunrise`.                                                                                                    |
+|         |                  | - 🟥 Rename ``Astronomy.sun_set`` to :attr:`.DailyForecast.sunset`.                                                                                                      |
+|         |                  | - 🟥 Rename ``Astronomy.moon_rise`` to :attr:`.DailyForecast.moonrise`.                                                                                                  |
+|         |                  | - 🟥 Rename ``Astronomy.moon_set`` to :attr:`.DailyForecast.moonset`.                                                                                                    |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2.0.1   | 25 March 2024    | - 🟦 Migrate from ``yapf`` to ``ruff``.                                                                                                                                  |
 |         |                  | - 🟦 Fix potential :py:class:`NameError` while modifying forecast unit or locale.                                                                                        |
@@ -108,27 +108,27 @@ Changelog
 | 2.0.2   | 25 April 2024    | - 🟩 Add a donation link over at https://ko-fi.com/null8626.                                                                                                             |
 |         |                  | - 🟦 As of 19 April 2024, all GitHub commits sent to the repository (both manual and automated) will be GPG-signed.                                                      |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.3   | 5 May 2024       | - 🟦 Fix potential :py:class:`NameError` while accessing the ``Phase.emoji`` property.                                                                                   |
+| 2.0.3   | 5 May 2024       | - 🟦 Fix potential :py:class:`NameError` while accessing the :attr:`.Phase.emoji` property.                                                                              |
 |         |                  | - 🟦 Refactors on the request delay calculation.                                                                                                                         |
 |         |                  | - 🟦 Fix broken donations redirect in the documentation page.                                                                                                            |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 2.0.4   | 2 October 2024   | - 🟦 The ``Client.close`` method now no longer closes the :class:`~aiohttp.ClientSession` if an existing :class:`~aiohttp.ClientSession` was provided in the constructor.|
-|         |                  | - 🟩 HTTP exceptions are now wrapped under :class:`~.errors.RequestError`.                                                                                               |
+|         |                  | - 🟩 HTTP exceptions are now wrapped under :class:`.RequestError`.                                                                                                       |
 |         |                  | - 🟩 Add ``__iter__`` and ``__list__`` helper implementations for the forecast classes.                                                                                  |
 |         |                  | - 🟦 Bump the ``aiohttp`` dependency to be at least version ``3.10.8``.                                                                                                  |
 |         |                  | - 🟩 Add an additional ``raise_for_status`` argument to the default :class:`~aiohttp.ClientSession`.                                                                     |
-|         |                  | - 🟦 Refactor the regex retrieval for the ``Forecast.local_population`` property.                                                                                        |
+|         |                  | - 🟦 Refactor the regex retrieval for the :attr:`.Forecast.local_population` property.                                                                                   |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.5   | 13 October 2024  | - 🟦 Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the :class:`~.forecast.Forecast` object.                       |
+| 2.0.5   | 13 October 2024  | - 🟦 Migrate from using Python properties to raw Python attributes, this should save 50 KB in the size of the :class:`.Forecast` object.                                 |
 |         |                  | - 🟦 Fix infinite loop while calling the ``__iter__`` or ``__list__`` helper implementations of the forecast objects.                                                    |
 |         |                  | - 🟦 Fix no status code error checking on clients using pre-existing :class:`~aiohttp.ClientSession` objects.                                                            |
 |         |                  | - 🟦 The test workflow now also tests the example code in the README.                                                                                                    |
 |         |                  | - 🟩 Add ``__len__`` helper implementations for the forecast classes.                                                                                                    |
 |         |                  | - 🟦 Bump the ``aiohttp`` dependency to be at least version ``3.10.10``.                                                                                                 |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 2.0.7   | 14 October 2024  | - 🟦 Fix :py:class:`AttributeError` upon calling :class:`~.enums.WindDirection` helper functions.                                                                        |
-|         |                  | - 🟩 Add ``__int__`` helper implementation for the :class:`~.enums.WindDirection` enum.                                                                                  |
-|         |                  | - 🟩 Add optional ``max_retries`` keyword argument to the :class:`~.client.Client` constructor.                                                                          |
-|         |                  | - 🟦 Refactor the :class:`~.enums.Kind` enum to make its code more readable.                                                                                             |
+| 2.0.7   | 14 October 2024  | - 🟦 Fix :py:class:`AttributeError` upon calling :class:`.WindDirection` helper functions.                                                                               |
+|         |                  | - 🟩 Add ``__int__`` helper implementation for the :class:`.WindDirection` enum.                                                                                         |
+|         |                  | - 🟩 Add optional ``max_retries`` keyword argument to the :class:`.Client` constructor.                                                                                  |
+|         |                  | - 🟦 Refactor the :class:`.Kind` enum to make its code more readable.                                                                                                    |
 |         |                  | - 🟦 Documentation fixes.                                                                                                                                                |
 +---------+------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+

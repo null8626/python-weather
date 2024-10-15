@@ -40,14 +40,14 @@ class Client(CustomizableBase):
 
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
   :type unit: _Unit
-  :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to ``Locale.ENGLISH``.
+  :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
   :type locale: Locale
   :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
-  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`~.errors.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to ``None`` (or 3 retries).
+  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to ``None`` (or 3 retries).
   :type max_retries: Optional[:class:`int`]
 
-  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not a part of the :class:`~.enums.Locale` enum.
+  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
   __slots__: Tuple[str, ...] = ('__own_session', '__session', '__max_retries')
@@ -87,10 +87,10 @@ class Client(CustomizableBase):
     :param unit: Overrides the unit used by this object. Defaults to the one used by this object.
     :type unit: Optional[``_Unit``]
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
-    :type locale: Optional[:class:`~.enums.Locale`]
+    :type locale: Optional[:class:`.Locale`]
 
-    :exception Error: If the aiohttp client session used by the :class:`~.client.Client` object is already closed.
-    :exception RequestError: If the :class:`~.client.Client` can't send a web request to the web server.
+    :exception Error: If the aiohttp client session used by the :class:`.Client` object is already closed.
+    :exception RequestError: If the :class:`.Client` can't send a web request to the web server.
 
     :returns: The requested weather forecast.
     :rtype: Forecast
@@ -128,7 +128,7 @@ class Client(CustomizableBase):
         delay *= 2
 
   async def close(self) -> None:
-    """Closes the :class:`~.client.Client` object. Nothing will happen if the client uses a pre-existing :class:`~aiohttp.ClientSession` or if the session is already closed."""
+    """Closes the :class:`.Client` object. Nothing will happen if the client uses a pre-existing :class:`~aiohttp.ClientSession` or if the session is already closed."""
 
     if self.__own_session and not self.__session.closed:
       await self.__session.close()

@@ -32,7 +32,7 @@ class Error(Exception):
 
 
 class RequestError(Error):
-  """Thrown upon HTTP request failure. Extends :class:`~.errors.Error`."""
+  """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 
   __slots__: Tuple[str, ...] = ('source',)
 
