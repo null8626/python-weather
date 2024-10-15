@@ -48,7 +48,7 @@ Changelog
 |         |                  | - 🟩 Add ``async with`` support for the client instance.                                                                                                                      |
 |         |                  | - 🟩 Add additional installation instructions for debian users.                                                                                                               |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 0.4.1   | 8 August 2022    | - 🟦 Fix bug when retrieving `CurrentForecast.local_time``.                                                                                                                   |
+| 0.4.1   | 8 August 2022    | - 🟦 Fix bug when retrieving ``CurrentForecast.local_time``.                                                                                                                  |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 0.4.2   | 9 September 2022 | - 🟥 Rename ``DailyForecast.average_temperature`` to :attr:`.DailyForecast.temperature`.                                                                                      |
 |         |                  | - 🟦 Printing the forecast result should no longer raise an :py:class:`AttributeError`.                                                                                       |
