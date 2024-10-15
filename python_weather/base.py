@@ -68,7 +68,7 @@ class CustomizableBase:
     Sets the default localization used to display information in this object.
 
     :param to: The new :class:`.Locale` to be used to display information in this object.
-    :type to: Locale
+    :type to: :class:`.Locale`
     :exception Error: If the ``to`` argument is not a part of the :class:`.Locale` enum.
     """
 

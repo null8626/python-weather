@@ -39,9 +39,9 @@ class Client(CustomizableBase):
   The class that lets you interact with the API.
 
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
-  :type unit: _Unit
+  :type unit: ``_Unit``
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
-  :type locale: Locale
+  :type locale: :class:`.Locale`
   :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :py:obj:`None` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
   :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to :py:obj:`None` (or 3 retries).
@@ -83,7 +83,7 @@ class Client(CustomizableBase):
     Fetches a weather forecast for a specific location.
 
     :param location: The requested location name for said weather forecast.
-    :type location: str
+    :type location: :py:class:`str`
     :param unit: Overrides the unit used by this object. Defaults to the one used by this object.
     :type unit: Optional[``_Unit``]
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
