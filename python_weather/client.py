@@ -42,9 +42,9 @@ class Client(CustomizableBase):
   :type unit: _Unit
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
   :type locale: Locale
-  :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :obj:`None` (creates a new one instead).
+  :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :py:obj:`None` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
-  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to :obj:`None` (or 3 retries).
+  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to :py:obj:`None` (or 3 retries).
   :type max_retries: Optional[:class:`int`]
 
   :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not a part of the :class:`.Locale` enum.
