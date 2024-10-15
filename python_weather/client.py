@@ -42,7 +42,7 @@ class Client(CustomizableBase):
   :type unit: _Unit
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
   :type locale: Locale
-  :param session: Whether to use an existing aiohttp client session for requesting or not. Defaults to ``None`` (creates a new one instead).
+  :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to ``None`` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
   :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to ``None`` (or 3 retries).
   :type max_retries: Optional[:class:`int`]
@@ -89,7 +89,7 @@ class Client(CustomizableBase):
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
     :type locale: Optional[:class:`.Locale`]
 
-    :exception Error: If the aiohttp client session used by the :class:`.Client` object is already closed.
+    :exception Error: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed.
     :exception RequestError: If the :class:`.Client` can't send a web request to the web server.
 
     :returns: The requested weather forecast.
