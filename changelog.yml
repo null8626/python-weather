@@ -72,14 +72,14 @@ changelog:
     changes:
       - rem: Rename ``DailyForecast.average_temperature`` to :attr:`.DailyForecast.temperature`.
       - fix: Printing the forecast result should no longer raise an :py:class:`AttributeError`.
-      - fix: '``Weather.location`` should not return ``None`` now, and should return floats insead of ints. (making it consistent to the type-hint)'
+      - fix: '``Weather.location`` should not return :obj:`None` now, and should return floats insead of ints. (making it consistent to the type-hint)'
       - add: Add ``Mist`` property to the ``WeatherType`` enum.
       - add: Add an additional :class:`~aiohttp.TCPConnector` argument to the default :class:`~aiohttp.ClientSession`.
       - rem: Remove unused ``__slots__`` tuple member in the ``BaseForecast`` abstract class.
   - version: 0.4.3
     release-date: 23 October 2022
     changes:
-      - fix: The ``HourlyForecast.time`` property should return a ``datetime`` ``time`` object instead of a raw API :py:class:`int`.
+      - fix: The :attr:`.HourlyForecast.time` property should return a :py:class:`datetime.time` object instead of a raw API :py:class:`int`.
   - version: 1.0.0
     release-date: 28 April 2023
     changes:
@@ -112,7 +112,7 @@ changelog:
   - version: 1.1.1
     release-date: 20 February 2024
     changes:
-      - rem: Rename ``chances_of_remdry`` to ``chances_of_remaining_dry`` in order to reduce confusion.
+      - rem: Rename ``chances_of_remdry`` to :attr:`~.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.
       - fix: Bump ``aiohttp`` dependency to ``3.9.3``.
   - version: 1.1.2
     release-date: 25 February 2024
@@ -158,7 +158,7 @@ changelog:
   - version: 2.0.4
     release-date: 2 October 2024
     changes:
-      - fix: The ``Client.close`` method now no longer closes the :class:`~aiohttp.ClientSession` if an existing :class:`~aiohttp.ClientSession` was provided in the constructor.
+      - fix: The :meth:`.Client.close` method now no longer closes the :class:`~aiohttp.ClientSession` if an existing :class:`~aiohttp.ClientSession` was provided in the constructor.
       - add: HTTP exceptions are now wrapped under :class:`.RequestError`.
       - add: Add ``__iter__`` and ``__list__`` helper implementations for the forecast classes.
       - fix: Bump the ``aiohttp`` dependency to be at least version ``3.10.8``.
