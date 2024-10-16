@@ -45,13 +45,19 @@ class IndexedEnum(Enum):
   """The index value."""
 
   def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.index < getattr(other, 'index', other)
+    return float(self.index) < float(other)
+
+  def __le__(self, other: Union['IndexedEnum', int, float]) -> bool:
+    return float(self.index) <= float(other)
 
   def __eq__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.index == getattr(other, 'index', other)
+    return float(self.index) == float(other)
 
   def __gt__(self, other: Union['IndexedEnum', int, float]) -> bool:
-    return self.index > getattr(other, 'index', other)
+    return float(self.index) > float(other)
+
+  def __ge__(self, other: Union['IndexedEnum', int, float]) -> bool:
+    return float(self.index) >= float(other)
 
   def __hash__(self) -> int:
     return self.index
@@ -154,7 +160,7 @@ class WindDirection(BasicEnum):
     return enum
 
   def __contains__(self, other: Union['WindDirection', float, int]) -> bool:
-    other = getattr(other, 'degrees', other)
+    other = float(other)
 
     if self is self.NORTH:
       return other > 348.75 or other <= 11.25
