@@ -26,7 +26,7 @@ from typing import Tuple
 
 
 class Error(Exception):
-  """Represents a ``python_weather`` error class. Extends :py:class:`Exception`."""
+  """A ``python_weather`` error class. Extends :py:class:`Exception`."""
 
   __slots__: Tuple[str, ...] = ()
 

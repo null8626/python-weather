@@ -31,7 +31,7 @@ from .constants import _Unit, LATLON_REGEX
 
 
 class HourlyForecast(BaseForecast):
-  """Represents a weather forecast of a specific hour."""
+  """A weather forecast of a specific hour."""
 
   __slots__: Tuple[str, ...] = (
     'chances_of_fog',
@@ -229,7 +229,7 @@ class DailyForecast:
 
 
 class Forecast(BaseForecast):
-  """Represents today's weather forecast, alongside daily and hourly weather forecasts."""
+  """Today's weather forecast, alongside daily and hourly weather forecasts."""
 
   __slots__: Tuple[str, ...] = (
     'local_population',
