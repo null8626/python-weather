@@ -59,6 +59,9 @@ class IndexedEnum(Enum):
   def __int__(self) -> int:
     return self.index
 
+  def __float__(self) -> float:
+    return float(self.index)
+
 
 class HeatIndex(IndexedEnum):
   """Represents a heat index."""
