@@ -43,7 +43,7 @@ class _Unit:
     pressure: str,
     precipitation: str,
     visibility: str,
-    cm_divisor: Union[int, float],
+    cm_divisor: Union[float, int],
   ):
     self.temperature = temperature
     self.velocity = velocity

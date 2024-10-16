@@ -44,19 +44,19 @@ class IndexedEnum(Enum):
   index: int
   """The index value."""
 
-  def __lt__(self, other: Union['IndexedEnum', int, float]) -> bool:
+  def __lt__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) < float(other)
 
-  def __le__(self, other: Union['IndexedEnum', int, float]) -> bool:
+  def __le__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) <= float(other)
 
-  def __eq__(self, other: Union['IndexedEnum', int, float]) -> bool:
+  def __eq__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) == float(other)
 
-  def __gt__(self, other: Union['IndexedEnum', int, float]) -> bool:
+  def __gt__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) > float(other)
 
-  def __ge__(self, other: Union['IndexedEnum', int, float]) -> bool:
+  def __ge__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) >= float(other)
 
   def __hash__(self) -> int:
