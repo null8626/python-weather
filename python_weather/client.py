@@ -89,8 +89,8 @@ class Client(CustomizableBase):
     :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
     :type locale: Optional[:class:`.Locale`]
 
-    :exception Error: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed.
-    :exception RequestError: If the :class:`.Client` can't send a web request to the web server.
+    :exception Error: If the `location` argument is not a :py:class:`str` or is empty.
+    :exception RequestError: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed, or if the :class:`.Client` cannot send a web request to the web server.
 
     :returns: The requested weather forecast.
     :rtype: Forecast
@@ -98,8 +98,6 @@ class Client(CustomizableBase):
 
     if (not isinstance(location, str)) or (not location):
       raise Error(f'Expected a proper location str, got {location!r}')
-    elif self.__session.closed:
-      raise Error('Client is already closed')
 
     if not isinstance(unit, _Unit):
       unit = self._CustomizableBase__unit
