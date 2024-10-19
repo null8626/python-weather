@@ -201,7 +201,7 @@ class DailyForecast:
     self.moonset = __class__.__parse_time(astronomy['moonset'])
     self.sunrise = __class__.__parse_time(astronomy['sunrise'])
     self.sunset = __class__.__parse_time(astronomy['sunset'])
-    self.date = datetime.strptime(json['date'], '%Y-%m-%d').date()
+    self.date = date.fromisoformat(json['date'])
     self.sunlight = float(json['sunHour'])
     self.lowest_temperature = int(json[f'mintemp{unit.temperature}'])
     self.highest_temperature = int(json[f'maxtemp{unit.temperature}'])
