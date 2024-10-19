@@ -121,7 +121,7 @@ class HourlyForecast(BaseForecast):
     self.chances_of_thunder = int(json['chanceofthunder'])
     self.chances_of_windy = int(json['chanceofwindy'])
     self.cloud_cover = int(json['cloudcover'])
-    self.time = time() if len(t) < 3 else datetime.strptime(t, '%H%M').time()
+    self.time = time() if len(t) < 3 else time.fromisoformat(t)
     self.dew_point = int(json[f'DewPoint{unit.temperature}'])
     self.heat_index = HeatIndex._new(
       celcius_index,
@@ -201,7 +201,7 @@ class DailyForecast:
     self.moonset = __class__.__parse_time(astronomy['moonset'])
     self.sunrise = __class__.__parse_time(astronomy['sunrise'])
     self.sunset = __class__.__parse_time(astronomy['sunset'])
-    self.date = datetime.strptime(json['date'], '%Y-%m-%d').date()
+    self.date = date.fromisoformat(json['date'])
     self.sunlight = float(json['sunHour'])
     self.lowest_temperature = int(json[f'mintemp{unit.temperature}'])
     self.highest_temperature = int(json[f'maxtemp{unit.temperature}'])
