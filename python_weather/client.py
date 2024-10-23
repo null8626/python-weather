@@ -90,7 +90,7 @@ class Client(CustomizableBase):
     :type locale: Optional[:class:`.Locale`]
 
     :exception Error: If the `location` argument is not a :py:class:`str` or is empty.
-    :exception RequestError: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed, or if the :class:`.Client` cannot send a web request to the web server.
+    :exception RequestError: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed, or if the :class:`.Client` couldn't send a web request to the web server.
 
     :returns: The requested weather forecast.
     :rtype: Forecast
