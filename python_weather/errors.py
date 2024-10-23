@@ -43,3 +43,6 @@ class RequestError(Error):
     self.source = source
 
     super().__init__()
+
+  def __repr__(self) -> str:
+    return f'<{__class__.__name__} source={self.source!r}>'
