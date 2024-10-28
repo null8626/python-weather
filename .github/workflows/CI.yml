@@ -15,6 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Pull previous commit
+        run: git reset --soft HEAD~1
+        shell: bash
       - uses: actions/setup-python@v5
         with:
           python-version: '3.8'
@@ -45,6 +50,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           commit: -S
-          message: 'style: prettier'
+          message: ${{ github.event.head_commit.message }}
+          push: --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
