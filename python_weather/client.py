@@ -112,7 +112,11 @@ class Client(CustomizableBase):
     while True:
       try:
         async with self.__session.get(
-          f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1'
+          f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1',
+          headers={
+            'Content-Type': 'application/json',
+            'User-Agent': 'python_weather (https://github.com/null8626/python-weather 2.0.7) Python/',
+          },
         ) as resp:
           resp.raise_for_status()
 
