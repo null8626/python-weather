@@ -22,7 +22,7 @@ jobs:
         shell: bash
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.9'
           architecture: x64
       - name: Install dependencies
         run: python3 -m pip install .
