@@ -14,7 +14,7 @@ class Row:
   def append(self, row_contents: str) -> None:
     self.character_length = max(
       self.character_length,
-      max(map(lambda content: len(list(content)), row_contents.splitlines())),
+      max(len(list(content)) for content in row_contents.splitlines()),
     )
     self.rows.append(row_contents)
 
