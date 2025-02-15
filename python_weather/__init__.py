@@ -1,7 +1,7 @@
 """
 The MIT License (MIT)
 
-Copyright (c) 2021-2024 null8626
+Copyright (c) 2021-2025 null8626
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +30,7 @@ from .client import Client
 __title__ = 'python-weather'
 __author__ = 'null8626'
 __license__ = 'MIT'
-__copyright__ = 'Copyright (c) 2021-2024 null8626'
+__copyright__ = 'Copyright (c) 2021-2025 null8626'
 __version__ = '2.0.7'
 __all__ = (
   'METRIC',
