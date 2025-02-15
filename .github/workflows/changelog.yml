@@ -1,15 +1,11 @@
 name: Update changelog.rst
 on:
   push:
-    branches:
-      - main
-    tags-ignore:
-      - '**'
-    paths:
-      - changelog.yml
+    branches: [main]
+    tags-ignore: ['**']
+    paths: [changelog.yml]
 jobs:
   changelog:
-    name: Update changelog.rst
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +16,7 @@ jobs:
         shell: bash
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: 3.13
           architecture: x64
       - name: Install dependencies
         run: python3 -m pip install pyyaml
