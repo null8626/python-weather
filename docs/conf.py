@@ -9,7 +9,7 @@ author = 'null8626'
 
 copyright = ''
 with open('../LICENSE', 'r') as f:
-  copyright = re.search(r'\d{4}\-\d{4} null8626', f.read()).group()
+  copyright = re.search(r'[\d\-]+ null8626', f.read()).group()
 
 version = ''
 with open('../python_weather/__init__.py', 'r') as f:
