@@ -112,7 +112,7 @@ changelog:
   - version: 1.1.1
     release-date: 20 February 2024
     changes:
-      - rem: Rename ``chances_of_remdry`` to :attr:`~.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.
+      - rem: Rename ``chances_of_remdry`` to :attr:`.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.
       - fix: Bump ``aiohttp`` dependency to ``3.9.3``.
   - version: 1.1.2
     release-date: 25 February 2024
