@@ -78,7 +78,7 @@ Changelog
 |         |                  | - 🟥 The library no longer supports Python 3.7, which was discontinued in June 2023.                                                                                          |
 |         |                  | - 🟦 Removed several instances of copy-pasted code.                                                                                                                           |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 1.1.1   | 20 February 2024 | - 🟥 Rename ``chances_of_remdry`` to :attr:`.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.                                                           |
+| 1.1.1   | 20 February 2024 | - 🟥 Rename ``chances_of_remdry`` to :attr:`~.HourlyForecast.chances_of_remaining_dry` in order to reduce confusion.                                                          |
 |         |                  | - 🟦 Bump ``aiohttp`` dependency to ``3.9.3``.                                                                                                                                |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | 1.1.2   | 25 February 2024 | - 🟩 Add official project documentation in https://python-weather.readthedocs.io/en/latest/.                                                                                  |
