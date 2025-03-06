@@ -55,7 +55,7 @@ async def test(client: python_weather.Client) -> None:
   test_attributes(weather)
 
 
-async def getweather() -> None:
+async def main() -> None:
   async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
     await test(client)
 
@@ -67,4 +67,4 @@ if __name__ == '__main__':
   if os.name == 'nt':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-  asyncio.run(getweather())
+  asyncio.run(main())

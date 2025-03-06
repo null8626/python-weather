@@ -22,15 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Tuple
-
-from .errors import Error
 from .enums import WindDirection, Kind, Locale, UltraViolet
 from .constants import _Unit
+from .errors import Error
 
 
 class CustomizableBase:
-  __slots__: Tuple[str, ...] = ('__unit', '__locale')
+  __slots__: tuple[str, ...] = ('__unit', '__locale')
 
   def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
@@ -38,17 +36,18 @@ class CustomizableBase:
 
   @property
   def unit(self) -> _Unit:
-    """The measuring unit used to display information in this object."""
+    """The measuring unit used."""
 
     return self.__unit
 
   @unit.setter
   def unit(self, to: _Unit) -> None:
     """
-    Sets the default measuring unit used to display information in this object.
+    Sets the default measuring unit used.
 
-    :param to: The new default measuring unit to be used to display information in this object. Must be either ``METRIC`` or ``IMPERIAL``.
-    :exception Error: If the ``to`` argument is not either ``METRIC`` or ``IMPERIAL``.
+    :param to: The new default measuring unit to be used.
+
+    :exception Error: ``to`` is not either ``METRIC`` or ``IMPERIAL``.
     """
 
     if not isinstance(to, _Unit):
@@ -58,18 +57,19 @@ class CustomizableBase:
 
   @property
   def locale(self) -> Locale:
-    """The localization used to display information in this object."""
+    """The localization used."""
 
     return self.__locale
 
   @locale.setter
   def locale(self, to: Locale) -> None:
     """
-    Sets the default localization used to display information in this object.
+    Sets the default localization used.
 
-    :param to: The new :class:`.Locale` to be used to display information in this object.
+    :param to: The new :class:`.Locale` to be used.
     :type to: :class:`.Locale`
-    :exception Error: If the ``to`` argument is not a part of the :class:`.Locale` enum.
+
+    :exception Error: ``to`` is not a part of the :class:`.Locale` enum.
     """
 
     if not isinstance(to, Locale):
@@ -79,7 +79,7 @@ class CustomizableBase:
 
 
 class BaseForecast:
-  __slots__: Tuple[str, ...] = (
+  __slots__: tuple[str, ...] = (
     'ultraviolet',
     'humidity',
     'wind_direction',
@@ -94,7 +94,7 @@ class BaseForecast:
   )
 
   ultraviolet: UltraViolet
-  """The ultra-violet (UV) index."""
+  """The ultra-violet index."""
 
   humidity: int
   """The humidity value in percent."""
@@ -106,10 +106,10 @@ class BaseForecast:
   """The kind of the forecast."""
 
   feels_like: int
-  """What it felt like, in celcius or fahrenheit."""
+  """What it felt like in either celcius or fahrenheit."""
 
   temperature: int
-  """The temperature in either celcius or Fahrenheit."""
+  """The temperature in either celcius or fahrenheit."""
 
   precipitation: float
   """The precipitation in either millimeters or inches."""
@@ -124,7 +124,7 @@ class BaseForecast:
   """The wind speeds in either kilometers/hour or miles/hour."""
 
   description: str
-  """The description regarding the forecast. This can be localized in different languages depending on the localization used."""
+  """The description regarding the forecast depending on the localization used."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
     description = (

@@ -22,14 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from typing import Union
 from enum import Enum
-from typing import Union, Tuple
 
 from .constants import WIND_DIRECTION_EMOJIS
 
 
 class BasicEnum(Enum):
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   def __repr__(self) -> str:
     return f'{self.__class__.__name__}.{self.name}'
@@ -39,7 +39,7 @@ class BasicEnum(Enum):
 
 
 class IndexedEnum(Enum):
-  __slots__: Tuple[str, ...] = ('index',)
+  __slots__: tuple[str, ...] = ('index',)
 
   index: int
   """The index value."""
@@ -72,7 +72,7 @@ class IndexedEnum(Enum):
 class HeatIndex(IndexedEnum):
   """A heat index."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   CAUTION = None
   EXTREME_CAUTION = None
@@ -100,7 +100,7 @@ class HeatIndex(IndexedEnum):
 class UltraViolet(BasicEnum, IndexedEnum):
   """An ultra-violet (UV) index."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   LOW = None
   MODERATE = None
@@ -131,7 +131,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
 class WindDirection(BasicEnum):
   """A wind direction."""
 
-  __slots__: Tuple[str, ...] = ('degrees',)
+  __slots__: tuple[str, ...] = ('degrees',)
 
   NORTH = 'N'
   NORTH_NORTHEAST = 'NNE'
@@ -203,7 +203,7 @@ class WindDirection(BasicEnum):
 
   @property
   def emoji(self) -> str:
-    """The emoji representing this enum."""
+    """Emoji representation."""
 
     return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) / 45.0)]
 
@@ -211,7 +211,7 @@ class WindDirection(BasicEnum):
 class Locale(Enum):
   """Supported locales/languages."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   AFRIKAANS = 'af'
   AMHARIC = 'am'
@@ -297,7 +297,7 @@ class Locale(Enum):
 class Kind(BasicEnum):
   """A weather forecast kind."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   SUNNY = 113
   PARTLY_CLOUDY = 116
@@ -347,7 +347,7 @@ class Kind(BasicEnum):
 
   @property
   def emoji(self) -> str:
-    """The emoji representing this enum."""
+    """Emoji representation."""
 
     if self is self.CLOUDY:
       return '☁️'
@@ -392,7 +392,7 @@ class Kind(BasicEnum):
 class Phase(BasicEnum):
   """A moon phase."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
   NEW_MOON = 'New Moon'
   WAXING_CRESCENT = 'Waxing Crescent'
@@ -405,7 +405,7 @@ class Phase(BasicEnum):
 
   @property
   def emoji(self) -> str:
-    """The stylized name for this enum."""
+    """Emoji representation."""
 
     if self is self.NEW_MOON:
       return '🌑'

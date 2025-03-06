@@ -2,7 +2,12 @@ import sys
 import os
 import re
 
+
+sys.path.insert(0, os.path.join(os.getcwd(), '..', 'python_weather'))
 sys.path.insert(0, os.path.abspath('..'))
+
+from version import VERSION
+
 
 project = 'python-weather'
 author = 'null8626'
@@ -11,12 +16,7 @@ copyright = ''
 with open('../LICENSE', 'r') as f:
   copyright = re.search(r'[\d\-]+ null8626', f.read()).group()
 
-version = ''
-with open('../python_weather/__init__.py', 'r') as f:
-  version = re.search(
-    r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
-  ).group(1)
-
+version = VERSION
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx_reredirects']
 
 intersphinx_mapping = {

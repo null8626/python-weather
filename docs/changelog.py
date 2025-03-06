@@ -4,7 +4,7 @@ import os
 
 
 class Row:
-  __slots__: Tuple[str, ...] = ('header_name', 'rows', 'character_length')
+  __slots__: tuple[str, ...] = ('header_name', 'rows', 'character_length')
 
   def __init__(self, header_name: str):
     self.header_name = header_name
@@ -25,7 +25,7 @@ class Row:
 CHANGE_EMOJIS = {'add': chr(129001), 'fix': chr(128998), 'rem': chr(128997)}
 
 
-def render_lines(rows: List[Row], character: str = '-') -> str:
+def render_lines(rows: list[Row], character: str = '-') -> str:
   output = f'+{character}'
   last_idx = len(rows) - 1
 
@@ -38,7 +38,7 @@ def render_lines(rows: List[Row], character: str = '-') -> str:
   return output
 
 
-def render_contents(rows: List[Row], idx: int) -> str:
+def render_contents(rows: list[Row], idx: int) -> str:
   max_row_lines = max(map(lambda row: len(row.rows[idx].splitlines()), rows))
   output = ''
 
@@ -57,7 +57,7 @@ def render_contents(rows: List[Row], idx: int) -> str:
   return output[:-1]
 
 
-def render(rows: List[Row]) -> str:
+def render(rows: list[Row]) -> str:
   output = f'{render_lines(rows)}\n'
 
   for row in rows:

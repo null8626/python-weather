@@ -24,19 +24,20 @@ SOFTWARE.
 
 from aiohttp import ClientSession, ClientTimeout, TCPConnector
 from urllib.parse import quote_plus
-from typing import Optional, Tuple
+from typing import Optional
 from asyncio import sleep
 
 from .errors import Error, RequestError
 from .constants import _Unit, METRIC
 from .base import CustomizableBase
 from .forecast import Forecast
+from .version import VERSION
 from .enums import Locale
 
 
 class Client(CustomizableBase):
   """
-  The class that lets you interact with the API.
+  Interact with the API's endpoints.
 
   :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
   :type unit: ``_Unit``
@@ -44,13 +45,13 @@ class Client(CustomizableBase):
   :type locale: :class:`.Locale`
   :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :py:obj:`None` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
-  :param max_retries: Maximum amount of retries upon receiving HTTP request failure before raising a :class:`.RequestError`. To have infinite retries, use ``-1`` (NOT recommended). Defaults to :py:obj:`None` (or 3 retries).
+  :param max_retries: Maximum amount of retries upon request failure before raising a :class:`.RequestError`. Use ``-1`` to disable (NOT recommended). Defaults to 3 retries.
   :type max_retries: Optional[:class:`int`]
 
-  :raises Error: If ``unit`` is not ``METRIC`` or ``IMPERIAL``, or if ``locale`` is not a part of the :class:`.Locale` enum.
+  :exception Error: ``unit`` is not ``METRIC`` or ``IMPERIAL`` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
-  __slots__: Tuple[str, ...] = ('__own_session', '__session', '__max_retries')
+  __slots__: tuple[str, ...] = ('__own_session', '__session', '__max_retries')
 
   def __init__(
     self,
@@ -82,22 +83,26 @@ class Client(CustomizableBase):
     """
     Fetches a weather forecast for a specific location.
 
-    :param location: The requested location name for said weather forecast.
+    :param location: The requested location.
     :type location: :py:class:`str`
-    :param unit: Overrides the unit used by this object. Defaults to the one used by this object.
+    :param unit: Overrides the unit used.
     :type unit: Optional[``_Unit``]
-    :param locale: Overrides the locale used by this object. Defaults to the one used by this object.
+    :param locale: Overrides the locale used.
     :type locale: Optional[:class:`.Locale`]
 
-    :exception Error: If the `location` argument is not a :py:class:`str` or is empty.
-    :exception RequestError: If the :class:`~aiohttp.ClientSession` used by the :class:`.Client` object is already closed, or if the :class:`.Client` couldn't send a web request to the web server.
+    :exception TypeError: ``location`` is not a :py:class:`str` or is empty.
+    :exception Error: The client is already closed.
+    :exception RequestError: The client received a non-favorable response from the API.
 
     :returns: The requested weather forecast.
     :rtype: Forecast
     """
 
-    if (not isinstance(location, str)) or (not location):
-      raise Error(f'Expected a proper location str, got {location!r}')
+    if self.__session.closed:
+      raise Error('Client session is already closed.')
+
+    elif not isinstance(location, str) or not location:
+      raise TypeError(f'Expected a proper location str, got {location!r}')
 
     if not isinstance(unit, _Unit):
       unit = self._CustomizableBase__unit
@@ -108,6 +113,7 @@ class Client(CustomizableBase):
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
     delay = 0.5
     attempts = 0
+    status = None
 
     while True:
       try:
@@ -115,15 +121,16 @@ class Client(CustomizableBase):
           f'https://{subdomain}wttr.in/{quote_plus(location)}?format=j1',
           headers={
             'Content-Type': 'application/json',
-            'User-Agent': 'python_weather (https://github.com/null8626/python-weather 2.0.7) Python/',
+            'User-Agent': f'python_weather (https://github.com/null8626/python-weather {VERSION}) Python/',
           },
         ) as resp:
+          status = resp.status
           resp.raise_for_status()
 
           return Forecast(await resp.json(), unit, locale)
-      except Exception as err:
+      except:
         if attempts == self.__max_retries:
-          raise RequestError(err)
+          raise RequestError(status) from None
 
         await sleep(delay)
         attempts += 1

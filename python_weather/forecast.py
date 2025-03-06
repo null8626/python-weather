@@ -22,18 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Iterable, Optional, Tuple, List
 from datetime import datetime, date, time
+from collections.abc import Iterable
+from typing import Optional
 
-from .base import BaseForecast
 from .enums import Phase, Locale, HeatIndex
 from .constants import _Unit, LATLON_REGEX
+from .base import BaseForecast
 
 
 class HourlyForecast(BaseForecast):
-  """A weather forecast of a specific hour."""
+  """A weather forecast for a specific hour."""
 
-  __slots__: Tuple[str, ...] = (
+  __slots__: tuple[str, ...] = (
     'chances_of_fog',
     'chances_of_frost',
     'chances_of_high_temperature',
@@ -101,9 +102,10 @@ class HourlyForecast(BaseForecast):
   """The wind gust value in either kilometers/hour or miles/hour."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
-    # for inheritance purposes
+    # For inheritance purposes.
     if 'temp_C' not in json:
       json['temp_C'] = json.pop('tempC')
+
     if 'temp_F' not in json:
       json['temp_F'] = json.pop('tempF')
 
@@ -133,11 +135,13 @@ class HourlyForecast(BaseForecast):
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature!r} description={self.description!r} kind={self.kind!r}>'
+    return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature} description={self.description!r} kind={self.kind!r}>'
 
 
 class DailyForecast:
-  __slots__: Tuple[str, ...] = (
+  """A weather forecast for a specific day."""
+
+  __slots__: tuple[str, ...] = (
     'moon_illumination',
     'moon_phase',
     'moonrise',
@@ -160,16 +164,16 @@ class DailyForecast:
   """The moon's phase."""
 
   moonrise: Optional[time]
-  """The local time when the moon rises. This can be :py:obj:`None`."""
+  """The local time when the moon rises."""
 
   moonset: Optional[time]
-  """The local time when the moon sets. This can be :py:obj:`None`."""
+  """The local time when the moon sets."""
 
   sunrise: Optional[time]
-  """The local time when the sun rises. This can be :py:obj:`None`."""
+  """The local time when the sun rises."""
 
   sunset: Optional[time]
-  """The local time when the sun sets. This can be :py:obj:`None`."""
+  """The local time when the sun sets."""
 
   date: 'date'
   """The local date of this forecast."""
@@ -189,7 +193,7 @@ class DailyForecast:
   snowfall: float
   """Total snowfall in either centimeters or inches."""
 
-  hourly_forecasts: List[HourlyForecast]
+  hourly_forecasts: list[HourlyForecast]
   """The hourly forecasts of this day."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
@@ -219,7 +223,7 @@ class DailyForecast:
       ...
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature!r}>'
+    return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
     return len(self.hourly_forecasts)
@@ -229,9 +233,9 @@ class DailyForecast:
 
 
 class Forecast(BaseForecast):
-  """Today's weather forecast, alongside daily and hourly weather forecasts."""
+  """A set of weather forecasts for a certain location."""
 
-  __slots__: Tuple[str, ...] = (
+  __slots__: tuple[str, ...] = (
     'local_population',
     'region',
     'location',
@@ -256,10 +260,10 @@ class Forecast(BaseForecast):
   datetime: 'datetime'
   """The local date and time of this weather forecast."""
 
-  coordinates: Tuple[float, float]
-  """A tuple of this forecast's latitude and longitude."""
+  coordinates: tuple[float, float]
+  """This forecast's latitude and longitude."""
 
-  daily_forecasts: List[DailyForecast]
+  daily_forecasts: list[DailyForecast]
   """Daily weather forecasts in this location."""
 
   def __init__(self, json: dict, unit: _Unit, locale: Locale):
@@ -287,7 +291,7 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature!r}>'
+    return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
     return len(self.daily_forecasts)

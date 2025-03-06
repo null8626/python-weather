@@ -22,12 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union, Tuple
+from typing import Union
 import re
 
 
 class _Unit:
-  __slots__: Tuple[str, ...] = (
+  __slots__: tuple[str, ...] = (
     'temperature',
     'velocity',
     'pressure',

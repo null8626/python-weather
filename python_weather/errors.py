@@ -22,27 +22,27 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Tuple
+from typing import Optional
 
 
 class Error(Exception):
-  """A ``python_weather`` error class. Extends :py:class:`Exception`."""
+  """The base error class. Extends :py:class:`Exception`."""
 
-  __slots__: Tuple[str, ...] = ()
+  __slots__: tuple[str, ...] = ()
 
 
 class RequestError(Error):
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 
-  __slots__: Tuple[str, ...] = ('source',)
+  __slots__: tuple[str, ...] = ('status',)
 
-  source: Exception
-  """The :py:class:`Exception` instance causing this exception."""
+  status: Optional[int]
+  """The status code returned from the API."""
 
-  def __init__(self, source: Exception):
-    self.source = source
+  def __init__(self, status: Optional[int]):
+    self.status = status
 
     super().__init__()
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} source={self.source!r}>'
+    return f'<{__class__.__name__} status={self.status}>'

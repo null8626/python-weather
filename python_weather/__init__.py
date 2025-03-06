@@ -25,13 +25,15 @@ SOFTWARE.
 from .enums import HeatIndex, Kind, Locale, Phase, UltraViolet, WindDirection
 from .constants import METRIC, IMPERIAL
 from .errors import Error, RequestError
+from .version import VERSION
 from .client import Client
+
 
 __title__ = 'python-weather'
 __author__ = 'null8626'
 __license__ = 'MIT'
 __copyright__ = 'Copyright (c) 2021-2025 null8626'
-__version__ = '2.0.7'
+__version__ = VERSION
 __all__ = (
   'METRIC',
   'IMPERIAL',
@@ -43,5 +45,6 @@ __all__ = (
   'Locale',
   'Phase',
   'UltraViolet',
+  'VERSION',
   'WindDirection',
 )
