@@ -39,7 +39,7 @@ class Client(CustomizableBase):
   """
   Interact with the API's endpoints.
 
-  :param unit: Whether to use the metric or imperial/customary system (``IMPERIAL``). Defaults to ``METRIC``.
+  :param unit: Whether to use the metric or imperial/customary system (:data:`~.constants.IMPERIAL`). Defaults to :data:`~.constants.METRIC`.
   :type unit: ``_Unit``
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
   :type locale: :class:`.Locale`
@@ -48,7 +48,7 @@ class Client(CustomizableBase):
   :param max_retries: Maximum amount of retries upon request failure before raising a :class:`.RequestError`. Use ``-1`` to disable (NOT recommended). Defaults to 3 retries.
   :type max_retries: Optional[:class:`int`]
 
-  :exception Error: ``unit`` is not ``METRIC`` or ``IMPERIAL`` or ``locale`` is not a part of the :class:`.Locale` enum.
+  :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
   __slots__: tuple[str, ...] = ('__own_session', '__session', '__max_retries')

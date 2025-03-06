@@ -47,7 +47,7 @@ class CustomizableBase:
 
     :param to: The new default measuring unit to be used.
 
-    :exception Error: ``to`` is not either ``METRIC`` or ``IMPERIAL``.
+    :exception Error: ``to`` is not either :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL`.
     """
 
     if not isinstance(to, _Unit):
