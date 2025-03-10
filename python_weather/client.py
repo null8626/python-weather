@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from aiohttp import ClientSession, ClientTimeout, TCPConnector
+from aiohttp import ClientSession, ClientTimeout, ClientResponseError, TCPConnector
 from urllib.parse import quote_plus
 from typing import Optional
 from asyncio import sleep
@@ -128,7 +128,7 @@ class Client(CustomizableBase):
           resp.raise_for_status()
 
           return Forecast(await resp.json(), unit, locale)
-      except:
+      except ClientResponseError:
         if attempts == self.__max_retries:
           raise RequestError(status) from None
 
