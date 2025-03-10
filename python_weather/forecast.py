@@ -281,7 +281,7 @@ class Forecast(BaseForecast):
       match = LATLON_REGEX.match(req['query'])
 
       self.coordinates = (float(match[1]), float(match[2]))
-    except:
+    except (KeyError, IndexError, StopIteration):
       self.coordinates = (float(nearest['latitude']), float(nearest['longitude']))
 
     self.daily_forecasts = [
