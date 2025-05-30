@@ -181,3 +181,9 @@ changelog:
       - add: Add optional ``max_retries`` keyword argument to the :class:`.Client` constructor.
       - fix: Refactor the :class:`.Kind` enum to make its code more readable.
       - fix: Documentation fixes.
+  - version: 2.1.0
+    release-date: 30 May 2025
+    changes:
+      - fix: :class:`.RequestError` is now based on an HTTP status code instead of an :py:class:`Exception` source.
+      - fix: Replace several uses of deprecated Python type hints.
+      - fix: Bump ``aiohttp`` dependency to ``3.12.4``.

@@ -132,3 +132,7 @@ Changelog
 |         |                  | - 🟦 Refactor the :class:`.Kind` enum to make its code more readable.                                                                                                         |
 |         |                  | - 🟦 Documentation fixes.                                                                                                                                                     |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.1.0   | 30 May 2025      | - 🟦 :class:`.RequestError` is now based on an HTTP status code instead of an :py:class:`Exception` source.                                                                   |
+|         |                  | - 🟦 Replace several uses of deprecated Python type hints.                                                                                                                    |
+|         |                  | - 🟦 Bump ``aiohttp`` dependency to ``3.12.4``.                                                                                                                               |
++---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
