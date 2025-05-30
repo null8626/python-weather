@@ -111,7 +111,6 @@ class Client(CustomizableBase):
       locale = self._CustomizableBase__locale
 
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
-    delay = 0.5
     attempts = 0
     status = None
 
@@ -132,9 +131,8 @@ class Client(CustomizableBase):
         if attempts == self.__max_retries:
           raise RequestError(status) from None
 
-        await sleep(delay)
+        await sleep(0.5 * (2**attempts))
         attempts += 1
-        delay *= 2
 
   async def close(self) -> None:
     """Closes the :class:`.Client` object. Nothing will happen if the client uses a pre-existing :class:`~aiohttp.ClientSession` or if the session is already closed."""
