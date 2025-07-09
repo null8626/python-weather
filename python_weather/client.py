@@ -39,6 +39,21 @@ class Client(CustomizableBase):
   """
   Interact with the API's endpoints.
 
+  Examples:
+
+  .. code-block:: python
+
+    # Explicit cleanup
+    client = python_weather.Client(unit=python_weather.IMPERIAL)
+
+    # ...
+
+    await client.close()
+
+    # Implicit cleanup
+    async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
+      # ...
+
   :param unit: Whether to use the metric or imperial/customary system (:data:`~.constants.IMPERIAL`). Defaults to :data:`~.constants.METRIC`.
   :type unit: ``_Unit``
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
@@ -82,6 +97,12 @@ class Client(CustomizableBase):
   ) -> Forecast:
     """
     Fetches a weather forecast for a specific location.
+
+    Example:
+
+    .. code-block:: python
+
+      weather = await client.get('New York')
 
     :param location: The requested location.
     :type location: :py:class:`str`
@@ -135,7 +156,15 @@ class Client(CustomizableBase):
         attempts += 1
 
   async def close(self) -> None:
-    """Closes the :class:`.Client` object. Nothing will happen if the client uses a pre-existing :class:`~aiohttp.ClientSession` or if the session is already closed."""
+    """
+    Closes the :class:`.Client` object.
+
+    Example:
+
+    .. code-block:: python
+
+      await client.close()
+    """
 
     if self.__own_session and not self.__session.closed:
       await self.__session.close()

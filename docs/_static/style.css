@@ -27,12 +27,30 @@ aside.toc-drawer .docutils:hover, .sidebar-brand-text:hover {
   filter: opacity(75%);
 }
 
-.highlight .c1, em {
+.highlight *, em {
   font-style: normal !important;
+  text-decoration: none !important;
+  font-weight: normal !important;
 }
 
-.highlight .nn {
-  text-decoration: none !important;
+.sig-paren, span.p, :not(.sig-name) > span.pre {
+  font-weight: normal !important;
+}
+
+:not(h1) > a.reference {
+  text-decoration: underline;
+}
+
+:not(h1) > a.reference:hover {
+  text-decoration: none;
+}
+
+.field-even p strong, .field-odd p strong {
+  font-family: var(--font-stack--monospace);
+}
+
+h1 > a.reference:hover {
+  text-decoration: underline;
 }
 
 h1 {
