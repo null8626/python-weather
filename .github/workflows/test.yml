@@ -17,12 +17,11 @@ jobs:
       matrix:
         python-version: [3.9, '3.10', 3.11, 3.12, 3.13]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 2
       - name: Pull previous commit
         run: git reset --soft HEAD~1
-        shell: bash
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
