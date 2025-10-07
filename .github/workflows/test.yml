@@ -15,14 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.9, '3.10', 3.11, 3.12, 3.13]
+        python-version: ['3.10', 3.11, 3.12, 3.13]
     steps:
       - uses: actions/checkout@v5
         with:
           fetch-depth: 2
       - name: Pull previous commit
         run: git reset --soft HEAD~1
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64

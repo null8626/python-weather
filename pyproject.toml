@@ -9,7 +9,7 @@ readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "null8626" }]
 keywords = ["weather", "forecast", "weather-api", "weather-forecast"]
-dependencies = ["aiohttp>=3.12.15"]
+dependencies = ["aiohttp>=3.13.0"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Education",
@@ -26,13 +26,12 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13"
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 
 [project.urls]
 Documentation = "https://python-weather.readthedocs.io/en/latest/"
