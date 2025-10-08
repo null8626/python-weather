@@ -24,11 +24,15 @@ SOFTWARE.
 
 from datetime import datetime, date, time
 from collections.abc import Iterable
-from typing import Optional
+import typing
 
-from .enums import Phase, Locale, HeatIndex
-from .constants import _Unit, LATLON_REGEX
+from .enums import Phase, HeatIndex
+from .constants import LATLON_REGEX
 from .base import BaseForecast
+
+if typing.TYPE_CHECKING:
+  from .constants import _Unit
+  from .enums import Locale
 
 
 class HourlyForecast(BaseForecast):
@@ -101,7 +105,7 @@ class HourlyForecast(BaseForecast):
   wind_gust: int
   """The wind gust value in either kilometers/hour or miles/hour."""
 
-  def __init__(self, json: dict, unit: _Unit, locale: Locale):
+  def __init__(self, json: dict, unit: '_Unit', locale: 'Locale'):
     # For inheritance purposes.
     if 'temp_C' not in json:
       json['temp_C'] = json.pop('tempC')
@@ -163,16 +167,16 @@ class DailyForecast:
   moon_phase: Phase
   """The moon's phase."""
 
-  moonrise: Optional[time]
+  moonrise: typing.Optional[time]
   """The local time when the moon rises."""
 
-  moonset: Optional[time]
+  moonset: typing.Optional[time]
   """The local time when the moon sets."""
 
-  sunrise: Optional[time]
+  sunrise: typing.Optional[time]
   """The local time when the sun rises."""
 
-  sunset: Optional[time]
+  sunset: typing.Optional[time]
   """The local time when the sun sets."""
 
   date: 'date'
@@ -196,7 +200,7 @@ class DailyForecast:
   hourly_forecasts: list[HourlyForecast]
   """The hourly forecasts of this day."""
 
-  def __init__(self, json: dict, unit: _Unit, locale: Locale):
+  def __init__(self, json: dict, unit: '_Unit', locale: 'Locale'):
     astronomy = json['astronomy'][0]
 
     self.moon_illumination = int(astronomy['moon_illumination'])
@@ -216,7 +220,7 @@ class DailyForecast:
     ]
 
   @staticmethod
-  def __parse_time(timestamp: str) -> Optional[time]:
+  def __parse_time(timestamp: str) -> typing.Optional[time]:
     try:
       return datetime.strptime(timestamp, '%I:%M %p').time()
     except ValueError:
@@ -266,7 +270,7 @@ class Forecast(BaseForecast):
   daily_forecasts: list[DailyForecast]
   """Daily weather forecasts in this location."""
 
-  def __init__(self, json: dict, unit: _Unit, locale: Locale):
+  def __init__(self, json: dict, unit: '_Unit', locale: 'Locale'):
     current = json['current_condition'][0]
     nearest = json['nearest_area'][0]
 

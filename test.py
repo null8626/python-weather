@@ -1,7 +1,6 @@
 from sys import stdout
 import python_weather
 import asyncio
-import os
 
 INDENTATION = 2
 
@@ -64,7 +63,4 @@ async def main() -> None:
 
 
 if __name__ == '__main__':
-  if os.name == 'nt':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-
   asyncio.run(main())
