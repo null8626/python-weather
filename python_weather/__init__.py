@@ -31,6 +31,9 @@ from .client import Client
 
 __title__ = 'python-weather'
 __author__ = 'null8626'
+__credits__ = (__author__,)
+__maintainer__ = __author__
+__status__ = 'Production'
 __license__ = 'MIT'
 __copyright__ = 'Copyright (c) 2021-2025 null8626'
 __version__ = VERSION
