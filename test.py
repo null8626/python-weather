@@ -14,7 +14,7 @@ def _test_attributes(obj: object, indent_level: int) -> None:
     stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.{name}')
     data = getattr(obj, name)
 
-    if isinstance(data, list):
+    if isinstance(data, list) and data:
       stdout.write('[0] -> ')
 
       for i, each in enumerate(data):
