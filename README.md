@@ -16,7 +16,7 @@ A free and asynchronous weather Python API wrapper made in Python, for Python.
 Run the following command in your terminal:
 
 ```console
-$ pip install python-weather
+pip install python-weather
 ```
 
 ## Example

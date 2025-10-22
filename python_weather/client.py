@@ -60,7 +60,8 @@ class Client(CustomizableBase):
   :type locale: :class:`.Locale`
   :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :py:obj:`None` (creates a new one instead).
   :type session: Optional[:class:`~aiohttp.ClientSession`]
-  :param max_retries: Maximum amount of retries upon request failure before raising a :class:`.RequestError`. Use ``-1`` to disable (NOT recommended). Defaults to 3 retries.
+  :param max_retries: Maximum amount of retries upon request failure before raising a :class:`.RequestError`.
+                      Use ``-1`` to disable (NOT recommended). Defaults to 3 retries.
   :type max_retries: Optional[:class:`int`]
 
   :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.

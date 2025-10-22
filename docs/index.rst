@@ -30,7 +30,7 @@ Run the following command in your terminal:
 
 .. code-block:: console
 
-   $ pip install python-weather
+   pip install python-weather
 
 Example
 -------
