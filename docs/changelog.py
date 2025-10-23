@@ -3,7 +3,7 @@ import os
 
 
 class Row:
-  __slots__: tuple[str, ...] = ('header_name', 'rows', 'character_length')
+  __slots__: tuple[str, ...] = 'header_name', 'rows', 'character_length'
 
   def __init__(self, header_name: str):
     self.header_name = header_name

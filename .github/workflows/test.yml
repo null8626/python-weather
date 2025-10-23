@@ -6,10 +6,12 @@ on:
     paths:
       - '.github/workflows/test.yml'
       - 'python_weather/**/*.py'
+      - 'tests/*.py'
   pull_request:
     paths:
       - '.github/workflows/test.yml'
       - 'python_weather/**/*.py'
+      - 'tests/*.py'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,11 +28,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - name: Install dependencies
-        run: python3 -m pip install .
-      - name: Run tests
-        run: python3 test.py
-      - name: Install dev dependencies
+      - name: Install test dependencies
+        run: python3 -m pip install . mock pytest pytest-asyncio pytest-cov
+      - name: Install ruff
         if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
         run: python3 -m pip install ruff
       - name: Lint and pretty files
@@ -38,6 +38,20 @@ jobs:
         run: |
           python3 -m ruff check
           python3 -m ruff format
+      - name: Run tests
+        run: python3 -m pytest -x --cov=python_weather --cov-report term-missing --cov-report=xml --junitxml=junit.xml
+      - name: Upload coverage results to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: ./coverage.xml
+          flags: python-${{ matrix.python-version }}
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload test results to Codecov
+        uses: codecov/test-results-action@v1
+        with:
+          files: ./junit.xml
+          flags: python-${{ matrix.python-version }}
+          token: ${{ secrets.CODECOV_TOKEN }}
       - name: Import GPG key
         if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
         uses: crazy-max/ghaction-import-gpg@v6

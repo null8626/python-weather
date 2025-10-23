@@ -40,3 +40,14 @@ Repository = "https://github.com/null8626/python-weather"
 Changelog = "https://python-weather.readthedocs.io/en/latest/changelog.html"
 "Donate via GitHub Sponsors" = "https://github.com/sponsors/null8626"
 "Donate via Ko-fi" = "https://ko-fi.com/null8626"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "^\\s*async def __a\\w+__\\(",
+  "# pragma: nocover",
+  "TYPE_CHECKING:$"
+]

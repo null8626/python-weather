@@ -34,15 +34,19 @@ class Error(Exception):
 class RequestError(Error):
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 
-  __slots__: tuple[str, ...] = ('status',)
+  __slots__: tuple[str, ...] = 'status', 'reason'
 
   status: Optional[int]
-  """The status code returned from the API."""
+  """The status code."""
 
-  def __init__(self, status: Optional[int]):
+  reason: Optional[str]
+  """The reason for this status code."""
+
+  def __init__(self, status: Optional[int], reason: Optional[str]):
     self.status = status
+    self.reason = reason
 
-    super().__init__()
+    super().__init__(f'{status}: {reason}')
 
-  def __repr__(self) -> str:
-    return f'<{__class__.__name__} status={self.status}>'
+  def __repr__(self) -> str:  # pragma: nocover
+    return f'<{__class__.__module__}.{__class__.__name__} status={self.status} reason={self.reason!r}>'

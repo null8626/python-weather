@@ -3,4 +3,9 @@ python_weather.egg-info/
 docs/_build/
 dist/
 build/
+codecov*
+coverage.xml
+junit.xml
+.coverage
+.pytest_cache/
 .ruff_cache/

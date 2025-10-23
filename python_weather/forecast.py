@@ -49,7 +49,6 @@ class HourlyForecast(BaseForecast):
     'chances_of_sunshine',
     'chances_of_thunder',
     'chances_of_windy',
-    'cloud_cover',
     'time',
     'dew_point',
     'heat_index',
@@ -87,9 +86,6 @@ class HourlyForecast(BaseForecast):
   chances_of_windy: int
   """Chances of windy in percent."""
 
-  cloud_cover: int
-  """The cloud cover value in percent."""
-
   time: 'time'
   """The local time in hours and minutes."""
 
@@ -126,7 +122,6 @@ class HourlyForecast(BaseForecast):
     self.chances_of_sunshine = int(json['chanceofsunshine'])
     self.chances_of_thunder = int(json['chanceofthunder'])
     self.chances_of_windy = int(json['chanceofwindy'])
-    self.cloud_cover = int(json['cloudcover'])
     self.time = time() if len(t) < 3 else datetime.strptime(t, '%H%M').time()
     self.dew_point = int(json[f'DewPoint{unit.temperature}'])
     self.heat_index = HeatIndex._new(
@@ -139,7 +134,7 @@ class HourlyForecast(BaseForecast):
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} time={self.time!r} temperature={self.temperature} description={self.description!r} kind={self.kind!r}>'
+    return f'<{__class__.__module__}.{__class__.__name__} time={self.time!r} temperature={self.temperature} kind={self.kind!r}>'
 
 
 class DailyForecast:
@@ -223,11 +218,11 @@ class DailyForecast:
   def __parse_time(timestamp: str) -> typing.Optional[time]:
     try:
       return datetime.strptime(timestamp, '%I:%M %p').time()
-    except ValueError:
+    except ValueError:  # pragma: nocover
       ...
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} date={self.date!r} temperature={self.temperature}>'
+    return f'<{__class__.__module__}.{__class__.__name__} date={self.date!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
     return len(self.hourly_forecasts)
@@ -284,9 +279,9 @@ class Forecast(BaseForecast):
       req = next(filter(lambda x: x['type'] == 'LatLon', json['request']))
       match = LATLON_REGEX.match(req['query'])
 
-      self.coordinates = (float(match[1]), float(match[2]))
+      self.coordinates = float(match[1]), float(match[2])
     except (KeyError, IndexError, StopIteration):
-      self.coordinates = (float(nearest['latitude']), float(nearest['longitude']))
+      self.coordinates = float(nearest['latitude']), float(nearest['longitude'])
 
     self.daily_forecasts = [
       DailyForecast(elem, unit, locale) for elem in json['weather']
@@ -295,7 +290,7 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
-    return f'<{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature}>'
+    return f'<{__class__.__module__}.{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
     return len(self.daily_forecasts)

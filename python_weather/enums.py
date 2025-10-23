@@ -383,10 +383,8 @@ class Kind(BasicEnum):
       return '⛈'
     elif self is self.THUNDERY_SNOW_SHOWERS:
       return '⛈'
-    elif self is self.VERY_CLOUDY:
-      return '☁️'
     else:
-      return '✨'
+      return '☁️'
 
 
 class Phase(BasicEnum):

@@ -28,7 +28,7 @@ from .errors import Error
 
 
 class CustomizableBase:
-  __slots__: tuple[str, ...] = ('__unit', '__locale')
+  __slots__: tuple[str, ...] = '__unit', '__locale'
 
   def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
@@ -80,6 +80,7 @@ class CustomizableBase:
 
 class BaseForecast:
   __slots__: tuple[str, ...] = (
+    'cloud_cover',
     'ultraviolet',
     'humidity',
     'wind_direction',
@@ -92,6 +93,9 @@ class BaseForecast:
     'wind_speed',
     'description',
   )
+
+  cloud_cover: int
+  """The cloud cover value in percent."""
 
   ultraviolet: UltraViolet
   """The ultra-violet index."""
@@ -133,6 +137,7 @@ class BaseForecast:
       else json[f'lang_{locale.value}'][0]['value']
     )
 
+    self.cloud_cover = int(json['cloudcover'])
     self.ultraviolet = UltraViolet._new(int(json['uvIndex']))
     self.humidity = int(json['humidity'])
     self.wind_direction = WindDirection._new(
