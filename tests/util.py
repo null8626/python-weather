@@ -1,6 +1,6 @@
 from multidict import CIMultiDict, CIMultiDictProxy
+from typing import Any, TYPE_CHECKING, Optional
 from contextlib import nullcontext
-from typing import Any, Optional
 from inspect import getmembers
 from sys import stdout
 from yarl import URL
@@ -139,7 +139,8 @@ class RequestMock:
 
   def __enter__(self) -> mock.Mock:
     if 200 <= self.__mock_response.status < 300:
-      assert self.__mock_json_response_filename is not None
+      if TYPE_CHECKING:
+        assert self.__mock_json_response_filename is not None
 
       self.__mock_json_response = open(
         path.join(CURRENT_DIR, self.__mock_json_response_filename), 'r'

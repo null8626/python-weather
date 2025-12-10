@@ -4,8 +4,8 @@ import sys
 sys.path.insert(0, path.join(path.dirname(path.realpath(__file__)), '..'))
 
 
+from typing import Any, AsyncGenerator
 import pytest_asyncio
-import typing
 import pytest
 import mock
 
@@ -27,7 +27,7 @@ def example_code(weather: python_weather.Forecast) -> None:
 @pytest_asyncio.fixture(params=[python_weather.METRIC, python_weather.IMPERIAL])
 async def client(
   request: pytest.FixtureRequest,
-) -> typing.AsyncGenerator[python_weather.Client, None]:
+) -> AsyncGenerator[python_weather.Client, None]:
   client = python_weather.Client(unit=request.param)
 
   yield client
@@ -60,7 +60,7 @@ async def test_Client_works(
   'unit', (None, '', 'C', 'F', 'METRIC', 'IMPERIAL', python_weather.constants._Unit)
 )
 def test_Client_throws_invalid_unit_error(
-  client: python_weather.Client, unit: typing.Any
+  client: python_weather.Client, unit: Any
 ) -> None:
   with pytest.raises(python_weather.Error, match='^Invalid measuring unit specified!$'):
     client.unit = unit
@@ -70,7 +70,7 @@ def test_Client_throws_invalid_unit_error(
   'locale', (None, '', 'CHINESE_SIMPLIFIED', 'zh', python_weather.enums.Locale)
 )
 def test_Client_throws_invalid_locale_error(
-  client: python_weather.Client, locale: typing.Any
+  client: python_weather.Client, locale: Any
 ) -> None:
   with pytest.raises(python_weather.Error, match='to be a Locale enum$'):
     client.locale = locale
@@ -93,7 +93,7 @@ async def test_Client_throws_already_closed_error(
 @pytest.mark.asyncio
 @pytest.mark.parametrize('location', (None, '', 2, (), {}, []))
 async def test_Client_throws_invalid_location_error(
-  client: python_weather.Client, location: typing.Any
+  client: python_weather.Client, location: Any
 ) -> None:
   with pytest.raises(TypeError, match='^Expected a proper location str, got '):
     await client.get(location)

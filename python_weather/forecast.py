@@ -22,15 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+from typing import Optional, TYPE_CHECKING
 from datetime import datetime, date, time
 from collections.abc import Iterator
-import typing
 
 from .enums import Phase, HeatIndex
 from .constants import LATLON_REGEX
 from .base import BaseForecast
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
   from .constants import _Unit
   from .enums import Locale
 
@@ -162,16 +162,16 @@ class DailyForecast:
   moon_phase: Phase
   """The moon's phase."""
 
-  moonrise: typing.Optional[time]
+  moonrise: Optional[time]
   """The local time when the moon rises."""
 
-  moonset: typing.Optional[time]
+  moonset: Optional[time]
   """The local time when the moon sets."""
 
-  sunrise: typing.Optional[time]
+  sunrise: Optional[time]
   """The local time when the sun rises."""
 
-  sunset: typing.Optional[time]
+  sunset: Optional[time]
   """The local time when the sun sets."""
 
   date: 'date'
@@ -215,7 +215,7 @@ class DailyForecast:
     ]
 
   @staticmethod
-  def __parse_time(timestamp: str) -> typing.Optional[time]:
+  def __parse_time(timestamp: str) -> Optional[time]:
     try:
       return datetime.strptime(timestamp, '%I:%M %p').time()
     except ValueError:  # pragma: nocover
@@ -277,9 +277,10 @@ class Forecast(BaseForecast):
 
     try:
       req = next(filter(lambda x: x['type'] == 'LatLon', json['request']))
-
       match = LATLON_REGEX.match(req['query'])
-      assert match is not None
+
+      if TYPE_CHECKING:
+        assert match is not None
 
       self.coordinates = float(match[1]), float(match[2])
     except (AssertionError, KeyError, StopIteration):
