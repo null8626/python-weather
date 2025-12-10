@@ -28,7 +28,7 @@ from .errors import Error
 
 
 class CustomizableBase:
-  __slots__: tuple[str, ...] = '__unit', '__locale'
+  __slots__: tuple[str, ...] = '_unit', '_locale'
 
   def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
@@ -38,7 +38,7 @@ class CustomizableBase:
   def unit(self) -> _Unit:
     """The measuring unit used."""
 
-    return self.__unit
+    return self._unit
 
   @unit.setter
   def unit(self, to: _Unit) -> None:
@@ -53,13 +53,13 @@ class CustomizableBase:
     if not isinstance(to, _Unit):
       raise Error('Invalid measuring unit specified!')
 
-    self.__unit = to
+    self._unit = to
 
   @property
   def locale(self) -> Locale:
     """The localization used."""
 
-    return self.__locale
+    return self._locale
 
   @locale.setter
   def locale(self, to: Locale) -> None:
@@ -75,7 +75,7 @@ class CustomizableBase:
     if not isinstance(to, Locale):
       raise Error(f'Expected {to!r} to be a Locale enum')
 
-    self.__locale = to
+    self._locale = to
 
 
 class BaseForecast:

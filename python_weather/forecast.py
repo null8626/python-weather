@@ -23,7 +23,7 @@ SOFTWARE.
 """
 
 from datetime import datetime, date, time
-from collections.abc import Iterable
+from collections.abc import Iterator
 import typing
 
 from .enums import Phase, HeatIndex
@@ -227,7 +227,7 @@ class DailyForecast:
   def __len__(self) -> int:
     return len(self.hourly_forecasts)
 
-  def __iter__(self) -> Iterable[HourlyForecast]:
+  def __iter__(self) -> Iterator[HourlyForecast]:
     return iter(self.hourly_forecasts)
 
 
@@ -277,10 +277,12 @@ class Forecast(BaseForecast):
 
     try:
       req = next(filter(lambda x: x['type'] == 'LatLon', json['request']))
+
       match = LATLON_REGEX.match(req['query'])
+      assert match is not None
 
       self.coordinates = float(match[1]), float(match[2])
-    except (KeyError, IndexError, StopIteration):
+    except (AssertionError, KeyError, StopIteration):
       self.coordinates = float(nearest['latitude']), float(nearest['longitude'])
 
     self.daily_forecasts = [
@@ -295,5 +297,5 @@ class Forecast(BaseForecast):
   def __len__(self) -> int:
     return len(self.daily_forecasts)
 
-  def __iter__(self) -> Iterable[DailyForecast]:
+  def __iter__(self) -> Iterator[DailyForecast]:
     return iter(self.daily_forecasts)

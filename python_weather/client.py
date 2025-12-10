@@ -67,7 +67,7 @@ class Client(CustomizableBase):
   :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
-  __slots__: tuple[str, ...] = '__own_session', '__session', '__max_retries'
+  __slots__: tuple[str, ...] = '__own_session', '__session', '_max_retries'
 
   def __init__(
     self,
@@ -84,7 +84,7 @@ class Client(CustomizableBase):
       timeout=ClientTimeout(total=5000.0),
       connector=TCPConnector(ssl=False),
     )
-    self.__max_retries = max_retries or 3
+    self._max_retries = max_retries or 3
 
   def __repr__(self) -> str:
     return f'<{__class__.__module__}.{__class__.__name__} {self.__session!r}>'
@@ -127,10 +127,10 @@ class Client(CustomizableBase):
       raise TypeError(f'Expected a proper location str, got {location!r}')
 
     if not isinstance(unit, _Unit):
-      unit = self._CustomizableBase__unit
+      unit = self._unit
 
     if not isinstance(locale, Locale):
-      locale = self._CustomizableBase__locale
+      locale = self._locale
 
     subdomain = f'{locale.value}.' if locale != Locale.ENGLISH else ''
     attempts = 0
@@ -154,7 +154,7 @@ class Client(CustomizableBase):
 
           return Forecast(await resp.json(), unit, locale)
       except ClientResponseError:
-        if attempts == self.__max_retries:
+        if attempts == self._max_retries:
           raise RequestError(status, reason) from None
 
         await sleep(0.5 * (2**attempts))

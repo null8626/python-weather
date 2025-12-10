@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union
+from typing import Optional, Union
 from enum import Enum
 
 from .constants import WIND_DIRECTION_EMOJIS
@@ -50,8 +50,11 @@ class IndexedEnum(Enum):
   def __le__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) <= float(other)
 
-  def __eq__(self, other: Union['IndexedEnum', float, int]) -> bool:
-    return float(self.index) == float(other)
+  def __eq__(self, other: object) -> bool:
+    if other_float := getattr(other, '__float__', None):
+      return float(self.index) == other_float()
+
+    return False
 
   def __gt__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) > float(other)
@@ -79,6 +82,7 @@ class HeatIndex(IndexedEnum):
   DANGER = None
   EXTREME_DANGER = None
 
+  @staticmethod
   def _new(celcius_index: int, true_index: int) -> 'HeatIndex':
     enum = HeatIndex(celcius_index)
     enum.index = true_index
@@ -86,15 +90,16 @@ class HeatIndex(IndexedEnum):
     return enum
 
   @classmethod
-  def _missing_(self, celcius_index: int) -> 'HeatIndex':
-    if celcius_index <= 32:
-      return self.CAUTION
-    elif celcius_index <= 39:
-      return self.EXTREME_CAUTION
-    elif celcius_index <= 51:
-      return self.DANGER
-    else:
-      return self.EXTREME_DANGER
+  def _missing_(cls, value: object) -> Optional['HeatIndex']:
+    if isinstance(value, int):
+      if value <= 32:
+        return cls.CAUTION
+      elif value <= 39:
+        return cls.EXTREME_CAUTION
+      elif value <= 51:
+        return cls.DANGER
+      else:
+        return cls.EXTREME_DANGER
 
 
 class UltraViolet(BasicEnum, IndexedEnum):
@@ -108,6 +113,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
   VERY_HIGH = None
   EXTREME = None
 
+  @staticmethod
   def _new(index: int) -> 'UltraViolet':
     enum = UltraViolet(index)
     enum.index = index
@@ -115,17 +121,18 @@ class UltraViolet(BasicEnum, IndexedEnum):
     return enum
 
   @classmethod
-  def _missing_(self, index: int) -> 'UltraViolet':
-    if index <= 2:
-      return self.LOW
-    elif index <= 5:
-      return self.MODERATE
-    elif index <= 7:
-      return self.HIGH
-    elif index <= 10:
-      return self.VERY_HIGH
-    else:
-      return self.EXTREME
+  def _missing_(cls, value: object) -> Optional['UltraViolet']:
+    if isinstance(value, int):
+      if value <= 2:
+        return cls.LOW
+      elif value <= 5:
+        return cls.MODERATE
+      elif value <= 7:
+        return cls.HIGH
+      elif value <= 10:
+        return cls.VERY_HIGH
+      else:
+        return cls.EXTREME
 
 
 class WindDirection(BasicEnum):
@@ -153,6 +160,7 @@ class WindDirection(BasicEnum):
   degrees: float
   """The wind direction's value in degrees."""
 
+  @staticmethod
   def _new(value: str, degrees: float) -> 'WindDirection':
     enum = WindDirection(value)
     enum.degrees = degrees
@@ -291,7 +299,8 @@ class Locale(Enum):
 
   def __str__(self) -> str:
     arr = self.name.title().split('_')
-    return f'{arr[:-1].join(" ")} ({arr[-1]})' if len(arr) != 1 else arr[0]
+
+    return f'{" ".join(arr[:-1])} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
 
 class Kind(BasicEnum):
@@ -319,31 +328,31 @@ class Kind(BasicEnum):
   THUNDERY_SNOW_SHOWERS = 392
 
   @classmethod
-  def _missing_(self, value: int) -> 'Kind':
+  def _missing_(cls, value: object) -> Optional['Kind']:
     if value in (248, 260):
-      return self.FOG
+      return cls.FOG
     elif value in (263, 353):
-      return self.LIGHT_SHOWERS
+      return cls.LIGHT_SHOWERS
     elif value in (362, 365, 374):
-      return self.LIGHT_SLEET_SHOWERS
+      return cls.LIGHT_SLEET_SHOWERS
     elif value in (185, 281, 284, 311, 314, 317, 350, 377):
-      return self.LIGHT_SLEET
+      return cls.LIGHT_SLEET
     elif value == 386:
-      return self.THUNDERY_SHOWERS
+      return cls.THUNDERY_SHOWERS
     elif value == 320:
-      return self.LIGHT_SNOW
+      return cls.LIGHT_SNOW
     elif value in (329, 332, 338):
-      return self.HEAVY_SNOW
+      return cls.HEAVY_SNOW
     elif value in (293, 296):
-      return self.LIGHT_RAIN
+      return cls.LIGHT_RAIN
     elif value in (305, 356):
-      return self.HEAVY_SHOWERS
+      return cls.HEAVY_SHOWERS
     elif value in (308, 359):
-      return self.HEAVY_RAIN
+      return cls.HEAVY_RAIN
     elif value in (326, 368):
-      return self.LIGHT_SNOW_SHOWERS
+      return cls.LIGHT_SNOW_SHOWERS
     elif value in (371, 395):
-      return self.HEAVY_SNOW_SHOWERS
+      return cls.HEAVY_SNOW_SHOWERS
 
   @property
   def emoji(self) -> str:

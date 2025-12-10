@@ -1,0 +1,6 @@
+mock
+pytest
+pytest-asyncio
+pytest-cov
+multidict
+yarl

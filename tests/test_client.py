@@ -14,7 +14,7 @@ import python_weather
 from util import _test_attributes, RequestMock
 
 
-def example_code(weather: python_weather.forecast.Forecast) -> None:
+def example_code(weather: python_weather.Forecast) -> None:
   print(weather.temperature)
 
   for daily in weather:
@@ -109,4 +109,4 @@ async def test_Client_throws_request_error(
     with pytest.raises(python_weather.RequestError, match='^404: Not Found$'):
       await client.get('New York')
 
-    assert request.call_count == (client._Client__max_retries + 1)
+    assert request.call_count == (client._max_retries + 1)

@@ -1,7 +1,9 @@
+from multidict import CIMultiDict, CIMultiDictProxy
 from contextlib import nullcontext
+from typing import Any, Optional
 from inspect import getmembers
-from typing import Any
 from sys import stdout
+from yarl import URL
 from os import path
 import aiohttp
 import json
@@ -33,7 +35,7 @@ def is_local(data: object) -> bool:
 
 
 def _test_attributes_inner(obj: object, indent_level: int) -> None:
-  names = obj.__class__.__slots__ + tuple(
+  names = getattr(obj.__class__, '__slots__') + tuple(
     map(
       lambda pair: pair[0], getmembers(obj.__class__, lambda o: isinstance(o, property))
     )
@@ -76,13 +78,13 @@ def _test_attributes_inner(obj: object, indent_level: int) -> None:
         f'{" " * indent_level}{obj.__class__.__name__}.{special_method_name}(self) -> {special_method(obj)!r}'
       )
 
-  if hasattr(obj, '__iter__'):
+  if obj_iter := getattr(obj, '__iter__', None):
     try:
-      _ = next(iter(obj))
+      _ = next(obj_iter())
 
       stdout.write(f'{" " * indent_level}{obj.__class__.__name__}.__iter__[0] -> ')
 
-      for i, each in enumerate(obj):
+      for i, each in enumerate(obj_iter()):
         if i > 0:
           stdout.write(
             f'{" " * indent_level}{obj.__class__.__name__}.__iter__[{i}] -> '
@@ -91,7 +93,7 @@ def _test_attributes_inner(obj: object, indent_level: int) -> None:
         print(repr(each))
         _test_attributes_inner(each, indent_level + INDENTATION)
     except StopIteration:
-      print(f'{" " * indent_level}{obj.__class__.__name__}.__iter__ -> {iter(obj)!r}')
+      print(f'{" " * indent_level}{obj.__class__.__name__}.__iter__ -> {obj_iter()!r}')
 
 
 def _test_attributes(obj: object) -> None:
@@ -106,7 +108,9 @@ class RequestMock:
     '__mock_json_response_filename',
   )
 
-  def __init__(self, status: int, reason: str, mock_response_filename: str = None):
+  def __init__(
+    self, status: int, reason: str, mock_response_filename: Optional[str] = None
+  ):
     self.__mock_response = mock.Mock(specs=aiohttp.ClientResponse)
 
     self.__mock_response.status = status
@@ -120,13 +124,23 @@ class RequestMock:
       self.__mock_json_response_filename = mock_response_filename
     else:
       raise_for_status_kwargs['side_effect'] = aiohttp.ClientResponseError(
-        None, (), status=status, message=reason
+        aiohttp.RequestInfo(
+          url=URL('http://example.com'),
+          method='GET',
+          headers=CIMultiDictProxy(CIMultiDict()),
+          real_url=URL('http://example.com'),
+        ),
+        (),
+        status=status,
+        message=reason,
       )
 
     self.__mock_response.raise_for_status = mock.Mock(**raise_for_status_kwargs)
 
   def __enter__(self) -> mock.Mock:
     if 200 <= self.__mock_response.status < 300:
+      assert self.__mock_json_response_filename is not None
+
       self.__mock_json_response = open(
         path.join(CURRENT_DIR, self.__mock_json_response_filename), 'r'
       )
