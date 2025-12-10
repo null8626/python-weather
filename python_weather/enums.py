@@ -54,7 +54,7 @@ class IndexedEnum(Enum):
     if other_float := getattr(other, '__float__', None):
       return float(self.index) == other_float()
 
-    return False
+    return False  # pragma: nocover
 
   def __gt__(self, other: Union['IndexedEnum', float, int]) -> bool:
     return float(self.index) > float(other)
