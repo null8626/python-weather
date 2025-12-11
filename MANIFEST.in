@@ -10,6 +10,8 @@ exclude .coverage
 exclude ruff.toml
 exclude LICENSE
 exclude changelog.yml
+exclude codacy-coverage
+exclude codecov*
 exclude coverage.xml
 exclude junit.xml
 global-exclude __pycache__/*

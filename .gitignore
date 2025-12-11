@@ -3,6 +3,7 @@ python_weather.egg-info/
 docs/_build/
 dist/
 build/
+codacy-coverage
 codecov*
 coverage.xml
 junit.xml

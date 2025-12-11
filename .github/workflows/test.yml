@@ -19,11 +19,9 @@ jobs:
       matrix:
         python-version: ['3.10', 3.11, 3.12, 3.13, 3.14]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
-          fetch-depth: 2
-      - name: Pull previous commit
-        run: git reset --soft HEAD~1
+          fetch-depth: 1
       - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
@@ -33,27 +31,35 @@ jobs:
           python3 -m pip install .
           python3 -m pip install -r tests/requirements.txt
       - name: Install ruff
-        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
+        if: ${{ matrix.python-version == 3.14 }}
         run: python3 -m pip install ruff
-      - name: Lint and pretty files
-        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
-        run: |
-          python3 -m ruff check
-          python3 -m ruff format
       - name: Run tests
         run: python3 -m pytest -x --cov=python_weather --cov-report term-missing --cov-report=xml --junitxml=junit.xml
       - name: Upload coverage results to Codecov
+        if: ${{ github.event_name != 'pull_request' }}
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
           flags: python-${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
+        if: ${{ github.event_name != 'pull_request' }}
         uses: codecov/test-results-action@v1
         with:
           files: ./junit.xml
           flags: python-${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Upload coverage results to Codacy
+        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage.xml
+      - name: Lint files
+        if: ${{ matrix.python-version == 3.14 }}
+        run: python3 -m ruff check
+      - name: Pretty files
+        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
+        run: python3 -m ruff format
       - name: Import GPG key
         if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
         uses: crazy-max/ghaction-import-gpg@v6
@@ -66,8 +72,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
         uses: EndBug/add-and-commit@v9
         with:
-          commit: -S
-          message: ${{ github.event.head_commit.message }}
-          push: --force
+          commit: --amend --no-edit
+          push: --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
