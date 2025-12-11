@@ -70,7 +70,7 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
         uses: EndBug/add-and-commit@v9
         with:
-          commit: --amend --no-edit
+          commit: -S --amend --no-edit
           push: --force-with-lease
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
