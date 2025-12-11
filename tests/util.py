@@ -35,7 +35,7 @@ def is_local(data: object) -> bool:
 
 
 def _test_attributes_inner(obj: object, indent_level: int) -> None:
-  names = getattr(obj.__class__, '__slots__') + tuple(
+  names = getattr(obj.__class__, '__slots__', ()) + tuple(
     map(
       lambda pair: pair[0], getmembers(obj.__class__, lambda o: isinstance(o, property))
     )
