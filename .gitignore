@@ -5,6 +5,7 @@ dist/
 build/
 codacy-coverage
 codecov*
+!codecov.yml
 coverage.xml
 junit.xml
 .coverage
