@@ -136,3 +136,13 @@ Changelog
 |         |                  | - 🟦 Replace several uses of deprecated Python type hints.                                                                                                                    |
 |         |                  | - 🟦 Bump ``aiohttp`` dependency to ``3.12.4``.                                                                                                                               |
 +---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| 2.1.1   | 12 December 2025 | - 🟥 Drop support for Python 3.9.                                                                                                                                             |
+|         |                  | - 🟩 Add ``cloud_cover`` property to the ``BaseForecast`` class.                                                                                                              |
+|         |                  | - 🟩 Add a proper message and a ``reason`` property to the :class:`.RequestError` class.                                                                                      |
+|         |                  | - 🟦 Fix the default :class:`~aiohttp.ClientSession` from using a deprecated keyword argument.                                                                                |
+|         |                  | - 🟦 Gate imports purely for type checking under :py:obj:`typing.TYPE_CHECKING`.                                                                                              |
+|         |                  | - 🟦 Bump ``aiohttp`` dependency to ``3.13.2``.                                                                                                                               |
+|         |                  | - 🟦 Fix incorrect return type annotation for ``__iter__`` methods.                                                                                                           |
+|         |                  | - 🟦 Refactor typings in accordance with Python 3.10's standards.                                                                                                             |
+|         |                  | - 🟦 Improve documentation CSS.                                                                                                                                               |
++---------+------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
