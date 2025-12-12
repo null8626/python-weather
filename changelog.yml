@@ -187,3 +187,15 @@ changelog:
       - fix: :class:`.RequestError` is now based on an HTTP status code instead of an :py:class:`Exception` source.
       - fix: Replace several uses of deprecated Python type hints.
       - fix: Bump ``aiohttp`` dependency to ``3.12.4``.
+  - version: 2.1.1
+    release-date: 12 December 2025
+    changes:
+      - rem: Drop support for Python 3.9.
+      - add: Add ``cloud_cover`` property to the ``BaseForecast`` class.
+      - add: Add a proper message and a ``reason`` property to the :class:`.RequestError` class.
+      - fix: Fix the default :class:`~aiohttp.ClientSession` from using a deprecated keyword argument.
+      - fix: Gate imports purely for type checking under :py:obj:`typing.TYPE_CHECKING`.
+      - fix: Bump ``aiohttp`` dependency to ``3.13.2``.
+      - fix: Fix incorrect return type annotation for ``__iter__`` methods.
+      - fix: Refactor typings in accordance with Python 3.10's standards.
+      - fix: Improve documentation CSS.
