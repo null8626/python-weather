@@ -139,6 +139,7 @@ Changelog
 | 2.1.1   | 12 December 2025 | - 🟥 Drop support for Python 3.9.                                                                                                                                             |
 |         |                  | - 🟩 Add ``cloud_cover`` property to the ``BaseForecast`` class.                                                                                                              |
 |         |                  | - 🟩 Add a proper message and a ``reason`` property to the :class:`.RequestError` class.                                                                                      |
+|         |                  | - 🟦 Add proper unit tests with a 100% coverage guarantee.                                                                                                                    |
 |         |                  | - 🟦 Fix the default :class:`~aiohttp.ClientSession` from using a deprecated keyword argument.                                                                                |
 |         |                  | - 🟦 Gate imports purely for type checking under :py:obj:`typing.TYPE_CHECKING`.                                                                                              |
 |         |                  | - 🟦 Bump ``aiohttp`` dependency to ``3.13.2``.                                                                                                                               |
