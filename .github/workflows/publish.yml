@@ -3,9 +3,15 @@ on:
   release:
     types: [created]
   workflow_dispatch: null
+permissions:
+  id-token: write
+  contents: read
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment:
+      name: publish
+      url: https://pypi.org/p/python-weather
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
@@ -13,10 +19,9 @@ jobs:
           python-version: 3.14
       - name: Install dependencies
         run: python3 -m pip install build twine
-      - name: Build and publish
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-        run: |
-          python3 -m build
-          python3 -m twine upload dist/*
+      - name: Build
+        run: python3 -m build
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@v1
+        with:
+          provenance: true
