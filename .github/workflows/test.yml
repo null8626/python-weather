@@ -12,6 +12,7 @@ on:
       - '.github/workflows/test.yml'
       - 'python_weather/**/*.py'
       - 'tests/*.py'
+  workflow_dispatch: null
 jobs:
   test:
     runs-on: ubuntu-latest

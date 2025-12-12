@@ -4,6 +4,7 @@ on:
     branches: [main]
     tags-ignore: ['**']
     paths: [changelog.yml]
+  workflow_dispatch: null
 jobs:
   changelog:
     runs-on: ubuntu-latest
