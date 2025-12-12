@@ -30,6 +30,9 @@ from .errors import Error
 class CustomizableBase:
   __slots__: tuple[str, ...] = '_unit', '_locale'
 
+  _unit: _Unit
+  _locale: Locale
+
   def __init__(self, unit: _Unit, locale: Locale):
     self.unit = unit
     self.locale = locale

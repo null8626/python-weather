@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional, Union
 from enum import Enum
 
 from .constants import WIND_DIRECTION_EMOJIS
@@ -44,10 +43,10 @@ class IndexedEnum(Enum):
   index: int
   """The index value."""
 
-  def __lt__(self, other: Union['IndexedEnum', float, int]) -> bool:
+  def __lt__(self, other: 'IndexedEnum | float | int') -> bool:
     return float(self.index) < float(other)
 
-  def __le__(self, other: Union['IndexedEnum', float, int]) -> bool:
+  def __le__(self, other: 'IndexedEnum | float | int') -> bool:
     return float(self.index) <= float(other)
 
   def __eq__(self, other: object) -> bool:
@@ -56,10 +55,10 @@ class IndexedEnum(Enum):
 
     return False  # pragma: nocover
 
-  def __gt__(self, other: Union['IndexedEnum', float, int]) -> bool:
+  def __gt__(self, other: 'IndexedEnum | float | int') -> bool:
     return float(self.index) > float(other)
 
-  def __ge__(self, other: Union['IndexedEnum', float, int]) -> bool:
+  def __ge__(self, other: 'IndexedEnum | float | int') -> bool:
     return float(self.index) >= float(other)
 
   def __hash__(self) -> int:
@@ -90,7 +89,7 @@ class HeatIndex(IndexedEnum):
     return enum
 
   @classmethod
-  def _missing_(cls, value: object) -> Optional['HeatIndex']:
+  def _missing_(cls, value: object) -> 'HeatIndex | None':
     if isinstance(value, int):
       if value <= 32:
         return cls.CAUTION
@@ -121,7 +120,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
     return enum
 
   @classmethod
-  def _missing_(cls, value: object) -> Optional['UltraViolet']:
+  def _missing_(cls, value: object) -> 'UltraViolet | None':
     if isinstance(value, int):
       if value <= 2:
         return cls.LOW
@@ -167,7 +166,7 @@ class WindDirection(BasicEnum):
 
     return enum
 
-  def __contains__(self, other: Union['WindDirection', float, int]) -> bool:
+  def __contains__(self, other: 'WindDirection | float | int') -> bool:
     other = float(other)
 
     if self is self.NORTH:
@@ -328,7 +327,7 @@ class Kind(BasicEnum):
   THUNDERY_SNOW_SHOWERS = 392
 
   @classmethod
-  def _missing_(cls, value: object) -> Optional['Kind']:
+  def _missing_(cls, value: object) -> 'Kind | None':
     if value in (248, 260):
       return cls.FOG
     elif value in (263, 353):

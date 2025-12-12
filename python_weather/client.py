@@ -24,7 +24,6 @@ SOFTWARE.
 
 from aiohttp import ClientSession, ClientTimeout, ClientResponseError, TCPConnector
 from urllib.parse import quote_plus
-from typing import Optional
 from asyncio import sleep
 
 from .errors import Error, RequestError
@@ -59,23 +58,27 @@ class Client(CustomizableBase):
   :param locale: Whether to use a different locale/language as the description for the returned forecast. Defaults to :attr:`.Locale.ENGLISH`.
   :type locale: :class:`.Locale`
   :param session: Whether to use an existing :class:`~aiohttp.ClientSession` for requesting or not. Defaults to :py:obj:`None` (creates a new one instead).
-  :type session: Optional[:class:`~aiohttp.ClientSession`]
+  :type session: :class:`~aiohttp.ClientSession` | :py:obj:`None`
   :param max_retries: Maximum amount of retries upon request failure before raising a :class:`.RequestError`.
                       Use ``-1`` to disable (NOT recommended). Defaults to 3 retries.
-  :type max_retries: Optional[:class:`int`]
+  :type max_retries: :class:`int` | :py:obj:`None`
 
   :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
   __slots__: tuple[str, ...] = '__own_session', '__session', '_max_retries'
 
+  __own_session: bool
+  __session: ClientSession
+  _max_retries: int
+
   def __init__(
     self,
     *,
     unit: _Unit = METRIC,
     locale: Locale = Locale.ENGLISH,
-    session: Optional[ClientSession] = None,
-    max_retries: Optional[int] = None,
+    session: ClientSession | None = None,
+    max_retries: int | None = None,
   ):
     super().__init__(unit, locale)
 
@@ -93,8 +96,8 @@ class Client(CustomizableBase):
     self,
     location: str,
     *,
-    unit: Optional[_Unit] = None,
-    locale: Optional[Locale] = None,
+    unit: _Unit | None = None,
+    locale: Locale | None = None,
   ) -> Forecast:
     """
     Fetches a weather forecast for a specific location.
@@ -108,9 +111,9 @@ class Client(CustomizableBase):
     :param location: The requested location.
     :type location: :py:class:`str`
     :param unit: Overrides the unit used.
-    :type unit: Optional[``_Unit``]
+    :type unit: ``_Unit`` | :py:obj:`None`
     :param locale: Overrides the locale used.
-    :type locale: Optional[:class:`.Locale`]
+    :type locale: :class:`.Locale` | :py:obj:`None`
 
     :exception TypeError: ``location`` is not a :py:class:`str` or is empty.
     :exception Error: The client is already closed.

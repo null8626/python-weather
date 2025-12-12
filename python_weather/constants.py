@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Union
 import re
 
 
@@ -36,6 +35,13 @@ class _Unit:
     'cm_divisor',
   )
 
+  temperature: str
+  velocity: str
+  pressure: str
+  precipitation: str
+  visibility: str
+  cm_divisor: float | int
+
   def __init__(
     self,
     temperature: str,
@@ -43,7 +49,7 @@ class _Unit:
     pressure: str,
     precipitation: str,
     visibility: str,
-    cm_divisor: Union[float, int],
+    cm_divisor: float | int,
   ):
     self.temperature = temperature
     self.velocity = velocity

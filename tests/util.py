@@ -1,5 +1,5 @@
 from multidict import CIMultiDict, CIMultiDictProxy
-from typing import Any, TYPE_CHECKING, Optional
+from typing import Any, TYPE_CHECKING
 from contextlib import nullcontext
 from inspect import getmembers
 from sys import stdout
@@ -8,6 +8,9 @@ from os import path
 import aiohttp
 import json
 import mock
+
+if TYPE_CHECKING:
+  from io import TextIOWrapper
 
 
 CURRENT_DIR = path.dirname(path.realpath(__file__))
@@ -105,23 +108,29 @@ class RequestMock:
   __slots__: tuple[str, ...] = (
     '__mock_response',
     '__mock_json_response',
-    '__mock_json_response_filename',
   )
 
-  def __init__(
-    self, status: int, reason: str, mock_response_filename: Optional[str] = None
-  ):
+  __mock_response: mock.Mock
+  __mock_json_response: 'TextIOWrapper | None'
+
+  def __init__(self, status: int, reason: str, mock_response: str | None = None):
     self.__mock_response = mock.Mock(specs=aiohttp.ClientResponse)
 
     self.__mock_response.status = status
     self.__mock_response.reason = reason
 
+    self.__mock_json_response = None
+
+    if mock_response is not None:
+      self.__mock_json_response = open(path.join(CURRENT_DIR, mock_response), 'r')
+      self.__mock_response.json = mock.AsyncMock(
+        return_value=json.loads(self.__mock_json_response.read())
+      )
+
     raise_for_status_kwargs = {}
 
     if 200 <= status < 300:
       raise_for_status_kwargs['return_value'] = None
-
-      self.__mock_json_response_filename = mock_response_filename
     else:
       raise_for_status_kwargs['side_effect'] = aiohttp.ClientResponseError(
         aiohttp.RequestInfo(
@@ -138,19 +147,9 @@ class RequestMock:
     self.__mock_response.raise_for_status = mock.Mock(**raise_for_status_kwargs)
 
   def __enter__(self) -> mock.Mock:
-    if 200 <= self.__mock_response.status < 300:
-      if TYPE_CHECKING:
-        assert self.__mock_json_response_filename is not None
-
-      self.__mock_json_response = open(
-        path.join(CURRENT_DIR, self.__mock_json_response_filename), 'r'
-      )
-      self.__mock_response.json = mock.AsyncMock(
-        return_value=json.loads(self.__mock_json_response.read())
-      )
-
     return mock.Mock(return_value=nullcontext(self.__mock_response))
 
   def __exit__(self, *_: Any) -> None:
-    if 200 <= self.__mock_response.status < 300:
+    if self.__mock_json_response is not None:
       self.__mock_json_response.close()
+      self.__mock_json_response = None

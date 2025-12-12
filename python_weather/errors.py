@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional
-
 
 class Error(Exception):
   """The base error class. Extends :py:class:`Exception`."""
@@ -36,13 +34,13 @@ class RequestError(Error):
 
   __slots__: tuple[str, ...] = 'status', 'reason'
 
-  status: Optional[int]
+  status: int | None
   """The status code."""
 
-  reason: Optional[str]
+  reason: str | None
   """The reason for this status code."""
 
-  def __init__(self, status: Optional[int], reason: Optional[str]):
+  def __init__(self, status: int | None, reason: str | None):
     self.status = status
     self.reason = reason
 

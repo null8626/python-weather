@@ -5,6 +5,10 @@ import os
 class Row:
   __slots__: tuple[str, ...] = 'header_name', 'rows', 'character_length'
 
+  header_name: str
+  rows: list[str]
+  character_length: int
+
   def __init__(self, header_name: str):
     self.header_name = header_name
     self.character_length = len(header_name)

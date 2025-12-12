@@ -22,9 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from typing import Optional, TYPE_CHECKING
 from datetime import datetime, date, time
 from collections.abc import Iterator
+from typing import TYPE_CHECKING
 
 from .enums import Phase, HeatIndex
 from .constants import LATLON_REGEX
@@ -162,16 +162,16 @@ class DailyForecast:
   moon_phase: Phase
   """The moon's phase."""
 
-  moonrise: Optional[time]
+  moonrise: time | None
   """The local time when the moon rises."""
 
-  moonset: Optional[time]
+  moonset: time | None
   """The local time when the moon sets."""
 
-  sunrise: Optional[time]
+  sunrise: time | None
   """The local time when the sun rises."""
 
-  sunset: Optional[time]
+  sunset: time | None
   """The local time when the sun sets."""
 
   date: 'date'
@@ -215,7 +215,7 @@ class DailyForecast:
     ]
 
   @staticmethod
-  def __parse_time(timestamp: str) -> Optional[time]:
+  def __parse_time(timestamp: str) -> time | None:
     try:
       return datetime.strptime(timestamp, '%I:%M %p').time()
     except ValueError:  # pragma: nocover
