@@ -24,7 +24,7 @@ def example_code(weather: python_weather.Forecast) -> None:
       print(f' --> {hourly!r}')
 
 
-@pytest_asyncio.fixture(params=[python_weather.METRIC, python_weather.IMPERIAL])
+@pytest_asyncio.fixture(params=(python_weather.METRIC, python_weather.IMPERIAL))
 async def client(
   request: pytest.FixtureRequest,
 ) -> AsyncGenerator[python_weather.Client, None]:
