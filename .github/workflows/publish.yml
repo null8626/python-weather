@@ -1,4 +1,4 @@
-name: Publish
+name: Publish to PyPI
 on:
   release:
     types: [created]
@@ -8,13 +8,16 @@ permissions:
   contents: read
 jobs:
   publish:
+    name: Publish to PyPI
     runs-on: ubuntu-latest
     environment:
       name: publish
       url: https://pypi.org/p/python-weather
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - name: Clone repository
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
           python-version: 3.14
       - name: Install dependencies

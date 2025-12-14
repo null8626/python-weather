@@ -7,20 +7,23 @@ on:
   workflow_dispatch: null
 jobs:
   changelog:
+    name: Update changelog.rst
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - name: Clone repository
+        uses: actions/checkout@v6
         with:
           fetch-depth: 2
-      - uses: actions/setup-python@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
         with:
           python-version: 3.14
           architecture: x64
       - name: Install dependencies
         run: python3 -m pip install pyyaml
       - name: Run update script
-        working-directory: docs
         run: python3 changelog.py
+        working-directory: docs
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
