@@ -40,18 +40,21 @@ jobs:
       - name: Run tests
         run: python3 -m pytest -x --cov=python_weather --cov-report term-missing --cov-report=xml --junitxml=junit.xml
       - name: Upload coverage results to Codecov
+        if: ${{ github.event_name != 'pull_request' }}
         uses: codecov/codecov-action@v5
         with:
           files: ./coverage.xml
           flags: python-${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
+        if: ${{ github.event_name != 'pull_request' }}
         uses: codecov/test-results-action@v1
         with:
           files: ./junit.xml
           flags: python-${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload coverage results to Codacy
+        if: ${{ github.event_name != 'pull_request' }}
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
           coverage-reports: coverage.xml
