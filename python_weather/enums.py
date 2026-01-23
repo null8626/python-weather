@@ -3,7 +3,7 @@
 
 from enum import Enum
 
-from .constants import WIND_DIRECTION_EMOJIS
+from .constants import KIND_EMOJIS, WIND_DIRECTION_EMOJIS
 
 
 class BasicEnum(Enum):
@@ -14,6 +14,10 @@ class BasicEnum(Enum):
 
   def __str__(self) -> str:
     return self.name.replace('_', ' ').title()
+
+  @property
+  def _index(self) -> int:
+    return next(filter(lambda kind: self is kind[1], enumerate(self.__class__)))[0]
 
 
 class IndexedEnum(Enum):
@@ -146,40 +150,9 @@ class WindDirection(BasicEnum):
     return enum
 
   def __contains__(self, other: 'WindDirection | float | int') -> bool:
-    other = float(other)
+    members = list(self.__class__)
 
-    if self is self.NORTH:
-      return other > 348.75 or other <= 11.25
-    elif self is self.NORTH_NORTHEAST:
-      return 11.25 < other <= 33.75
-    elif self is self.NORTHEAST:
-      return 33.75 < other <= 56.25
-    elif self is self.EAST_NORTHEAST:
-      return 56.25 < other <= 78.75
-    elif self is self.EAST:
-      return 78.75 < other <= 101.25
-    elif self is self.EAST_SOUTHEAST:
-      return 101.25 < other <= 123.75
-    elif self is self.SOUTHEAST:
-      return 123.75 < other <= 146.25
-    elif self is self.SOUTH_SOUTHEAST:
-      return 146.25 < other <= 168.75
-    elif self is self.SOUTH:
-      return 168.75 < other <= 191.25
-    elif self is self.SOUTH_SOUTHWEST:
-      return 191.25 < other <= 213.75
-    elif self is self.SOUTHWEST:
-      return 213.75 < other <= 236.25
-    elif self is self.WEST_SOUTHWEST:
-      return 236.25 < other <= 258.75
-    elif self is self.WEST:
-      return 258.75 < other <= 281.25
-    elif self is self.WEST_NORTHWEST:
-      return 281.25 < other <= 303.75
-    elif self is self.NORTHWEST:
-      return 303.75 < other <= 326.25
-    else:
-      return 326.25 < other <= 348.75
+    return self is members[int(((float(other) % 360) + 11.25) // 22.5) % len(members)]
 
   def __int__(self) -> int:
     return int(self.degrees)
@@ -191,7 +164,7 @@ class WindDirection(BasicEnum):
   def emoji(self) -> str:
     """Emoji representation."""
 
-    return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) / 45.0)]
+    return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) // 45)]
 
 
 class Locale(Enum):
@@ -336,42 +309,7 @@ class Kind(BasicEnum):
   def emoji(self) -> str:
     """Emoji representation."""
 
-    if self is self.CLOUDY:
-      return '☁️'
-    elif self is self.FOG:
-      return '🌫'
-    elif self is self.HEAVY_RAIN:
-      return '🌧'
-    elif self is self.HEAVY_SHOWERS:
-      return '🌧'
-    elif self is self.HEAVY_SNOW:
-      return '❄️'
-    elif self is self.HEAVY_SNOW_SHOWERS:
-      return '❄️'
-    elif self is self.LIGHT_RAIN:
-      return '🌦'
-    elif self is self.LIGHT_SHOWERS:
-      return '🌦'
-    elif self is self.LIGHT_SLEET:
-      return '🌧'
-    elif self is self.LIGHT_SLEET_SHOWERS:
-      return '🌧'
-    elif self is self.LIGHT_SNOW:
-      return '🌨'
-    elif self is self.LIGHT_SNOW_SHOWERS:
-      return '🌨'
-    elif self is self.PARTLY_CLOUDY:
-      return '⛅️'
-    elif self is self.SUNNY:
-      return '☀️'
-    elif self is self.THUNDERY_HEAVY_RAIN:
-      return '🌩'
-    elif self is self.THUNDERY_SHOWERS:
-      return '⛈'
-    elif self is self.THUNDERY_SNOW_SHOWERS:
-      return '⛈'
-    else:
-      return '☁️'
+    return KIND_EMOJIS[self._index]
 
 
 class Phase(BasicEnum):
@@ -392,19 +330,4 @@ class Phase(BasicEnum):
   def emoji(self) -> str:
     """Emoji representation."""
 
-    if self is self.NEW_MOON:
-      return '🌑'
-    elif self is self.WAXING_CRESCENT:
-      return '🌒'
-    elif self is self.FIRST_QUARTER:
-      return '🌓'
-    elif self is self.WAXING_GIBBOUS:
-      return '🌔'
-    elif self is self.FULL_MOON:
-      return '🌕'
-    elif self is self.WANING_GIBBOUS:
-      return '🌖'
-    elif self is self.LAST_QUARTER:
-      return '🌗'
-    else:
-      return '🌘'
+    return chr(0x1F311 + self._index)
