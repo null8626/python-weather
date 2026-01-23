@@ -200,3 +200,9 @@ changelog:
       - fix: Fix incorrect return type annotation for ``__iter__`` methods.
       - fix: Refactor typings in accordance with Python 3.10's standards.
       - fix: Improve documentation CSS.
+  - version: 2.1.2
+    release-date: 23 January 2026
+    changes:
+      - fix: Remove redundant repetitive if-statements in enum declarations.
+      - fix: Fix incorrect ``VERSION`` constant.
+      - fix: Bump ``aiohttp`` dependency to ``3.13.3``.
