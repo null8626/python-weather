@@ -27,6 +27,4 @@ jobs:
       - name: Build
         run: python3 -m build
       - name: Publish
-        uses: pypa/gh-action-pypi-publish@v1
-        with:
-          provenance: true
+        uses: pypa/gh-action-pypi-publish@release/v1
