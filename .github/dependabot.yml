@@ -1,10 +1,19 @@
+
 version: 2
 updates:
   - package-ecosystem: pip
     directory: /
     commit-message:
-      prefix: 'deps: '
+      prefix: 'deps[pip]: '
     schedule:
       day: saturday
       interval: weekly
       time: '06:00'
+  - package-ecosystem: github-actions
+    directory: '/'
+    commit-message:
+      prefix: 'deps[ci]: '
+    schedule:
+      day: 'saturday'
+      interval: 'weekly'
+      time: '06:05'
