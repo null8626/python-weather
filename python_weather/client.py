@@ -94,7 +94,8 @@ class Client(CustomizableBase):
     :param locale: Overrides the locale used.
     :type locale: :class:`.Locale` | :py:obj:`None`
 
-    :exception TypeError: ``location`` is not a :py:class:`str` or is empty.
+    :exception TypeError: The specified location is not a string.
+    :exception ValueError: The specified location is empty.
     :exception Error: The client is already closed.
     :exception RequestError: The client received a non-favorable response from the API.
 
@@ -104,9 +105,10 @@ class Client(CustomizableBase):
 
     if self.__session.closed:
       raise Error('Client session is already closed.')
-
-    elif not isinstance(location, str) or not location:
-      raise TypeError(f'Expected a proper location str, got {location!r}')
+    elif not isinstance(location, str):
+      raise TypeError('The specified location must be a string.')
+    elif not location:
+      raise ValueError('The specified location must not be empty.')
 
     if not isinstance(unit, _Unit):
       unit = self._unit
