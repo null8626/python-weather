@@ -1,3 +1,4 @@
+from typing import TYPE_CHECKING
 import sys
 import os
 import re
@@ -6,15 +7,21 @@ import re
 sys.path.insert(0, os.path.join(os.getcwd(), '..', 'python_weather'))
 sys.path.insert(0, os.path.abspath('..'))
 
-from version import VERSION
+if TYPE_CHECKING:
+  from ..python_weather.version import VERSION
+else:
+  from version import VERSION
 
 
 project = 'python-weather'
 author = 'null8626'
-
 copyright = ''
+
 with open('../LICENSE', 'r') as f:
-  copyright = re.search(r'[\d\-]+ null8626', f.read()).group()
+  copyright_match = re.search(rf'[\d\-]+(?:-[\d\-]+)? {author}', f.read())
+  assert copyright_match is not None
+
+  copyright = copyright_match.group()
 
 version = VERSION
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx_reredirects']
