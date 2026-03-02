@@ -17,18 +17,6 @@ if (document.querySelector('section#python-weather')) {
   tocDrawer.remove()
 } else {
   tocDrawer.style.visibility = 'visible'
-  
-  const enumProperties = [...document.querySelectorAll('.property')].filter(x => x.parentElement.children.length === 3)
-
-  for (const enumProperty of enumProperties) {
-    // we don't need to display enum values
-    enumProperty.children[3].innerText = '...'
-    
-    // kill the rest of the children >:)
-    for (let i = 4; i < enumProperty.children.length; i++) {
-      enumProperty.children[i].remove() // eslint-disable-line
-    }
-  }
 }
 
 // remove related pages in the footer
@@ -39,11 +27,14 @@ for (const headerLink of document.querySelectorAll('.headerlink')) {
   headerLink.remove()
 }
 
-for (const label of document.querySelectorAll('.sidebar-container label')) {
-  const link = [...label.parentElement.children].find(child => child.nodeName === 'A')
+for (const page of document.querySelectorAll('.sidebar-scroll li')) {
+  const link = page.querySelector('a')
+  const label = page.querySelector('label')
 
-  link.addEventListener('click', event => {
-    event.preventDefault()
-    label.click()
-  })
+  if (label) {
+    link.addEventListener('click', event => {
+      event.preventDefault()
+      label.click()
+    })
+  }
 }
