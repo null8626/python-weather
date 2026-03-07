@@ -91,11 +91,19 @@ async def test_Client_throws_already_closed_error(
 
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize('location', (None, '', 2, (), {}, []))
-async def test_Client_throws_invalid_location_error(
+async def test_Client_throws_invalid_location_error_if_empty(
+  client: python_weather.Client,
+) -> None:
+  with pytest.raises(ValueError, match='^The specified location must not be empty\\.$'):
+    await client.get('')
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize('location', (None, 2, (), {}, []))
+async def test_Client_throws_invalid_location_error_if_invalid_type(
   client: python_weather.Client, location: Any
 ) -> None:
-  with pytest.raises(TypeError, match='^Expected a proper location str, got '):
+  with pytest.raises(TypeError, match='^The specified location must be a string\\.$'):
     await client.get(location)
 
 
