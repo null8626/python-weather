@@ -1,0 +1,15 @@
+latitude: 37.4275
+longitude: -122.1697
+weather:
+  tonight:
+    temperature: "48F"
+    wind: "6 mph WSW"
+    condition: "Partly cloudy"
+  saturday:
+    temperature: "74F"
+    wind: "5 to 9 mph WNW"
+    condition: "Sunny"
+  sunday:
+    temperature: "82F"
+    wind: "2 to 6 mph NNW"
+    condition: "Mostly sunny"
