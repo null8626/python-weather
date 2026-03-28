@@ -74,7 +74,7 @@ jobs:
           git_commit_gpgsign: true
       - name: Push new commit
         if: ${{ github.event_name == 'workflow_dispatch' && matrix.python-version == 3.14 }}
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           commit: -S
           message: 'chore: update python-weather from manually invoked CI'
@@ -82,7 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Override HEAD commit
         if: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' && matrix.python-version == 3.14 }}
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v10
         with:
           commit: -S --amend --no-edit --no-reset-author
           message: ${{ github.event.head_commit.message }}
