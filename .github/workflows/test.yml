@@ -1,7 +1,6 @@
 name: Run tests and pretty files
 on:
   push:
-    branches: [main]
     tags-ignore: ['**']
     paths:
       - '.github/workflows/test.yml'
