@@ -1,7 +1,6 @@
 name: Update changelog.rst
 on:
   push:
-    branches: [main]
     tags-ignore: ['**']
     paths: [changelog.yml]
   workflow_dispatch: null
