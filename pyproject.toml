@@ -6,7 +6,7 @@ name = "python-weather"
 version = "2.1.2"
 description = "A free and asynchronous weather API wrapper made in Python, for Python."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 authors = [{ name = "null8626" }]
 keywords = ["weather", "forecast", "weather-forecast"]
 dependencies = ["aiohttp>=3.13.3"]
