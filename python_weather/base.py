@@ -3,57 +3,6 @@
 
 from .enums import WindDirection, Kind, Locale, UltraViolet
 from .constants import _Unit
-from .errors import Error
-
-
-class CustomizableBase:
-  __slots__: tuple[str, ...] = '_unit', '_locale'
-
-  _unit: _Unit
-  _locale: Locale
-
-  def __init__(self, unit: _Unit, locale: Locale):
-    self.unit = unit
-    self.locale = locale
-
-  @property
-  def unit(self) -> _Unit:
-    """The measuring unit used."""
-    return self._unit
-
-  @unit.setter
-  def unit(self, to: _Unit) -> None:
-    """
-    Sets the default measuring unit used.
-
-    :param to: The new default measuring unit to be used.
-
-    :exception Error: ``to`` is not either :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL`.
-    """
-    if not isinstance(to, _Unit):
-      raise Error('Invalid measuring unit specified!')
-
-    self._unit = to
-
-  @property
-  def locale(self) -> Locale:
-    """The localization used."""
-    return self._locale
-
-  @locale.setter
-  def locale(self, to: Locale) -> None:
-    """
-    Sets the default localization used.
-
-    :param to: The new :class:`.Locale` to be used.
-    :type to: :class:`.Locale`
-
-    :exception Error: ``to`` is not a part of the :class:`.Locale` enum.
-    """
-    if not isinstance(to, Locale):
-      raise Error(f'Expected {to!r} to be a Locale enum')
-
-    self._locale = to
 
 
 class BaseForecast:

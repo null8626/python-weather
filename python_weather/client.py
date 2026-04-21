@@ -7,13 +7,12 @@ from asyncio import sleep
 
 from .errors import Error, RequestError
 from .constants import _Unit, METRIC
-from .base import CustomizableBase
 from .forecast import Forecast
 from .version import VERSION
 from .enums import Locale
 
 
-class Client(CustomizableBase):
+class Client:
   """
   Interact with the API's endpoints.
 
@@ -45,11 +44,13 @@ class Client(CustomizableBase):
   :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
-  __slots__: tuple[str, ...] = '__own_session', '__session', '_max_retries'
+  __slots__: tuple[str, ...] = '__own_session', '__session', '_max_retries', '_unit', '_locale'
 
   __own_session: bool
   __session: ClientSession
   _max_retries: int
+  _unit: _Unit
+  _locale: Locale
 
   def __init__(
     self,
@@ -59,17 +60,56 @@ class Client(CustomizableBase):
     session: ClientSession | None = None,
     max_retries: int | None = None,
   ):
-    super().__init__(unit, locale)
-
     self.__own_session = session is None
     self.__session = session or ClientSession(
       timeout=ClientTimeout(total=5000.0),
       connector=TCPConnector(ssl=False),
     )
     self._max_retries = max_retries or 3
+    self.unit = unit
+    self.locale = locale
 
   def __repr__(self) -> str:
     return f'<{__class__.__module__}.{__class__.__name__} {self.__session!r}>'
+
+  @property
+  def unit(self) -> _Unit:
+    """The measuring unit used."""
+    return self._unit
+
+  @unit.setter
+  def unit(self, to: _Unit) -> None:
+    """
+    Sets the default measuring unit used.
+
+    :param to: The new default measuring unit to be used.
+
+    :exception Error: ``to`` is not either :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL`.
+    """
+    if not isinstance(to, _Unit):
+      raise Error('Invalid measuring unit specified!')
+
+    self._unit = to
+
+  @property
+  def locale(self) -> Locale:
+    """The localization used."""
+    return self._locale
+
+  @locale.setter
+  def locale(self, to: Locale) -> None:
+    """
+    Sets the default localization used.
+
+    :param to: The new :class:`.Locale` to be used.
+    :type to: :class:`.Locale`
+
+    :exception Error: ``to`` is not a part of the :class:`.Locale` enum.
+    """
+    if not isinstance(to, Locale):
+      raise Error(f'Expected {to!r} to be a Locale enum')
+
+    self._locale = to
 
   async def get(
     self,
