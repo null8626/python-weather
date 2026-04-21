@@ -13,7 +13,6 @@ from .enums import Locale
 
 
 class Client:
-
   """
   Interact with the API's endpoints.
 
@@ -71,6 +70,7 @@ class Client:
     self.locale = locale
 
   def __repr__(self) -> str:
+    """The client's debug string representation."""
     return f'<{__class__.__module__}.{__class__.__name__} {self.__session!r}>'
 
   @property
@@ -186,7 +186,7 @@ class Client:
 
   async def close(self) -> None:
     """
-    Closes the :class:`.Client` object.
+    Closes the client.
 
     Example:
 
@@ -198,7 +198,9 @@ class Client:
       await self.__session.close()
 
   async def __aenter__(self) -> 'Client':
+    """Starts using the client. This method is no-op and just returns itself."""
     return self
 
   async def __aexit__(self, *_, **__) -> None:
+    """Closes the client."""
     await self.close()

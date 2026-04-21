@@ -7,12 +7,16 @@ from .constants import KIND_EMOJIS, WIND_DIRECTION_EMOJIS
 
 
 class BasicEnum(Enum):
+  """An ordinary enum."""
+
   __slots__: tuple[str, ...] = ()
 
   def __repr__(self) -> str:
+    """The enum's debug string representation."""
     return f'{self.__class__.__name__}.{self.name}'
 
   def __str__(self) -> str:
+    """The enum's friendly name."""
     return self.name.replace('_', ' ').title()
 
   @property
@@ -21,41 +25,50 @@ class BasicEnum(Enum):
 
 
 class IndexedEnum(Enum):
+  """An enum that carries an index value."""
+
   __slots__: tuple[str, ...] = ('index',)
 
   index: int
   """The index value."""
 
   def __lt__(self, other: 'IndexedEnum | float | int') -> bool:
+    """Checks if the enum's index value is less than the other."""
     return float(self.index) < float(other)
 
   def __le__(self, other: 'IndexedEnum | float | int') -> bool:
+    """Checks if the enum's index value is less than or equal to the other."""
     return float(self.index) <= float(other)
 
   def __eq__(self, other: object) -> bool:
+    """Checks if the enum's index value is equal to the other."""
     if other_float := getattr(other, '__float__', None):
       return float(self.index) == other_float()
 
     return False  # pragma: nocover
 
   def __gt__(self, other: 'IndexedEnum | float | int') -> bool:
+    """Checks if the enum's index value is greater than the other."""
     return float(self.index) > float(other)
 
   def __ge__(self, other: 'IndexedEnum | float | int') -> bool:
+    """Checks if the enum's index value is greater than or equal to the other."""
     return float(self.index) >= float(other)
 
   def __hash__(self) -> int:
+    """The enum's index value."""
     return self.index
 
   def __int__(self) -> int:
+    """The enum's index value."""
     return self.index
 
   def __float__(self) -> float:
+    """The floating point representation of the enum's index value."""
     return float(self.index)
 
 
 class HeatIndex(IndexedEnum):
-
   """A heat index."""
 
   __slots__: tuple[str, ...] = ()
@@ -86,7 +99,6 @@ class HeatIndex(IndexedEnum):
 
 
 class UltraViolet(BasicEnum, IndexedEnum):
-
   """An ultra-violet (UV) index."""
 
   __slots__: tuple[str, ...] = ()
@@ -120,7 +132,6 @@ class UltraViolet(BasicEnum, IndexedEnum):
 
 
 class WindDirection(BasicEnum):
-
   """A wind direction."""
 
   __slots__: tuple[str, ...] = ('degrees',)
@@ -143,7 +154,7 @@ class WindDirection(BasicEnum):
   NORTH_NORTHWEST = 'NNW'
 
   degrees: float
-  """The wind direction's value in degrees."""
+  """The wind direction's angle in degrees."""
 
   @staticmethod
   def _new(value: str, degrees: float) -> 'WindDirection':
@@ -153,25 +164,27 @@ class WindDirection(BasicEnum):
     return enum
 
   def __contains__(self, other: 'WindDirection | float | int') -> bool:
+    """Checks if the other's angle is within the enum's wind direction."""
     members = list(self.__class__)
 
     return self is members[int(((float(other) % 360) + 11.25) // 22.5) % len(members)]
 
   def __int__(self) -> int:
+    """The integer representation of the wind direction's angle."""
     return int(self.degrees)
 
   def __float__(self) -> float:
+    """The wind direction's angle."""
     return self.degrees
 
   @property
   def emoji(self) -> str:
-    """Emoji representation."""
+    """The wind direction's emoji representation."""
     return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) // 45)]
 
 
 class Locale(Enum):
-
-  """Supported locales/languages."""
+  """A supported locale."""
 
   __slots__: tuple[str, ...] = ()
 
@@ -249,16 +262,17 @@ class Locale(Enum):
   ZULU = 'zu'
 
   def __repr__(self) -> str:
+    """The locale's debug string representation."""
     return f'{__class__.__name__}.{self.name}'
 
   def __str__(self) -> str:
+    """The locale's friendly name."""
     arr = self.name.title().split('_')
 
     return f'{" ".join(arr[:-1])} ({arr[-1]})' if len(arr) != 1 else arr[0]
 
 
 class Kind(BasicEnum):
-
   """A weather forecast kind."""
 
   __slots__: tuple[str, ...] = ()
@@ -311,12 +325,11 @@ class Kind(BasicEnum):
 
   @property
   def emoji(self) -> str:
-    """Emoji representation."""
+    """The weather forecast kind's emoji representation."""
     return KIND_EMOJIS[self._index]
 
 
 class Phase(BasicEnum):
-
   """A moon phase."""
 
   __slots__: tuple[str, ...] = ()
@@ -332,5 +345,5 @@ class Phase(BasicEnum):
 
   @property
   def emoji(self) -> str:
-    """Emoji representation."""
+    """The moon phase's emoji representation."""
     return chr(0x1F311 + self._index)

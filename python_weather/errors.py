@@ -3,14 +3,12 @@
 
 
 class Error(Exception):
-
   """The base error class. Extends :py:class:`Exception`."""
 
   __slots__: tuple[str, ...] = ()
 
 
 class RequestError(Error):
-
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 
   __slots__: tuple[str, ...] = 'status', 'reason'
@@ -28,4 +26,5 @@ class RequestError(Error):
     super().__init__(f'{status}: {reason}')
 
   def __repr__(self) -> str:  # pragma: nocover
+    """The error's debug string representation."""
     return f'<{__class__.__module__}.{__class__.__name__} status={self.status} reason={self.reason!r}>'

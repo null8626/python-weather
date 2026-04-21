@@ -5,6 +5,8 @@ import re
 
 
 class _Unit:
+  """A supported measurement unit."""
+
   __slots__: tuple[str, ...] = (
     'temperature',
     'velocity',
@@ -38,6 +40,7 @@ class _Unit:
     self.cm_divisor = cm_divisor
 
   def __repr__(self) -> str:
+    """The unit's debug string representation."""
     return f'<Unit [{self.temperature}, {self.velocity}]>'
 
 

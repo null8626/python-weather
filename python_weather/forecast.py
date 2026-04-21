@@ -15,7 +15,6 @@ if TYPE_CHECKING:
 
 
 class HourlyForecast(BaseForecast):
-
   """A weather forecast for a specific hour."""
 
   __slots__: tuple[str, ...] = (
@@ -114,11 +113,11 @@ class HourlyForecast(BaseForecast):
     super().__init__(json, unit, locale)
 
   def __repr__(self) -> str:
+    """The forecast's debug string representation."""
     return f'<{__class__.__module__}.{__class__.__name__} time={self.time!r} temperature={self.temperature} kind={self.kind!r}>'
 
 
 class DailyForecast:
-
   """A weather forecast for a specific day."""
 
   __slots__: tuple[str, ...] = (
@@ -203,17 +202,19 @@ class DailyForecast:
       ...
 
   def __repr__(self) -> str:
+    """The forecast's debug string representation."""
     return f'<{__class__.__module__}.{__class__.__name__} date={self.date!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
+    """The amount of hourly forecasts."""
     return len(self.hourly_forecasts)
 
   def __iter__(self) -> Iterator[HourlyForecast]:
+    """Iterates through the hourly forecasts."""
     return iter(self.hourly_forecasts)
 
 
 class Forecast(BaseForecast):
-
   """A set of weather forecasts for a certain location."""
 
   __slots__: tuple[str, ...] = (
@@ -275,10 +276,13 @@ class Forecast(BaseForecast):
     super().__init__(current, unit, locale)
 
   def __repr__(self) -> str:
+    """The forecast's debug string representation."""
     return f'<{__class__.__module__}.{__class__.__name__} location={self.location!r} datetime={self.datetime!r} temperature={self.temperature}>'
 
   def __len__(self) -> int:
+    """The amount of daily forecasts."""
     return len(self.daily_forecasts)
 
   def __iter__(self) -> Iterator[DailyForecast]:
+    """Iterates through the daily forecasts."""
     return iter(self.daily_forecasts)
