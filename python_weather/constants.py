@@ -5,7 +5,6 @@ import re
 
 
 class _Unit:
-
   """A supported measurement unit."""
 
   __slots__: tuple[str, ...] = (
