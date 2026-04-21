@@ -206,3 +206,10 @@ changelog:
       - fix: Remove redundant repetitive if-statements in enum declarations.
       - fix: Fix incorrect ``VERSION`` constant.
       - fix: Bump ``aiohttp`` dependency to ``3.13.3``.
+  - version: 2.2.0
+    release-date: 21 April 2026
+    changes:
+      - fix: Fix mismatched content-type bug.
+      - fix: Raise :py:class:`.ValueError` instead of :py:class:`TypeError` when the specified value(s) are invalid.
+      - fix: Merge ``CustomizableBase`` with :class:`.Client`.
+      - fix: Bump ``aiohttp`` dependency to ``3.13.5``.
