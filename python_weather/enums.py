@@ -163,7 +163,6 @@ class WindDirection(BasicEnum):
   @property
   def emoji(self) -> str:
     """Emoji representation."""
-
     return WIND_DIRECTION_EMOJIS[int(((self.degrees + 22.5) % 360) // 45)]
 
 
@@ -308,7 +307,6 @@ class Kind(BasicEnum):
   @property
   def emoji(self) -> str:
     """Emoji representation."""
-
     return KIND_EMOJIS[self._index]
 
 
@@ -329,5 +327,4 @@ class Phase(BasicEnum):
   @property
   def emoji(self) -> str:
     """Emoji representation."""
-
     return chr(0x1F311 + self._index)

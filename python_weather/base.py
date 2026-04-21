@@ -19,7 +19,6 @@ class CustomizableBase:
   @property
   def unit(self) -> _Unit:
     """The measuring unit used."""
-
     return self._unit
 
   @unit.setter
@@ -31,7 +30,6 @@ class CustomizableBase:
 
     :exception Error: ``to`` is not either :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL`.
     """
-
     if not isinstance(to, _Unit):
       raise Error('Invalid measuring unit specified!')
 
@@ -40,7 +38,6 @@ class CustomizableBase:
   @property
   def locale(self) -> Locale:
     """The localization used."""
-
     return self._locale
 
   @locale.setter
@@ -53,7 +50,6 @@ class CustomizableBase:
 
     :exception Error: ``to`` is not a part of the :class:`.Locale` enum.
     """
-
     if not isinstance(to, Locale):
       raise Error(f'Expected {to!r} to be a Locale enum')
 
@@ -61,6 +57,8 @@ class CustomizableBase:
 
 
 class BaseForecast:
+  """A base weather forecast."""
+
   __slots__: tuple[str, ...] = (
     'cloud_cover',
     'ultraviolet',

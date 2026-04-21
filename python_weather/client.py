@@ -102,7 +102,6 @@ class Client(CustomizableBase):
     :returns: The requested weather forecast.
     :rtype: Forecast
     """
-
     if self.__session.closed:
       raise Error('Client session is already closed.')
     elif not isinstance(location, str):
@@ -154,7 +153,6 @@ class Client(CustomizableBase):
 
       await client.close()
     """
-
     if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
