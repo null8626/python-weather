@@ -136,7 +136,7 @@ class Client(CustomizableBase):
 
           resp.raise_for_status()
 
-          return Forecast(await resp.json(), unit, locale)
+          return Forecast(await resp.json(content_type='application/text'), unit, locale)
       except ClientResponseError:
         if attempts == self._max_retries:
           raise RequestError(status, reason) from None
