@@ -13,6 +13,7 @@ from .enums import Locale
 
 
 class Client:
+
   """
   Interact with the API's endpoints.
 

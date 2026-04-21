@@ -3,12 +3,14 @@
 
 
 class Error(Exception):
+
   """The base error class. Extends :py:class:`Exception`."""
 
   __slots__: tuple[str, ...] = ()
 
 
 class RequestError(Error):
+
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 
   __slots__: tuple[str, ...] = 'status', 'reason'

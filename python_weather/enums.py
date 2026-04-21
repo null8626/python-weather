@@ -55,6 +55,7 @@ class IndexedEnum(Enum):
 
 
 class HeatIndex(IndexedEnum):
+
   """A heat index."""
 
   __slots__: tuple[str, ...] = ()
@@ -85,6 +86,7 @@ class HeatIndex(IndexedEnum):
 
 
 class UltraViolet(BasicEnum, IndexedEnum):
+
   """An ultra-violet (UV) index."""
 
   __slots__: tuple[str, ...] = ()
@@ -118,6 +120,7 @@ class UltraViolet(BasicEnum, IndexedEnum):
 
 
 class WindDirection(BasicEnum):
+
   """A wind direction."""
 
   __slots__: tuple[str, ...] = ('degrees',)
@@ -167,6 +170,7 @@ class WindDirection(BasicEnum):
 
 
 class Locale(Enum):
+
   """Supported locales/languages."""
 
   __slots__: tuple[str, ...] = ()
@@ -254,6 +258,7 @@ class Locale(Enum):
 
 
 class Kind(BasicEnum):
+
   """A weather forecast kind."""
 
   __slots__: tuple[str, ...] = ()
@@ -311,6 +316,7 @@ class Kind(BasicEnum):
 
 
 class Phase(BasicEnum):
+
   """A moon phase."""
 
   __slots__: tuple[str, ...] = ()

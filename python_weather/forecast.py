@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 
 class HourlyForecast(BaseForecast):
+
   """A weather forecast for a specific hour."""
 
   __slots__: tuple[str, ...] = (
@@ -117,6 +118,7 @@ class HourlyForecast(BaseForecast):
 
 
 class DailyForecast:
+
   """A weather forecast for a specific day."""
 
   __slots__: tuple[str, ...] = (
@@ -211,6 +213,7 @@ class DailyForecast:
 
 
 class Forecast(BaseForecast):
+
   """A set of weather forecasts for a certain location."""
 
   __slots__: tuple[str, ...] = (

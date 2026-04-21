@@ -6,6 +6,7 @@ from .constants import _Unit
 
 
 class BaseForecast:
+
   """A base weather forecast."""
 
   __slots__: tuple[str, ...] = (
