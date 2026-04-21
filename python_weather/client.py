@@ -44,7 +44,13 @@ class Client:
   :exception Error: ``unit`` is not :data:`~.constants.METRIC` or :data:`~.constants.IMPERIAL` or ``locale`` is not a part of the :class:`.Locale` enum.
   """
 
-  __slots__: tuple[str, ...] = '__own_session', '__session', '_max_retries', '_unit', '_locale'
+  __slots__: tuple[str, ...] = (
+    '__own_session',
+    '__session',
+    '_max_retries',
+    '_unit',
+    '_locale',
+  )
 
   __own_session: bool
   __session: ClientSession
@@ -176,7 +182,9 @@ class Client:
 
           resp.raise_for_status()
 
-          return Forecast(await resp.json(content_type='application/text'), unit, locale)
+          return Forecast(
+            await resp.json(content_type='application/text'), unit, locale
+          )
       except ClientResponseError:
         if attempts == self._max_retries:
           raise RequestError(status, reason) from None
