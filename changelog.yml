@@ -213,3 +213,7 @@ changelog:
       - fix: Raise :py:class:`.ValueError` instead of :py:class:`TypeError` when the specified value(s) are invalid.
       - fix: Merge ``CustomizableBase`` with :class:`.Client`.
       - fix: Bump ``aiohttp`` dependency to ``3.13.5``.
+  - version: 2.2.1
+    release-date: 29 April 2026
+    changes:
+      - fix: Fix another mismatched content-type bug.
