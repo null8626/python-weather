@@ -11,7 +11,7 @@ class Error(Exception):
   __slots__: tuple[str, ...] = ()
 
 
-@dataclass(repr=False, slots=True)
+@dataclass(frozen=True, repr=False, slots=True)
 class RequestError(Error):
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
 

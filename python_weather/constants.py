@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import re
 
 
-@dataclass(repr=False, slots=True)
+@dataclass(frozen=True, repr=False, slots=True)
 class _Unit:
   """A supported measurement unit."""
 

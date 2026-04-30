@@ -150,7 +150,7 @@ class RequestMock:
   def __enter__(self) -> mock.Mock:
     return mock.Mock(return_value=nullcontext(self.__mock_response))
 
-  def __exit__(self, *_: Any) -> None:
+  def __exit__(self, *_: 'Any') -> None:
     if self.__mock_json_response is not None:
       self.__mock_json_response.close()
       self.__mock_json_response = None
