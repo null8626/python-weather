@@ -2,7 +2,6 @@
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
 from datetime import datetime, date, time
-from collections.abc import Iterator
 from typing import TYPE_CHECKING
 
 from .enums import Phase, HeatIndex
@@ -10,6 +9,8 @@ from .constants import LATLON_REGEX
 from .base import BaseForecast
 
 if TYPE_CHECKING:
+  from collections.abc import Iterator
+
   from .constants import _Unit
   from .enums import Locale
 
@@ -209,7 +210,7 @@ class DailyForecast:
     """The amount of hourly forecasts."""
     return len(self.hourly_forecasts)
 
-  def __iter__(self) -> Iterator[HourlyForecast]:
+  def __iter__(self) -> 'Iterator[HourlyForecast]':
     """Iterates through the hourly forecasts."""
     return iter(self.hourly_forecasts)
 
@@ -283,6 +284,6 @@ class Forecast(BaseForecast):
     """The amount of daily forecasts."""
     return len(self.daily_forecasts)
 
-  def __iter__(self) -> Iterator[DailyForecast]:
+  def __iter__(self) -> 'Iterator[DailyForecast]':
     """Iterates through the daily forecasts."""
     return iter(self.daily_forecasts)

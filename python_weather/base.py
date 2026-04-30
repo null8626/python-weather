@@ -1,8 +1,12 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
+from typing import TYPE_CHECKING
+
 from .enums import WindDirection, Kind, Locale, UltraViolet
-from .constants import _Unit
+
+if TYPE_CHECKING:
+  from .constants import _Unit
 
 
 class BaseForecast:
@@ -59,7 +63,7 @@ class BaseForecast:
   description: str
   """The description regarding the forecast depending on the localization used."""
 
-  def __init__(self, json: dict, unit: _Unit, locale: Locale):
+  def __init__(self, json: dict, unit: '_Unit', locale: Locale):
     description = (
       json['weatherDesc'][0]['value']
       if locale is Locale.ENGLISH
