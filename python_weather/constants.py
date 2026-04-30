@@ -1,20 +1,13 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
+from dataclasses import dataclass
 import re
 
 
+@dataclass(repr=False, slots=True)
 class _Unit:
   """A supported measurement unit."""
-
-  __slots__: tuple[str, ...] = (
-    'temperature',
-    'velocity',
-    'pressure',
-    'precipitation',
-    'visibility',
-    'cm_divisor',
-  )
 
   temperature: str
   velocity: str
@@ -22,22 +15,6 @@ class _Unit:
   precipitation: str
   visibility: str
   cm_divisor: float | int
-
-  def __init__(
-    self,
-    temperature: str,
-    velocity: str,
-    pressure: str,
-    precipitation: str,
-    visibility: str,
-    cm_divisor: float | int,
-  ):
-    self.temperature = temperature
-    self.velocity = velocity
-    self.pressure = pressure
-    self.precipitation = precipitation
-    self.visibility = visibility
-    self.cm_divisor = cm_divisor
 
   def __repr__(self) -> str:
     """The unit's debug string representation."""
