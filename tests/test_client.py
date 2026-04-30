@@ -4,10 +4,13 @@ import sys
 sys.path.insert(0, path.join(path.dirname(path.realpath(__file__)), '..'))
 
 
-from typing import Any, AsyncGenerator
+from typing import TYPE_CHECKING
 import pytest_asyncio
 import pytest
 import mock
+
+if TYPE_CHECKING:
+  from typing import Any, AsyncGenerator
 
 import python_weather
 

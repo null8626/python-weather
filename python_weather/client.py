@@ -64,14 +64,14 @@ class Client:
     unit: _Unit = METRIC,
     locale: Locale = Locale.ENGLISH,
     session: ClientSession | None = None,
-    max_retries: int | None = None,
+    max_retries: int = 3,
   ):
     self.__own_session = session is None
     self.__session = session or ClientSession(
       timeout=ClientTimeout(total=5000.0),
       connector=TCPConnector(ssl=False),
     )
-    self._max_retries = max_retries or 3
+    self._max_retries = max_retries
     self.unit = unit
     self.locale = locale
 
