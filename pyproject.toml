@@ -34,6 +34,9 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 
+[project.optional-dependencies]
+dev = ["mock>=5.2.0", "pytest>=9.0.3", "pytest-asyncio>=1.3.0", "pytest-cov>=7.1.0", "multidict>=6.7.1", "yarl>=1.23.0"]
+
 [project.urls]
 Documentation = "https://python-weather.readthedocs.io/en/latest/"
 Repository = "https://github.com/null8626/python-weather"

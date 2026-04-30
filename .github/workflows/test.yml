@@ -32,8 +32,7 @@ jobs:
           architecture: x64
       - name: Install test dependencies
         run: |
-          python3 -m pip install .
-          python3 -m pip install -r tests/requirements.txt
+          python3 -m pip install .[dev]
       - name: Install ruff
         if: ${{ matrix.python-version == 3.14 }}
         run: python3 -m pip install ruff
