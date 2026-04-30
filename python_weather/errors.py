@@ -2,16 +2,18 @@
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
 
+from dataclasses import dataclass
+
+
 class Error(Exception):
   """The base error class. Extends :py:class:`Exception`."""
 
   __slots__: tuple[str, ...] = ()
 
 
+@dataclass(repr=False, slots=True)
 class RequestError(Error):
   """Thrown upon HTTP request failure. Extends :class:`.Error`."""
-
-  __slots__: tuple[str, ...] = 'status', 'reason'
 
   status: int | None
   """The status code."""
@@ -19,11 +21,8 @@ class RequestError(Error):
   reason: str | None
   """The reason for this status code."""
 
-  def __init__(self, status: int | None, reason: str | None):
-    self.status = status
-    self.reason = reason
-
-    super().__init__(f'{status}: {reason}')
+  def __post_init__(self) -> None:
+    super(Error, self).__init__(f'{self.status}: {self.reason}')
 
   def __repr__(self) -> str:  # pragma: nocover
     """The error's debug string representation."""
