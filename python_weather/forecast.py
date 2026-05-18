@@ -257,7 +257,10 @@ class Forecast(BaseForecast):
     self.region = nearest['region'][0]['value']
     self.location = nearest['areaName'][0]['value']
     self.country = nearest['country'][0]['value']
-    self.datetime = datetime.strptime(current['localObsDateTime'], '%Y-%m-%d %I:%M %p')
+    self.datetime = datetime.combine(
+      datetime.today(),
+      datetime.strptime(current['observation_time'], '%I:%M %p').time()
+    )
 
     try:
       req = next(filter(lambda x: x['type'] == 'LatLon', json['request']))
