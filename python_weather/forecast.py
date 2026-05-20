@@ -259,7 +259,7 @@ class Forecast(BaseForecast):
     self.country = nearest['country'][0]['value']
     self.datetime = datetime.combine(
       datetime.today(),
-      datetime.strptime(current['observation_time'], '%I:%M %p').time()
+      datetime.strptime(current['observation_time'], '%I:%M %p').time(),
     )
 
     try:

@@ -217,3 +217,7 @@ changelog:
     release-date: 29 April 2026
     changes:
       - fix: Fix another mismatched content-type bug.
+  - version: 2.2.2
+    release-date: 21 May 2026
+    changes:
+      - fix: Adapt to ``localObsDateTime`` JSON property removal.
