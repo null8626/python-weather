@@ -15,7 +15,7 @@ jobs:
       url: https://pypi.org/p/python-weather
     steps:
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
       - name: Setup Python
