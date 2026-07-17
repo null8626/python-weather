@@ -298,7 +298,7 @@ class Kind(BasicEnum):
 
   @classmethod
   def _missing_(cls, value: object) -> 'Kind | None':
-    if value in (248, 260):
+    if value in (149, 248, 260):
       return cls.FOG
     elif value in (263, 353):
       return cls.LIGHT_SHOWERS
