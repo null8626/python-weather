@@ -22,11 +22,11 @@ jobs:
         python-version: ['3.10', 3.11, 3.12, 3.13, 3.14]
     steps:
       - name: Clone repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 2
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
@@ -40,7 +40,7 @@ jobs:
         run: python3 -m pytest -x --cov=python_weather --cov-report term-missing --cov-report=xml --junitxml=junit.xml
       - name: Upload coverage results to Codecov
         if: ${{ github.event_name != 'pull_request' }}
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           files: ./coverage.xml
           flags: python-${{ matrix.python-version }}
