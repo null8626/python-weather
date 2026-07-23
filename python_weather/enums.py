@@ -295,10 +295,11 @@ class Kind(BasicEnum):
   HEAVY_SNOW_SHOWERS = 335
   THUNDERY_HEAVY_RAIN = 389
   THUNDERY_SNOW_SHOWERS = 392
+  SMOKY_HAZE = 149
 
   @classmethod
   def _missing_(cls, value: object) -> 'Kind | None':
-    if value in (149, 248, 260):
+    if value in (248, 260):
       return cls.FOG
     elif value in (263, 353):
       return cls.LIGHT_SHOWERS
