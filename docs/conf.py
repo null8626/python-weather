@@ -1,8 +1,7 @@
-from typing import TYPE_CHECKING
-import sys
 import os
 import re
-
+import sys
+from typing import TYPE_CHECKING
 
 sys.path.insert(0, os.path.join(os.getcwd(), '..', 'python_weather'))
 sys.path.insert(0, os.path.abspath('..'))

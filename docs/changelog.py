@@ -1,9 +1,10 @@
-import yaml
 import os
+
+import yaml
 
 
 class Row:
-  __slots__: tuple[str, ...] = 'header_name', 'rows', 'character_length'
+  __slots__: tuple[str, ...] = 'character_length', 'header_name', 'rows'
 
   header_name: str
   rows: list[str]
@@ -42,10 +43,10 @@ def render_lines(rows: list[Row], character: str = '-') -> str:
 
 
 def render_contents(rows: list[Row], idx: int) -> str:
-  max_row_lines = max(map(lambda row: len(row.rows[idx].splitlines()), rows))
+  max_row_lines = max(len(row.rows[idx].splitlines()) for row in rows)
   output = ''
 
-  for current_idx in range(0, max_row_lines):
+  for current_idx in range(max_row_lines):
     last_row_idx = len(rows) - 1
 
     for row_idx, row in enumerate(rows):
@@ -71,7 +72,7 @@ def render(rows: list[Row]) -> str:
   # All rows have the same length of rows, get it?
   last_row_idx = len(rows[0].rows) - 1
 
-  for row_idx in range(0, last_row_idx + 1):
+  for row_idx in range(last_row_idx + 1):
     output += f'{render_contents(rows, row_idx)}\n{render_lines(rows)}'
 
     if row_idx != last_row_idx:
@@ -94,7 +95,7 @@ with open(os.path.join(os.path.abspath('..'), 'changelog.yml')) as yml_stream:
     change_strings = []
 
     for change in changelog['changes']:
-      key = list(change.keys())[0]
+      key = next(iter(change.keys()))
 
       change_strings.append(f'- {CHANGE_EMOJIS[key]} {change[key]}')
 

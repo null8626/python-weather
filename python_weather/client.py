@@ -1,15 +1,16 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
-from aiohttp import ClientSession, ClientTimeout, ClientResponseError, TCPConnector
-from urllib.parse import quote_plus
 from asyncio import sleep
+from urllib.parse import quote_plus
 
+from aiohttp import ClientResponseError, ClientSession, ClientTimeout, TCPConnector
+
+from .constants import METRIC, _Unit
+from .enums import Locale
 from .errors import Error, RequestError
-from .constants import _Unit, METRIC
 from .forecast import Forecast
 from .version import VERSION
-from .enums import Locale
 
 
 class Client:
@@ -47,9 +48,9 @@ class Client:
   __slots__: tuple[str, ...] = (
     '__own_session',
     '__session',
+    '_locale',
     '_max_retries',
     '_unit',
-    '_locale',
   )
 
   __own_session: bool

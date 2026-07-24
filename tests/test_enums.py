@@ -1,14 +1,13 @@
-from os import path
 import sys
+from os import path
 
 sys.path.insert(0, path.join(path.dirname(path.realpath(__file__)), '..'))
 
 
 import pytest
+from util import _test_attributes
 
 import python_weather
-
-from util import _test_attributes
 
 
 @pytest.fixture(params=iter(python_weather.Phase))

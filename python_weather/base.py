@@ -3,7 +3,7 @@
 
 from typing import TYPE_CHECKING
 
-from .enums import WindDirection, Kind, Locale, UltraViolet
+from .enums import Kind, Locale, UltraViolet, WindDirection
 
 if TYPE_CHECKING:
   from .constants import _Unit
@@ -14,17 +14,17 @@ class BaseForecast:
 
   __slots__: tuple[str, ...] = (
     'cloud_cover',
-    'ultraviolet',
-    'humidity',
-    'wind_direction',
-    'kind',
+    'description',
     'feels_like',
-    'temperature',
+    'humidity',
+    'kind',
     'precipitation',
     'pressure',
+    'temperature',
+    'ultraviolet',
     'visibility',
+    'wind_direction',
     'wind_speed',
-    'description',
   )
 
   cloud_cover: int

@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
-from datetime import datetime, date, time
+from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
-from .enums import Phase, HeatIndex
-from .constants import LATLON_REGEX
 from .base import BaseForecast
+from .constants import LATLON_REGEX
+from .enums import HeatIndex, Phase
 
 if TYPE_CHECKING:
   from collections.abc import Iterator
@@ -29,9 +29,9 @@ class HourlyForecast(BaseForecast):
     'chances_of_sunshine',
     'chances_of_thunder',
     'chances_of_windy',
-    'time',
     'dew_point',
     'heat_index',
+    'time',
     'wind_chill',
     'wind_gust',
   )
@@ -122,19 +122,19 @@ class DailyForecast:
   """A weather forecast for a specific day."""
 
   __slots__: tuple[str, ...] = (
+    'date',
+    'highest_temperature',
+    'hourly_forecasts',
+    'lowest_temperature',
     'moon_illumination',
     'moon_phase',
     'moonrise',
     'moonset',
+    'snowfall',
+    'sunlight',
     'sunrise',
     'sunset',
-    'date',
-    'sunlight',
-    'lowest_temperature',
-    'highest_temperature',
     'temperature',
-    'snowfall',
-    'hourly_forecasts',
   )
 
   moon_illumination: int
@@ -219,13 +219,13 @@ class Forecast(BaseForecast):
   """A set of weather forecasts for a certain location."""
 
   __slots__: tuple[str, ...] = (
-    'local_population',
-    'region',
-    'location',
-    'country',
-    'datetime',
     'coordinates',
+    'country',
     'daily_forecasts',
+    'datetime',
+    'local_population',
+    'location',
+    'region',
   )
 
   local_population: int

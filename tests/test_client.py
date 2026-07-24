@@ -1,20 +1,22 @@
-from os import path
 import sys
+from os import path
 
 sys.path.insert(0, path.join(path.dirname(path.realpath(__file__)), '..'))
 
 
 from typing import TYPE_CHECKING
-import pytest_asyncio
+from unittest import mock
+
 import pytest
-import mock
+import pytest_asyncio
 
 if TYPE_CHECKING:
-  from typing import Any, AsyncGenerator
+  from collections.abc import AsyncGenerator
+  from typing import Any
+
+from util import RequestMock, _test_attributes
 
 import python_weather
-
-from util import _test_attributes, RequestMock
 
 
 def example_code(weather: python_weather.Forecast) -> None:
