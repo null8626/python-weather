@@ -221,3 +221,8 @@ changelog:
     release-date: 21 May 2026
     changes:
       - fix: Adapt to ``localObsDateTime`` JSON property removal.
+  - version: 2.2.3
+    release-date: 24 July 2026
+    changes:
+      - add: Add ``SMOKY_HAZE`` to :class:`.Kind`.
+      - fix: Bump several dependencies, including ``aiohttp`` to ``3.14.3``.
