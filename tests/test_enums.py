@@ -34,6 +34,7 @@ def test_HeatIndex_works(index: int) -> None:
     119,
     122,
     143,
+    149,
     176,
     179,
     182,

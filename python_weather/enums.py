@@ -295,6 +295,7 @@ class Kind(BasicEnum):
   HEAVY_SNOW_SHOWERS = 335
   THUNDERY_HEAVY_RAIN = 389
   THUNDERY_SNOW_SHOWERS = 392
+  SMOKY_HAZE = 149
 
   @classmethod
   def _missing_(cls, value: object) -> 'Kind | None':
