@@ -9,7 +9,7 @@ readme = "README.md"
 license = "MIT"
 authors = [{ name = "null8626" }]
 keywords = ["weather", "forecast", "weather-forecast"]
-dependencies = ["aiohttp>=3.14.1"]
+dependencies = ["aiohttp>=3.14.3"]
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Education",
