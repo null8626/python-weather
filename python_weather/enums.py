@@ -299,7 +299,9 @@ class Kind(BasicEnum):
 
   @classmethod
   def _missing_(cls, value: object) -> 'Kind | None':
-    if value in (248, 260):
+    if value == 125:
+      return cls.CLOUDY
+    elif value in (248, 260):
       return cls.FOG
     elif value in (263, 353):
       return cls.LIGHT_SHOWERS
@@ -323,6 +325,8 @@ class Kind(BasicEnum):
       return cls.LIGHT_SNOW_SHOWERS
     elif value in (371, 395):
       return cls.HEAVY_SNOW_SHOWERS
+    elif value == 146:
+      return cls.SMOKY_HAZE
 
   @property
   def emoji(self) -> str:
