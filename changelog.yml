@@ -226,3 +226,7 @@ changelog:
     changes:
       - add: Add ``SMOKY_HAZE`` to :class:`.Kind`.
       - fix: Bump several dependencies, including ``aiohttp`` to ``3.14.3``.
+  - version: 2.2.4
+    release-date: 16 September 2026
+    changes:
+      - fix: Fix :py:class:`.ValueError` ``125`` or ``146`` is not a valid :class:`.Kind`.
