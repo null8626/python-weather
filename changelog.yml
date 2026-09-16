@@ -230,3 +230,7 @@ changelog:
     release-date: 16 September 2026
     changes:
       - fix: Fix :py:class:`.ValueError` ``125`` or ``146`` is not a valid :class:`.Kind`.
+  - version: 2.2.5
+    release-date: 16 September 2026
+    changes:
+      - fix: Fix time serialization error in different locales.

@@ -1,3 +1,5 @@
+import itertools
+import locale
 import sys
 from os import path
 
@@ -29,11 +31,20 @@ def example_code(weather: python_weather.Forecast) -> None:
       print(f' --> {hourly!r}')
 
 
-@pytest_asyncio.fixture(params=(python_weather.METRIC, python_weather.IMPERIAL))
+@pytest_asyncio.fixture(
+  params=itertools.product(
+    (python_weather.METRIC, python_weather.IMPERIAL), (('en', 'US'), ('fr', 'FR'))
+  )
+)
 async def client(
   request: pytest.FixtureRequest,
 ) -> 'AsyncGenerator[python_weather.Client, None]':
-  client = python_weather.Client(unit=request.param)
+  unit, locale_pairs = request.param
+  locale.setlocale(locale.LC_ALL, f'{"_".join(locale_pairs)}.UTF-8')
+
+  client = python_weather.Client(
+    unit=unit, locale=python_weather.Locale(locale_pairs[0])
+  )
 
   yield client
   await client.close()

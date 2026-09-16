@@ -4,6 +4,8 @@
 from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
+from babel.dates import parse_time
+
 from .base import BaseForecast
 from .constants import LATLON_REGEX
 from .enums import HeatIndex, Phase
@@ -198,7 +200,7 @@ class DailyForecast:
   @staticmethod
   def __parse_time(timestamp: str) -> time | None:
     try:
-      return datetime.strptime(timestamp, '%I:%M %p').time()
+      return parse_time(timestamp, locale='en_US')
     except ValueError:  # pragma: nocover
       ...
 
@@ -258,8 +260,7 @@ class Forecast(BaseForecast):
     self.location = nearest['areaName'][0]['value']
     self.country = nearest['country'][0]['value']
     self.datetime = datetime.combine(
-      datetime.today(),
-      datetime.strptime(current['observation_time'], '%I:%M %p').time(),
+      datetime.today(), parse_time(current['observation_time'], locale='en_US')
     )
 
     try:

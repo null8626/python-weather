@@ -2,7 +2,7 @@
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
 from .client import Client
-from .constants import IMPERIAL, METRIC
+from .constants import IMPERIAL, METRIC, _Unit
 from .enums import HeatIndex, Kind, Locale, Phase, UltraViolet, WindDirection
 from .errors import Error, RequestError
 from .forecast import Forecast
@@ -30,4 +30,5 @@ __all__ = (
   'RequestError',
   'UltraViolet',
   'WindDirection',
+  '_Unit',
 )

@@ -64,11 +64,7 @@ class BaseForecast:
   """The description regarding the forecast depending on the localization used."""
 
   def __init__(self, json: dict, unit: '_Unit', locale: Locale):
-    description = (
-      json['weatherDesc'][0]['value']
-      if locale is Locale.ENGLISH
-      else json[f'lang_{locale.value}'][0]['value']
-    )
+    description = json.get(f'lang_{locale.value}', json['weatherDesc'])[0]['value']
 
     self.cloud_cover = int(json['cloudcover'])
     self.ultraviolet = UltraViolet._new(int(json['uvIndex']))

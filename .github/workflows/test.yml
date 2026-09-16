@@ -36,6 +36,11 @@ jobs:
       - name: Install ruff
         if: ${{ matrix.python-version == 3.14 }}
         run: python3 -m pip install ruff
+      - name: Setup locale
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen fr_FR.UTF-8
+          sudo dpkg-reconfigure locales
       - name: Run tests
         run: python3 -m pytest -x --cov=python_weather --cov-report term-missing --cov-report=xml --junitxml=junit.xml
       - name: Upload coverage results to Codecov
