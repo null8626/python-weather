@@ -4,10 +4,8 @@
 from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
-from babel.dates import parse_time
-
 from .base import BaseForecast
-from .constants import LATLON_REGEX
+from .constants import LATLON_REGEX, TIME_REGEX
 from .enums import HeatIndex, Phase
 
 if TYPE_CHECKING:
@@ -120,6 +118,22 @@ class HourlyForecast(BaseForecast):
     return f'<{__class__.__module__}.{__class__.__name__} time={self.time!r} temperature={self.temperature} kind={self.kind!r}>'
 
 
+def _parse_time(timestring: str) -> time:
+  match = TIME_REGEX.fullmatch(timestring)
+
+  assert match is not None
+
+  hour, minute, ampm = match.groups()
+  hour = int(hour)
+
+  if ampm == 'A':
+    hour = 0 if hour == 12 else hour
+  else:
+    hour = 12 if hour == 12 else hour + 12
+
+  return time(hour, int(minute))
+
+
 class DailyForecast:
   """A weather forecast for a specific day."""
 
@@ -198,10 +212,10 @@ class DailyForecast:
     ]
 
   @staticmethod
-  def __parse_time(timestamp: str) -> time | None:
+  def __parse_time(timestring: str) -> time | None:
     try:
-      return parse_time(timestamp, locale='en_US')
-    except ValueError:  # pragma: nocover
+      return _parse_time(timestring)
+    except (AssertionError, TypeError, ValueError):  # pragma: nocover
       ...
 
   def __repr__(self) -> str:
@@ -260,7 +274,7 @@ class Forecast(BaseForecast):
     self.location = nearest['areaName'][0]['value']
     self.country = nearest['country'][0]['value']
     self.datetime = datetime.combine(
-      datetime.today(), parse_time(current['observation_time'], locale='en_US')
+      datetime.today(), _parse_time(current['observation_time'])
     )
 
     try:

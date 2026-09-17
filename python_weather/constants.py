@@ -25,6 +25,7 @@ METRIC = _Unit('C', 'Kmph', '', 'MM', '', 1)
 IMPERIAL = _Unit('F', 'Miles', 'Inches', 'Inches', 'Miles', 2.54)
 
 LATLON_REGEX = re.compile(r'^Lat (\-?[\d\.]+) and Lon (\-?[\d\.]+)$')
+TIME_REGEX = re.compile(r'^(\d{2}):(\d{2}) ([AP])M$')
 
 KIND_EMOJIS = (
   '☀️',
