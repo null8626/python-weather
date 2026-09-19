@@ -50,7 +50,7 @@ jobs:
           files: ./coverage.xml
           flags: python-${{ matrix.python-version }}
           token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Upload test results to Codecov
+      - name: Upload coverage results to Codecov
         if: ${{ github.event_name != 'pull_request' }}
         uses: codecov/test-results-action@v1
         with:
