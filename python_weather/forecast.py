@@ -124,14 +124,8 @@ def _parse_time(timestring: str) -> time:
   assert match is not None
 
   hour, minute, ampm = match.groups()
-  hour = int(hour)
 
-  if ampm == 'A':
-    hour = 0 if hour == 12 else hour
-  else:
-    hour = 12 if hour == 12 else hour + 12
-
-  return time(hour, int(minute))
+  return time(int(hour) % 12 + (12 if ampm == 'P' else 0), int(minute))
 
 
 class DailyForecast:
