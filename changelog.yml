@@ -234,3 +234,8 @@ changelog:
     release-date: 16 September 2026
     changes:
       - fix: Fix time serialization error in different locales.
+  - version: 2.2.6
+    release-date: 12 October 2026
+    changes:
+      - fix: Fix time serialization error in different locales.
+      - fix: Bump ``aiohttp`` to ``3.14.5``.
