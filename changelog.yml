@@ -239,3 +239,7 @@ changelog:
     changes:
       - fix: Fix time serialization error in different locales.
       - fix: Bump ``aiohttp`` to ``3.14.5``.
+  - version: 2.2.7
+    release-date: 16 October 2026
+    changes:
+      - fix: Fix weather code is not a valid :class:`.Kind` errors.
