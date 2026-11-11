@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.10', 3.11, 3.12, 3.13, 3.14]
+        python-version: ['3.10', 3.11, 3.12, 3.13, 3.14, 3.15]
     steps:
       - name: Clone repository
         uses: actions/checkout@v7
@@ -34,7 +34,7 @@ jobs:
         run: |
           python3 -m pip install .[dev]
       - name: Install ruff
-        if: ${{ matrix.python-version == 3.14 }}
+        if: ${{ matrix.python-version == 3.15 }}
         run: python3 -m pip install ruff
       - name: Setup locale
         run: |
@@ -64,13 +64,13 @@ jobs:
           coverage-reports: coverage.xml
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
       - name: Lint files
-        if: ${{ matrix.python-version == 3.14 }}
+        if: ${{ matrix.python-version == 3.15 }}
         run: python3 -m ruff check
       - name: Pretty files
-        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
+        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.15 }}
         run: python3 -m ruff format
       - name: Import GPG key
-        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.14 }}
+        if: ${{ github.event_name != 'pull_request' && matrix.python-version == 3.15 }}
         uses: crazy-max/ghaction-import-gpg@v7
         with:
           gpg_private_key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
@@ -78,7 +78,7 @@ jobs:
           git_user_signingkey: true
           git_commit_gpgsign: true
       - name: Push new commit
-        if: ${{ github.event_name == 'workflow_dispatch' && matrix.python-version == 3.14 }}
+        if: ${{ github.event_name == 'workflow_dispatch' && matrix.python-version == 3.15 }}
         uses: EndBug/add-and-commit@v11
         with:
           commit: -S
@@ -86,7 +86,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Override HEAD commit
-        if: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' && matrix.python-version == 3.14 }}
+        if: ${{ github.event_name != 'pull_request' && github.event_name != 'workflow_dispatch' && matrix.python-version == 3.15 }}
         uses: EndBug/add-and-commit@v11
         with:
           commit: -S --amend --no-edit --no-reset-author
