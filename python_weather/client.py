@@ -69,7 +69,7 @@ class Client:
   ):
     self.__own_session = session is None
     self.__session = session or ClientSession(
-      timeout=ClientTimeout(total=5000.0),
+      timeout=ClientTimeout(total=5.0),
       connector=TCPConnector(ssl=False),
     )
     self._max_retries = max_retries
