@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
 from asyncio import sleep
+from typing import Self
 from urllib.parse import quote_plus
 
 from aiohttp import ClientResponseError, ClientSession, ClientTimeout, TCPConnector
@@ -204,7 +205,7 @@ class Client:
     if self.__own_session and not self.__session.closed:
       await self.__session.close()
 
-  async def __aenter__(self) -> 'Client':
+  async def __aenter__(self) -> Self:
     """Starts using the client. This method is no-op and just returns itself."""
     return self
 

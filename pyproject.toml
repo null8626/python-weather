@@ -46,7 +46,8 @@ Changelog = "https://python-weather.readthedocs.io/en/latest/changelog.html"
 "Donate via Ko-fi" = "https://ko-fi.com/null8626"
 
 [tool.pytest.ini_options]
-minversion = "8.0"
+asyncio_default_fixture_loop_scope = "function"
+minversion = "9.2"
 testpaths = ["tests"]
 
 [tool.coverage.report]

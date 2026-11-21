@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: 2021-2026 null8626
 
-from datetime import date, datetime, time
+from datetime import UTC, date, datetime, time
 from typing import TYPE_CHECKING
 
 from .base import BaseForecast
@@ -268,7 +268,7 @@ class Forecast(BaseForecast):
     self.location = nearest['areaName'][0]['value']
     self.country = nearest['country'][0]['value']
     self.datetime = datetime.combine(
-      datetime.today(), _parse_time(current['observation_time'])
+      datetime.now(UTC), _parse_time(current['observation_time'])
     )
 
     try:

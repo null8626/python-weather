@@ -124,7 +124,7 @@ class RequestMock:
       # ruff: ignore[SIM115]
       self.__mock_json_response = open(path.join(CURRENT_DIR, mock_response), 'r')
       self.__mock_response.json = mock.AsyncMock(
-        return_value=json.loads(self.__mock_json_response.read())
+        return_value=json.load(self.__mock_json_response)
       )
 
     raise_for_status_kwargs = {}
