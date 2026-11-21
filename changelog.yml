@@ -243,3 +243,9 @@ changelog:
     release-date: 16 October 2026
     changes:
       - fix: Fix weather code is not a valid :class:`.Kind` errors.
+  - version: 2.2.8
+    release-date: 21 November 2026
+    changes:
+      - fix: Fix incorrect default :class:`~aiohttp.ClientTimeout` value.
+      - fix: Use ``datetime.now(UTC)`` instead of ``datetime.today()`` when constructing ``Forecast#datetime``.
+      - fix: Bump and improve unit tests and typings.
